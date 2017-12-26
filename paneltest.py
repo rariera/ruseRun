@@ -5,7 +5,6 @@ def main(stdscr):
     curses.initscr()
    
     window1 = curses.newwin(15, 30, 1, 1) #creating a window that is 15x30
-#   window1.erase()
     back_panel = panel.new_panel(window1)   #make a panel for the first window
     back_panel.top()
     window2 = curses.newwin(15, 30, 1, 1)   #creating a second window
