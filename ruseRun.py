@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from curses import wrapper, panel
 import curses
 
@@ -30,13 +32,13 @@ def main(stdscr):
     pad1.addstr(0, 0, gameMap)
     lrow = 2
     lcol = 2
-    pminrow = 2
-    pmincol = 2
+    pminrow = 5
+    pmincol = 5
     pmaxrow = 30
     pmaxcol = 15
     while True:
         pad1.addch(character.cur_y, character.cur_x , '@')
-        pad1.refresh(2, 2, 5, 5, 30, 14)
+        pad1.refresh(2, 2, 5, 5, 30, 15)
         answer = stdscr.getkey()    #input a key
         checkAnswer(answer, pad1)
         pad1.refresh(lrow, lcol, pminrow, pmincol, pmaxrow, pmaxcol)
