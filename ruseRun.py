@@ -2,76 +2,73 @@ from curses import wrapper, panel
 import curses
 
 class Character(object):
-    def __init__(self, pc, cur_y, cur_x):
-        self.pc = pc
+    def __init__(self, cur_y, cur_x):
         self.cur_y = cur_y
         self.cur_x = cur_x
 
-character = Character(pc = '.', cur_y = 2, cur_x = 2)
+character = Character(cur_y = 2, cur_x = 2)
 
 def main(stdscr):
     '''The main function which will run throughout the game.'''
     curses.initscr()
-    panelinit()
-    gameMap = '''.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................
-.............................'''
-    window1.addstr(0, 0, gameMap)
+    pad1 = curses.newpad(40, 40) #creating a window that is 40x40
+    pad1.box()  #a box appears around the window
+    gameMap = '''.............................>>>>>>>>>
+............................>>>>>>>
+......................>>>>>>>
+......................>>>>>>>
+......................
+......................
+......................
+......................
+......................
+............................
+............................
+............................
+............................
+............................'''
+    pad1.addstr(0, 0, gameMap)
+    lrow = 2
+    lcol = 2
+    pminrow = 2
+    pmincol = 2
+    pmaxrow = 30
+    pmaxcol = 15
     while True:
-        #window3.addch(character.cur_y, character.cur_x , '@')
-        #window3.refresh()
+        pad1.addch(character.cur_y, character.cur_x , '@')
+        pad1.refresh(2, 2, 5, 5, 30, 14)
         answer = stdscr.getkey()    #input a key
-        #checkAnswer(answer, window3)
-        #window3.refresh()
+        checkAnswer(answer, pad1)
+        pad1.refresh(lrow, lcol, pminrow, pmincol, pmaxrow, pmaxcol)
         
 
-def panelinit():
-    window1 = curses.newwin(15, 30, 1, 1) #creating a window that is 15x30
-    window1.erase()
-    back_panel = panel.new_panel(window1)   #make a panel for the first window
-    back_panel.top()
-    window2 = curses.newwin(15, 30, 1, 1)   #creating a second window
-    middle_panel = panel.new_panel(window2)
-    window3 = curses.newwin(15, 30, 1, 1)
-    front_panel = panel.new_panel(window3)
-    window1.box()  #a box appears around the window
-    panel.update_panels()
-    doupdate()
 
-def checkAnswer(answer, window3):
+def checkAnswer(answer, pad1):
     '''decides what to do with the input'''
     if answer == 'KEY_UP':
-        moveChar('up', window3)
+        moveChar('up', pad1)
     elif answer == 'KEY_DOWN':
-        moveChar('down', window3)
+        moveChar('down', pad1)
     elif answer == 'KEY_LEFT':
-        moveChar('left', window3)
+        moveChar('left', pad1)
     elif answer == 'KEY_RIGHT':
-        moveChar('right', window3)
+        moveChar('right', pad1)
 
 
         
-def moveChar(direction, window3):
+def moveChar(direction, pad1):
     '''Moves the character symbol in accordance with the direction.'''
-    window3.delch(character.cur_y, character.cur_x)
     if direction == 'up':
+        pad1.addch(character.cur_y, character.cur_x, '.') 
         character.cur_y -= 1
     elif direction == 'down':
+        pad1.addch(character.cur_y, character.cur_x, '.')
         character.cur_y += 1
     elif direction == 'left':
+        pad1.addch(character.cur_y, character.cur_x, '.')
         character.cur_x -= 1
     elif direction == 'right':
+        pad1.addch(character.cur_y, character.cur_x, '.')
         character.cur_x += 1
         
 
