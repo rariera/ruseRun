@@ -13,7 +13,6 @@ character = Character(cur_y = 2, cur_x = 2)
 def main(stdscr):
     '''The main function which will run throughout the game.'''
     curses.initscr()
-    pad1 = curses.newpad(40, 40) #creating a window that is 40x40
     pad1.box()  #a box appears around the window
     gameMap = '''.............................>>>>>>>>>
 ............................>>>>>>>
@@ -38,7 +37,7 @@ def main(stdscr):
     pmaxcol = 15
     while True:
         pad1.addch(character.cur_y, character.cur_x , '@')
-        pad1.refresh(2, 2, 5, 5, 30, 15)
+        pad1.refresh(2, 2, 5, 5, 30, 13)
         answer = stdscr.getkey()    #input a key
         checkAnswer(answer, pad1)
         pad1.refresh(lrow, lcol, pminrow, pmincol, pmaxrow, pmaxcol)
@@ -73,7 +72,16 @@ def moveChar(direction, pad1):
         pad1.addch(character.cur_y, character.cur_x, '.')
         character.cur_x += 1
         
-
-    
+def panelinit():
+    pad1 = curses.newpad(40, 40) #creating a window that is 40x40
+    back_panel = panel.new_panel(window1)   #make a panel for the first window
+    back_panel.top()
+    window2 = curses.newwin(15, 30, 1, 1)   #creating a second window
+    middle_panel = panel.new_panel(window2)
+    window3 = curses.newwin(15, 30, 1, 1)
+    front_panel = panel.new_panel(window3)
+    window1.box()  #a box appears around the window
+    panel.update_panels()
+    doupdate()
 
 wrapper(main)
