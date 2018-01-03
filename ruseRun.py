@@ -3,34 +3,33 @@
 from curses import wrapper, panel
 import curses
 from interface import mapinit, charplace, moveChar
+from classes import Character
 
-class Character(object):
-    def __init__(self, cur_y, cur_x):
-        self.cur_y = cur_y
-        self.cur_x = cur_x
-
+global character
 character = Character(cur_y = 2, cur_x = 2)
 
 def main(stdscr):
     '''The main function which will run throughout the game.'''
+    curses.curs_set(0)
     curses.initscr()
     mapinit()
     while True:
+        charplace(character) 
         answer = stdscr.getkey()    #input a key
-        checkAnswer(answer)
+        checkAnswer(answer, character)
         
 
 
-def checkAnswer(answer, pad1):
+def checkAnswer(answer, character):
     '''decides what to do with the input'''
     if answer == 'KEY_UP':
-        moveChar('up')
+        moveChar('up', character)
     elif answer == 'KEY_DOWN':
-        moveChar('down')
+        moveChar('down', character)
     elif answer == 'KEY_LEFT':
-        moveChar('left')
+        moveChar('left', character)
     elif answer == 'KEY_RIGHT':
-        moveChar('right')
+        moveChar('right', character)
 
 
         
