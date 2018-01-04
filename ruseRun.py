@@ -2,7 +2,7 @@
 
 from curses import wrapper, panel
 import curses
-from interface import mapinit, charplace, moveChar
+from interface import mapinit,  moveChar
 from classes import Character
 
 global character
@@ -14,7 +14,6 @@ def main(stdscr):
     curses.initscr()
     mapinit()
     while True:
-        charplace(character) 
         answer = stdscr.getkey()    #input a key
         checkAnswer(answer, character)
         

@@ -17,6 +17,7 @@ location = {
     }
 
 def mapinit():
+    '''Initialises the map and interface'''
     pad1.box()  #a box appears around the window
     gameMap = '''.............................>>>>>>>>>
 ............................>>>>>>>
@@ -33,9 +34,10 @@ def mapinit():
 ............................
 ............................'''
     pad1.addstr(0, 0, gameMap)
-    
-def charplace(character):
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
+
+     
+     
 
         
 def moveChar(direction, character):
