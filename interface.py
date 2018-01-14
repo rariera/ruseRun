@@ -25,27 +25,67 @@ def mapinit():
     pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
 
-     
+def verify(direction):
+    if direction == 'up':
+        item = pad1.inch(location['lrow'] + 5, location['lcol'] + 14) & 0xff
+        if item == ord('.'):
+            yes = True
+        else:
+            yes = False
+        return yes
+    if direction == 'down':
+        item = pad1.inch(location['lrow'] + 7, location['lcol'] + 14) & 0xff
+        if item == ord('.'):
+            yes = True
+        else:
+            yes = False
+        return yes
+    if direction == 'left':
+        item = pad1.inch(location['lrow'] + 6, location['lcol'] + 13) & 0xff
+        if item == ord('.'):
+            yes = True
+        else:
+            yes = False
+        return yes
+    if direction == 'right':
+        item = pad1.inch(location['lrow'] + 6, location['lcol'] + 15) & 0xff
+        if item == ord('.'):
+            yes = True
+        else:
+            yes = False
+        return yes
+
+
+
+
      
 
         
 def moveChar(direction, character):
     '''Moves the character symbol in accordance with the direction.'''
     if direction == 'up':
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
-        location['lrow'] -= 1
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+        yes = verify(direction)
+        if yes == True:
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
+            location['lrow'] -= 1
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
     elif direction == 'down':
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
-        location['lrow'] += 1
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+        yes = verify(direction)
+        if yes == True:
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
+            location['lrow'] += 1
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
     elif direction == 'left':
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
-        location['lcol'] -= 1
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+        yes = verify(direction)
+        if yes == True:
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
+            location['lcol'] -= 1
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
     elif direction == 'right':
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
-        location['lcol'] += 1
-        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+        yes = verify(direction)
+        if yes == True:
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '.')
+            location['lcol'] += 1
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
         
