@@ -5,6 +5,8 @@ import curses
 
 curses.initscr()
 pad1 = curses.newpad(40, 40) #creating a window that is 40x40
+window1 = curses.newwin(40, 30, 2, 40)
+
 
 map = open('map.txt', 'r')
 gameMap = map.read()
@@ -23,11 +25,29 @@ location = {
     'pmaxcol': 30
     }
 
+def itemAdd():
+    emptylist = []
+    for i in list(gameMap):
+        if i == '.':
+            loc = curses.getsyx()
+            emptylist.append(loc)
+    if len(emptylist) > 5:
+        pad1.addch(location['lrow'] + 3, location['lcol'] + 3, 'V')
+    else:
+        pad1.addch(location['lrow'] + 6, location['lcol'] + 14, 'F')
+ 
+def interinit():
+    window1.box()
+    window1.addstr(2, 2, 'YAHOOO!!!')
+    window1.refresh()
+
 def mapinit():
     '''Initialises the map and interface'''
+    interinit()
     pad1.box()  #a box appears around the window
     pad1.addstr(0, 0, gameMap)
     pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+    itemAdd()
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
 
 def verify(direction, character):
