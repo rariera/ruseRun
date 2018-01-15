@@ -6,7 +6,7 @@ from interface import mapinit,  moveChar
 from classes import Character
 
 global character
-character = Character(cur_y = 2, cur_x = 2)
+character = Character(cur_y = 2, cur_x = 2, level = 1)
 
 def main(stdscr):
     '''The main function which will run throughout the game.'''
