@@ -26,6 +26,9 @@ location = {
     'pmaxcol': 30
     }
 
+
+
+
 def floorList():
     '''Generates list of available floor spaces on this floor'''
     floorlist = []
@@ -65,77 +68,30 @@ def mapinit():
     pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
 
+
+
+
 def verify(direction, character):
     if direction == 'up':
         item = pad1.inch(location['lrow'] + 5, location['lcol'] + 14) & 0xff
-        if item == ord('.'):
-            yes = '.'
-        elif item == ord('+'):
-            yes = '+'
-            pad1.erase()
-            if character.level == 1:
-                pad1.addstr(0, 0, gameMap2)
-                character.level = 2
-            elif character.level == 2:
-                pad1.addstr(0, 0, gameMap)
-                character.level = 1
-        else:
-            yes = chr(item)
-        return yes
     elif direction == 'down':
         item = pad1.inch(location['lrow'] + 7, location['lcol'] + 14) & 0xff
-        if item == ord('.'):
-            yes = '.'
-        elif item == ord('+'):
-            yes = '+'
-            pad1.erase()
-            if character.level == 1:
-                pad1.addstr(0, 0, gameMap2)
-                character.level = 2
-            elif character.level == 2:
-                pad1.addstr(0, 0, gameMap)
-                character.level = 1
-        else:
-            yes = chr(item) 
-        return yes
     elif direction == 'left':
         item = pad1.inch(location['lrow'] + 6, location['lcol'] + 13) & 0xff
-        if item == ord('.'):
-            yes = '.'
-        elif item == ord('+'):
-            yes = '+'
-            pad1.erase()
-            if character.level == 1:
-                pad1.addstr(0, 0, gameMap2)
-                character.level = 2
-            elif character.level == 2:
-                pad1.addstr(0, 0, gameMap)
-                character.level = 1
-        else:
-            yes = chr(item)
-        return yes
     elif direction == 'right':
         item = pad1.inch(location['lrow'] + 6, location['lcol'] + 15) & 0xff
-        if item == ord('.'):
-            yes = '.'
-        elif item == ord('+'):
-            yes = '+'
-            pad1.erase()
-            if character.level == 1:
-                pad1.addstr(0, 0, gameMap2)
-                character.level = 2
-            elif character.level == 2:
-                pad1.addstr(0, 0, gameMap)
-                character.level = 1
-        else:
-            yes = chr(item)
-        return yes
-
-
-
-
-     
-
+    if item == ord('+'):
+        yes = '+'
+        pad1.erase()
+        if character.level == 1:
+            pad1.addstr(0, 0, gameMap2)
+            character.level = 2
+        elif character.level == 2:
+            pad1.addstr(0, 0, gameMap)
+            character.level = 1
+    else:
+        yes = chr(item)
+    return yes
         
 def moveChar(direction, character):
     '''Moves the character symbol in accordance with the direction.'''
