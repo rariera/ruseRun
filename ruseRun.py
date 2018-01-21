@@ -12,6 +12,7 @@ def main(stdscr):
     '''The main function which will run throughout the game.'''
     curses.curs_set(0)
     curses.initscr()
+    curses.start_color()
     mapinit()
     while True:
         answer = stdscr.getkey()    #input a key
