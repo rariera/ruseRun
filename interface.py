@@ -6,7 +6,6 @@ import curses
 from items import itemChoose
 
 curses.initscr()
-curses.start_color()
 pad1 = curses.newpad(40, 40) #creating a window that is 40x40
 window1 = curses.newwin(40, 30, 2, 40)
 
@@ -48,10 +47,8 @@ def itemAdd(lvl1):
         y = tuple[0]
         x = tuple[1]
         item = i[1]
-        if curses.can_change_color():
-            pad1.addch(y, x, item.tile, item.colour)
-        else:
-            pad1.addch(y, x, item.tile, item.colour)
+        pad1.addch(y, x, item.tile)
+        pad1.chgat(y, x, item.colour)
 
 def interinit():
     window1.box()

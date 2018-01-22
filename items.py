@@ -24,10 +24,10 @@ class Armour(Item):
         Item.__init__(self, name, tile, colour)
         self.hp = hp
 
-orange = Food(name = 'orange', tile = '%', colour = 3, hunger = 6)
-branch = Weapon(name = 'branch', tile = ')', colour = 4, damage = 3)
-football = Weapon(name = 'football', tile = 'O', colour = 2, damage = 5)
-blazer = Armour(name = 'blazer', tile = '(', colour = 5, hp = 3)
+orange = Food(name = 'orange', tile = '%', colour = curses.COLOR_YELLOW, hunger = 6)
+branch = Weapon(name = 'branch', tile = ')', colour = curses.COLOR_RED, damage = 3)
+football = Weapon(name = 'football', tile = 'O', colour = curses.COLOR_BLUE, damage = 5)
+blazer = Armour(name = 'blazer', tile = '(', colour = curses.COLOR_GREEN, hp = 3)
 
 itemdict = {
         'food': [orange],
