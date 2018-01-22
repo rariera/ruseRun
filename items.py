@@ -1,9 +1,17 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/env python3 
 from random import randint, choice
 import curses
 
-class Item(object):
+curses.initscr()
+curses.start_color()
+curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
+curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+curses.init_pair(4, curses.COLOR_BLUE, curses.COLOR_BLACK)
+curses.init_pair(5, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+curses.init_pair(6, curses.COLOR_CYAN, curses.COLOR_BLACK)
+
+class Item(object): 
     def __init__(self, name, tile, colour):
         self.name = name
         self.tile = tile
@@ -24,10 +32,10 @@ class Armour(Item):
         Item.__init__(self, name, tile, colour)
         self.hp = hp
 
-orange = Food(name = 'orange', tile = '%', colour = curses.COLOR_YELLOW, hunger = 6)
-branch = Weapon(name = 'branch', tile = ')', colour = curses.COLOR_RED, damage = 3)
-football = Weapon(name = 'football', tile = 'O', colour = curses.COLOR_BLUE, damage = 5)
-blazer = Armour(name = 'blazer', tile = '(', colour = curses.COLOR_GREEN, hp = 3)
+orange = Food(name = 'orange', tile = '%', colour = curses.color_pair(3), hunger = 6)
+branch = Weapon(name = 'branch', tile = ')', colour = curses.color_pair(1), damage = 3)
+football = Weapon(name = 'football', tile = 'O', colour = curses.color_pair(4), damage = 5)
+blazer = Armour(name = 'blazer', tile = '(', colour = curses.color_pair(2), hp = 3)
 
 itemdict = {
         'food': [orange],

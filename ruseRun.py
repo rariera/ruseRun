@@ -3,10 +3,7 @@
 from curses import wrapper, panel
 import curses
 from interface import mapinit,  moveChar
-from classes import Character
 
-global character
-character = Character(level = 1, pc = '.')
 
 def main(stdscr):
     '''The main function which will run throughout the game.'''
@@ -16,20 +13,20 @@ def main(stdscr):
     mapinit()
     while True:
         answer = stdscr.getkey()    #input a key
-        checkAnswer(answer, character)
+        checkAnswer(answer)
         
 
 
-def checkAnswer(answer, character):
+def checkAnswer(answer):
     '''decides what to do with the input'''
     if answer == 'KEY_UP':
-        moveChar('up', character)
+        moveChar('up')
     elif answer == 'KEY_DOWN':
-        moveChar('down', character)
+        moveChar('down')
     elif answer == 'KEY_LEFT':
-        moveChar('left', character)
+        moveChar('left')
     elif answer == 'KEY_RIGHT':
-        moveChar('right', character)
+        moveChar('right')
 
 
         
