@@ -67,6 +67,7 @@ def mapinit():
     lvl1 = itemChoose(floorlist)
     itemAdd(lvl1)
     pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+    pad1.subpad(25, 25, 2, 2)
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
     return lvl1
 
