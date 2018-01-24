@@ -1,0 +1,14 @@
+// Font Configuration
+//			Fonts------------------------------------------	
+// Set Name		GUI			Art			Available	Resolution @ 80x60
+// (the default ANSI font for REXPaint, based on Microsoft's Fixedsys font from Windows 1.0)
+"8x16 Fixedsys"		cp437_8x16_fixedsys	cp437_8x16_fixedsys	1	//	640x960		
+// (these fonts contain some non-standard glyphs, but are mostly CP437, thus are included to play with--or fix up if you like)
+"8x12 Terminal"		cp437_8x12_terminal	cp437_8x12_terminal	1	//
+"8x14 Terminal"		cp437_8x14_terminal	cp437_8x14_terminal	1	//
+"10x16 Terminal"	cp437_10x16_terminal	cp437_10x16_terminal	1	//
+// (these are the square fonts normally used with REXPaint, but they've been set unavailable here)
+"CP437 12x12"		cp437_12x12		cp437_12x12		0	//	960x720		
+"CP437 10x10"		cp437_10x10		cp437_10x10		0	//	800x600
+"CP437 8x8"		cp437_8x8		cp437_8x8		0	//	640x480
+"CP437 16x16"		cp437_16x16		cp437_16x16		0	//	1280x960

@@ -1,0 +1,13 @@
+// Skins
+//		Paint/Browse===================================================================================================================	Canvas=========================================================================	Paint==========================================================	Browse=========================	
+//								Buttons--------------------------------------------------------									Cursor/Caret-------------------	Glyphs---------------------------------------------------------					
+// Skin Name	Background	Borders		Headers		Usable		Active		Inactive	Highlight	Info		Border		Non-image Area	Grid		Foreground	Background	Selected	Aligned		Other		Used		Directory	Unsaved Marker	
+"Sleepy"	{13,24,33}	black		gray_8		{118,126,167}	{184,175,140}	{84,79,61}	{24,38,54}	gray_8		{18,34,47}	{13,24,33}	gray_2		white		black		{246,234,189}	{59,55,42}	{84,79,61}	{118,126,167}	{120,112,87}	red_5		
+"X@COM"		black		green_2		orange_5	sky_4		gray_8		gray_3		gray_1		gray_8		gray_2		black		gray_3		white		black		green_4		green_0		gray_3		sky_4		gray_4		red_5		
+"Autumn"	{47,30,31}	black		gray_8		{176,176,0}	{184,175,140}	{84,79,61}	black		gray_8		{62,39,40}	{47,30,31}	gray_2		white		black		{0,189,0}	{115,51,52}	{143,63,65}	{176,176,0}	{120,112,87}	red_5		
+// All colors must be provided for a given skin to be valid.
+// Colors may be provided using any of four formats:
+// 1: "name_#", where name is the name of the color and # is its shade (0~9; 0~5 are fully saturated, 6~9 are varying degrees of saturation)
+// 2: "{R,G,B}", where each value is 0~255
+// 3: "[H,S,V]", where H = 0~360 and S/V are each percentage values represented by 0~100
+// 4: "#RRGGBB", where RRGGBB is a valid hex code
