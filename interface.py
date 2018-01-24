@@ -3,6 +3,8 @@
 from random import randint
 from curses import wrapper, panel
 import curses
+from items import itemChoose
+from classes import Character
 
 curses.initscr()
 pad1 = curses.newpad(40, 40) #creating a window that is 40x40
@@ -28,6 +30,10 @@ location = {
 
 
 
+curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLACK)
+global character
+character = Character(level = 1, pc = ('.', ord('.') & curses.A_COLOR))
+
 
 def floorList():
     '''Generates list of available floor spaces on this floor'''
@@ -40,21 +46,14 @@ def floorList():
                 floorlist.append(loc)
     return floorlist
 
-def itemAdd():
-    floorlist = floorList()
-    itemplaces = []
-    for i in floorlist:
-        num = randint(0, 2)
-        if num == 1:
-            itemplaces.append(i)
-    for i in itemplaces:
-        window1.addnstr(2, 2, str(itemplaces), 25)
-        window1.refresh()
-        pad1.addch(i[0],i[1], '!')
-        pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
-    return itemplaces
+def itemAdd(lvl1):
+    for i in lvl1.items():
+        tuple = i[0]
+        y = tuple[0]
+        x = tuple[1]
+        item = i[1]
+        pad1.addch(y, x, item.tile, item.colour)
 
- 
 def interinit():
     window1.box()
     window1.refresh()
@@ -63,25 +62,36 @@ def mapinit():
     '''Initialises the map and interface'''
     interinit()
     pad1.box()  #a box appears around the window
-    pad1.addstr(0, 0, gameMap)
-    itemAdd()
+    pad1.addstr(0, 0, gameMap, curses.color_pair(7))
+    floorlist = floorList()
+    lvl1 = itemChoose(floorlist)
+    itemAdd(lvl1)
     pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+    pad1.subpad(25, 25, 2, 2)
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
+    return lvl1
 
 
 
 
-def verify(direction, character):
+def verify(direction):
     if direction == 'up':
-        item = pad1.inch(location['lrow'] + 5, location['lcol'] + 14) & 0xff
+        attrs = pad1.inch(location['lrow'] + 5, location['lcol'] + 14)
+        char = chr(attrs & curses.A_CHARTEXT)
+        color = attrs & curses.A_COLOR
     elif direction == 'down':
-        item = pad1.inch(location['lrow'] + 7, location['lcol'] + 14) & 0xff
+        attrs = pad1.inch(location['lrow'] + 7, location['lcol'] + 14)
+        char = chr(attrs & curses.A_CHARTEXT)
+        color = attrs & curses.A_COLOR
     elif direction == 'left':
-        item = pad1.inch(location['lrow'] + 6, location['lcol'] + 13) & 0xff
+        attrs = pad1.inch(location['lrow'] + 6, location['lcol'] + 13)
+        char = chr(attrs & curses.A_CHARTEXT)
+        color = attrs & curses.A_COLOR
     elif direction == 'right':
-        item = pad1.inch(location['lrow'] + 6, location['lcol'] + 15) & 0xff
-    if item == ord('+'):
-        yes = '+'
+        attrs = pad1.inch(location['lrow'] + 6, location['lcol'] + 15)
+        char = chr(attrs & curses.A_CHARTEXT)
+        color = attrs & curses.A_COLOR
+    if char == '+':
         pad1.erase()
         if character.level == 1:
             pad1.addstr(0, 0, gameMap2)
@@ -89,35 +99,38 @@ def verify(direction, character):
         elif character.level == 2:
             pad1.addstr(0, 0, gameMap)
             character.level = 1
-    else:
-        yes = chr(item)
-    return yes
+    item = (char, color)
+    return item
         
-def moveChar(direction, character):
+def moveChar(direction):
     '''Moves the character symbol in accordance with the direction.'''
     if direction == 'up':
-        yes = verify(direction, character)
-        if yes != '#':
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, yes)
+        item = verify(direction)
+        if item[0] != '#':
             location['lrow'] -= 1
             pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 7, location['lcol'] + 14, character.pc[0], character.pc[1])
+            character.pc = item
     elif direction == 'down':
-        yes = verify(direction, character)
-        if yes != '#':
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, yes)
+        item = verify(direction)
+        if item[0] != '#':
             location['lrow'] += 1
             pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 5, location['lcol'] + 14, character.pc[0], character.pc[1])
+            character.pc = item
     elif direction == 'left':
-        yes = verify(direction, character)
-        if yes != '#':
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, yes)
+        item = verify(direction)
+        if item[0] != '#':
             location['lcol'] -= 1
             pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 15, character.pc[0], character.pc[1])
+            character.pc = item
     elif direction == 'right':
-        yes = verify(direction, character)
-        if yes != '#':
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, yes)
+        item = verify(direction)
+        if item[0] != '#':
             location['lcol'] += 1
             pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 13, character.pc[0], character.pc[1])
+            character.pc = item
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
         
