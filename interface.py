@@ -5,18 +5,25 @@ from curses import wrapper, panel
 import curses
 from items import itemChoose
 from classes import Character
+import locale
 
 curses.initscr()
-pad1 = curses.newpad(40, 40) #creating a window that is 40x40
+pad1 = curses.newpad(270, 270) #creating a window that is 40x40
 window1 = curses.newwin(40, 30, 2, 40)
 
+locale.setlocale(locale.LC_ALL, '')
+code = locale.getpreferredencoding()
 
-map = open('map.txt', 'r')
+
+map = open('farm.txt', 'r')
 gameMap = map.read()
 
 
 map2 = open('map2.txt', 'r')
 gameMap2 = map2.read()
+
+
+
 
 global location
 location = {
