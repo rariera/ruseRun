@@ -5,14 +5,11 @@ from curses import wrapper, panel
 import curses
 from items import itemChoose
 from classes import Character
-import locale
 
 curses.initscr()
-pad1 = curses.newpad(270, 270) #creating a window that is 40x40
+pad1 = curses.newpad(280, 280) #creating a window that is 40x40
 window1 = curses.newwin(40, 30, 2, 40)
 
-locale.setlocale(locale.LC_ALL, '')
-code = locale.getpreferredencoding()
 
 
 map = open('farm.txt', 'r')
@@ -69,7 +66,7 @@ def mapinit():
     '''Initialises the map and interface'''
     interinit()
     pad1.box()  #a box appears around the window
-    pad1.addstr(0, 0, gameMap.encode('utf_8'), curses.color_pair(7))
+    pad1.addstr(0, 0, gameMap, curses.color_pair(7))
     floorlist = floorList()
     lvl1 = itemChoose(floorlist)
     itemAdd(lvl1)
