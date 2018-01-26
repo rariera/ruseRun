@@ -69,7 +69,7 @@ def mapinit():
     '''Initialises the map and interface'''
     interinit()
     pad1.box()  #a box appears around the window
-    pad1.addstr(0, 0, gameMap, curses.color_pair(7))
+    pad1.addstr(0, 0, gameMap.encode('utf_8'), curses.color_pair(7))
     floorlist = floorList()
     lvl1 = itemChoose(floorlist)
     itemAdd(lvl1)
