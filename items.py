@@ -1,6 +1,7 @@
-#!/usr/bin/env python3 
-from random import randint, choice
+#!/usr/bin/env python3
+
 import curses
+from random import randint, choice
 
 curses.initscr()
 curses.start_color()
@@ -10,6 +11,7 @@ curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
 curses.init_pair(4, curses.COLOR_BLUE, curses.COLOR_BLACK)
 curses.init_pair(5, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
 curses.init_pair(6, curses.COLOR_CYAN, curses.COLOR_BLACK)
+curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
 class Item(object): 
     def __init__(self, name, tile, colour):

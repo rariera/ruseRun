@@ -42,10 +42,10 @@ character = Character(level = 1, pc = ('.', ord('.') & curses.A_COLOR))
 def floorList():
     '''Generates list of available floor spaces on this floor'''
     floorlist = []
-    for i in range(0, 40):
-        for k in range(0, 40):
+    for i in range(-1, 280):
+        for k in range(0, 280):
             item = pad1.inch(i, k) & 0xff
-            if item == ord('.'):
+            if item == ord('.') or item == ord('"'):
                 loc = (i, k)
                 floorlist.append(loc)
     return floorlist
@@ -57,6 +57,17 @@ def itemAdd(lvl1):
         x = tuple[1]
         item = i[1]
         pad1.addch(y, x, item.tile, item.colour)
+
+def pickUp():
+   for i in lvl1.items():
+       tuple = i[0]
+
+def recordprev(lvl1):
+    for i in lvl1.items():
+        pch = pad1.inch(y, x) & 0xff
+        under1[i] =  [item, pch]
+    
+
 
 def interinit():
     window1.box()
@@ -74,9 +85,6 @@ def mapinit():
     pad1.subpad(25, 25, 2, 2)
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
     return lvl1
-
-
-
 
 def verify(direction):
     if direction == 'up':
