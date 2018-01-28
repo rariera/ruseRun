@@ -33,10 +33,10 @@ location = {
     }
 
 
-
+curses.init_pair(8, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLACK)
 global character
-character = Character(level = 1, pc = ('.', ord('.') & curses.A_COLOR))
+character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR))
 
 
 def floorList():
@@ -81,7 +81,7 @@ def mapinit():
     floorlist = floorList()
     lvl1 = itemChoose(floorlist)
     itemAdd(lvl1)
-    pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+    pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
     pad1.subpad(25, 25, 2, 2)
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
     return lvl1
@@ -120,28 +120,28 @@ def moveChar(direction):
         item = verify(direction)
         if item[0] != '#':
             location['lrow'] -= 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
             pad1.addch(location['lrow'] + 7, location['lcol'] + 14, character.pc[0], character.pc[1])
             character.pc = item
     elif direction == 'down':
         item = verify(direction)
         if item[0] != '#':
             location['lrow'] += 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
             pad1.addch(location['lrow'] + 5, location['lcol'] + 14, character.pc[0], character.pc[1])
             character.pc = item
     elif direction == 'left':
         item = verify(direction)
         if item[0] != '#':
             location['lcol'] -= 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
             pad1.addch(location['lrow'] + 6, location['lcol'] + 15, character.pc[0], character.pc[1])
             character.pc = item
     elif direction == 'right':
         item = verify(direction)
         if item[0] != '#':
             location['lcol'] += 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@')
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
             pad1.addch(location['lrow'] + 6, location['lcol'] + 13, character.pc[0], character.pc[1])
             character.pc = item
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
