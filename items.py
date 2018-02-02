@@ -49,8 +49,8 @@ def itemChoose(floorlist):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
     for i in floorlist:
-        num = randint(0, 5)
-        if num == 1:
+        num = randint(0, 10)
+        if num == 0:
             itemplaces.append(i)
     lvl1 = {}
     for i in itemplaces:
@@ -61,6 +61,6 @@ def itemChoose(floorlist):
             list = itemdict['weapons']
         elif listnum == 2:
             list = itemdict['armour']
-        lvl1[i] = choice(list) 
+        lvl1[i] = [choice(list)] 
     return lvl1
 

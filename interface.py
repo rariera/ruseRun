@@ -50,22 +50,24 @@ def floorList():
                 floorlist.append(loc)
     return floorlist
 
-def itemAdd(lvl1):
+def itemAdd():
     for i in lvl1.items():
         tuple = i[0]
         y = tuple[0]
         x = tuple[1]
-        item = i[1]
+        list = i[1]
+        item = list[0]
+        prev = pad1.inch(y, x) & 0xff
+        list.append(prev)
         pad1.addch(y, x, item.tile, item.colour)
 
 def pickUp():
-   for i in lvl1.items():
-       tuple = i[0]
+    for i in lvl1.keys():
+        if i == (location['lrow'] + 6, location['lcol'] + 14):
+            item = i
+        list = lvl1[item]
+    pad1.addch(item[0], item[1], list[1])
 
-def recordprev(lvl1):
-    for i in lvl1.items():
-        pch = pad1.inch(y, x) & 0xff
-        under1[i] =  [item, pch]
     
 
 
@@ -80,7 +82,8 @@ def mapinit():
     pad1.addstr(0, 0, gameMap, curses.color_pair(7))
     floorlist = floorList()
     lvl1 = itemChoose(floorlist)
-    itemAdd(lvl1)
+    global lvl1
+    itemAdd()
     pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
     pad1.subpad(25, 25, 2, 2)
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
