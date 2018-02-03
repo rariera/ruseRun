@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from curses import wrapper, panel
+from curses import wrapper, ascii
 import curses
-from interface import mapinit,  moveChar
+from interface import mapinit,  moveChar, pickUp, overlay, interinit
 
 
 def main(stdscr):
@@ -27,8 +27,13 @@ def checkAnswer(answer):
         moveChar('left')
     elif answer == 'KEY_RIGHT':
         moveChar('right')
-
-
+    elif answer == 'g':
+        pickUp()
+    elif answer == 'i':
+        overlay()
+    elif answer in ['d', '/n']:
+        interinit()
+    
         
 
         

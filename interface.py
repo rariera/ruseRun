@@ -5,12 +5,14 @@ from curses import wrapper, panel
 import curses
 from items import itemChoose
 from classes import Character
+from colours import Colour
 
-curses.initscr()
+rainbow = Colour()
+
 pad1 = curses.newpad(280, 280) #creating a window that is 40x40
-window1 = curses.newwin(40, 30, 2, 40)
-
-
+window1 = curses.newwin(28, 30, 2, 40)
+window2 = curses.newwin(15, 50, 31, 2)
+window3 = curses.newwin(45, 70, 2, 2)
 
 map = open('farm.txt', 'r')
 gameMap = map.read()
@@ -33,10 +35,8 @@ location = {
     }
 
 
-curses.init_pair(8, curses.COLOR_BLACK, curses.COLOR_YELLOW)
-curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLACK)
 global character
-character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR))
+character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), inventory = [])
 
 
 def floorList():
@@ -51,7 +51,7 @@ def floorList():
     return floorlist
 
 def itemAdd():
-    for i in lvl1.items():
+    for i in level_items.lvl1.items():
         tuple = i[0]
         y = tuple[0]
         x = tuple[1]
@@ -62,11 +62,16 @@ def itemAdd():
         pad1.addch(y, x, item.tile, item.colour)
 
 def pickUp():
-    for i in lvl1.keys():
+    item = 0
+    for i in level_items.lvl1.keys():
         if i == (location['lrow'] + 6, location['lcol'] + 14):
             item = i
-        list = lvl1[item]
-    pad1.addch(item[0], item[1], list[1])
+    if item != 0:
+        list = level_items.lvl1[item]
+        character.pc = (list[1], rainbow.white)
+        pad1.addch(item[0], item[1], list[1])
+        character.inventory.append(list[0])
+        del level_items.lvl1[(location['lrow'] + 6, location['lcol'] + 14)]
 
     
 
@@ -74,20 +79,27 @@ def pickUp():
 def interinit():
     window1.box()
     window1.refresh()
+    window2.box()
+    window2.refresh()
+    pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
+
+def overlay():
+    window3.touchwin()
+    window3.refresh() 
 
 def mapinit():
     '''Initialises the map and interface'''
     interinit()
     pad1.box()  #a box appears around the window
-    pad1.addstr(0, 0, gameMap, curses.color_pair(7))
+    pad1.addstr(0, 0, gameMap, rainbow.white)
     floorlist = floorList()
-    lvl1 = itemChoose(floorlist)
-    global lvl1
+    global level_items
+    level_items = itemChoose(floorlist)
     itemAdd()
-    pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
+    pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', rainbow.yellow_bg)
     pad1.subpad(25, 25, 2, 2)
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
-    return lvl1
+    return level_items.lvl1
 
 def verify(direction):
     if direction == 'up':
@@ -123,28 +135,28 @@ def moveChar(direction):
         item = verify(direction)
         if item[0] != '#':
             location['lrow'] -= 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', rainbow.yellow_bg) 
             pad1.addch(location['lrow'] + 7, location['lcol'] + 14, character.pc[0], character.pc[1])
             character.pc = item
     elif direction == 'down':
         item = verify(direction)
         if item[0] != '#':
             location['lrow'] += 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', rainbow.yellow_bg)
             pad1.addch(location['lrow'] + 5, location['lcol'] + 14, character.pc[0], character.pc[1])
             character.pc = item
     elif direction == 'left':
         item = verify(direction)
         if item[0] != '#':
             location['lcol'] -= 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', rainbow.yellow_bg)
             pad1.addch(location['lrow'] + 6, location['lcol'] + 15, character.pc[0], character.pc[1])
             character.pc = item
     elif direction == 'right':
         item = verify(direction)
         if item[0] != '#':
             location['lcol'] += 1
-            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', curses.color_pair(8))
+            pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', rainbow.yellow_bg)
             pad1.addch(location['lrow'] + 6, location['lcol'] + 13, character.pc[0], character.pc[1])
             character.pc = item
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
