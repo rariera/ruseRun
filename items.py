@@ -10,30 +10,31 @@ level_items = LevelItems(lvl1 = {})
 
 
 class Item(object): 
-    def __init__(self, name, tile, colour):
+    def __init__(self, name, tile, colour, type):
         self.name = name
         self.tile = tile
         self.colour = colour
+        self.type = type
 
 class Food(Item):
-    def __init__(self, name, tile, colour, hunger):
-        Item.__init__(self, name, tile, colour)
+    def __init__(self, name, tile, colour, type, hunger):
+        Item.__init__(self, name, tile, colour, type)
         self.hunger = hunger
 
 class Weapon(Item):
-    def __init__(self, name, tile, colour, damage):
-        Item.__init__(self, name, tile, colour)
+    def __init__(self, name, tile, colour, type, damage):
+        Item.__init__(self, name, tile, colour, type)
         self.damage = damage
 
 class Armour(Item):
-    def __init__(self, name, tile, colour, hp):
-        Item.__init__(self, name, tile, colour)
+    def __init__(self, name, tile, colour, type, hp):
+        Item.__init__(self, name, tile, colour, type)
         self.hp = hp
 
-orange = Food(name = 'orange', tile = '%', colour = rainbow.yellow, hunger = 6)
-branch = Weapon(name = 'branch', tile = ')', colour = rainbow.red, damage = 3)
-football = Weapon(name = 'football', tile = 'O', colour = rainbow.blue, damage = 5)
-blazer = Armour(name = 'blazer', tile = '(', colour = rainbow.green, hp = 3)
+orange = Food(name = 'orange', tile = '%', colour = rainbow.yellow, type = 'food', hunger = 6)
+branch = Weapon(name = 'branch', tile = ')', colour = rainbow.red, type = 'weaponry', damage = 3)
+football = Weapon(name = 'football', tile = 'O', colour = rainbow.blue, type = 'weaponry', damage = 5)
+blazer = Armour(name = 'blazer', tile = '(', colour = rainbow.green, type = 'armour', hp = 3)
 
 itemdict = {
         'food': [orange],

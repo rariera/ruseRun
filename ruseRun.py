@@ -35,6 +35,11 @@ def checkAnswer(answer):
         interinit()
     
         
+#options = {
+#        'KEY_UP': moveChar('up'),
+#        'KEY_DOWN': moveChar('down'),
+#        'KEY_LEFT': moveChar('left'),
+#        'KEY_RIGHT': moveChar('right')
 
         
 

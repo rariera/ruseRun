@@ -36,7 +36,7 @@ location = {
 
 
 global character
-character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), inventory = [])
+character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = [])
 
 
 def floorList():
@@ -73,10 +73,36 @@ def pickUp():
         character.inventory.append(list[0])
         del level_items.lvl1[(location['lrow'] + 6, location['lcol'] + 14)]
 
-    
+def putDown():
+    level_items.lvl1[(location['lrow'] + 6, location['lcol'] + 14)] = [item, character.pc]
+    character.pc = (item.tile, item.colour)
 
+def inventory():
+    types = {
+            'food': [],
+            'weaponry': [],
+            'armour': []
+            }
+    for i in character.inventory:
+        types[i.type].append(i)
+    window3.addstr(0, 0, 'Inventory:', rainbow.blue)
+    line = 2
+    for i in types.keys():
+        if len(types[i]) > 0:
+            window3.addstr(line, 0, i.upper(), rainbow.yellow)
+            numbers = {}
+            for n in types[i]:
+                number = types[i].count(n)
+                numbers[n] = number
+            line += 1
+            for k in numbers.keys():
+                window3.addstr(line, 0, k.name + '(' + str(numbers[k]) + ')', rainbow.white)
+                line += 1
+            line += 1
 
 def interinit():
+    window3.erase()
+    window3.refresh()
     window1.box()
     window1.refresh()
     window2.box()
@@ -85,7 +111,8 @@ def interinit():
 
 def overlay():
     window3.touchwin()
-    window3.refresh() 
+    inventory()
+    window3.refresh()
 
 def mapinit():
     '''Initialises the map and interface'''
