@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from random import randint
-from curses import wrapper, panel
+from curses import wrapper, ascii
 import curses
 from items import itemChoose
 from classes import Character
@@ -38,6 +38,26 @@ location = {
 global character
 character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = [])
 
+def checkAnswer(answer):
+    '''decides what to do with the input'''
+    if character.state == 'game':
+        if answer == 'KEY_UP':
+            moveChar('up')
+        elif answer == 'KEY_DOWN':
+            moveChar('down')
+        elif answer == 'KEY_LEFT':
+            moveChar('left')
+        elif answer == 'KEY_RIGHT':
+            moveChar('right')
+        elif answer == 'g':
+            pickUp()
+        elif answer == 'i':
+            overlay()
+        elif answer == '''
+''':
+            interinit()
+    elif character.state == 'inventory':
+        pass
 
 def floorList():
     '''Generates list of available floor spaces on this floor'''
@@ -107,6 +127,7 @@ def interinit():
     window1.refresh()
     window2.box()
     window2.refresh()
+
     pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
 
 def overlay():
