@@ -2,7 +2,8 @@
 
 from curses import wrapper, ascii
 import curses
-from interface import mapinit,  moveChar, pickUp, overlay, interinit, checkAnswer
+from checkcommand import checkAnswer
+from itemcmds import mapinit
 
 
 def main(stdscr):

@@ -6,6 +6,13 @@ from interface import Interface
 rainbow = Colour()
 screen = Interface()
 
+map = open('farm.txt', 'r')
+gameMap = map.read()
+
+map2 = open('map2.txt', 'r')
+gameMap2 = map2.read()
+
+
 def floorList():
     '''Generates list of available floor spaces on this floor'''
     floorlist = []
@@ -66,4 +73,18 @@ def inventory():
                 window3.addstr(line, 0, k.name + '(' + str(numbers[k]) + ')', rainbow.white)
                 line += 1
             line += 1
+
+def mapinit():
+    '''Initialises the map and interface'''
+    screen.interinit()
+    pad1.box()  #a box appears around the window
+    pad1.addstr(0, 0, gameMap, rainbow.white)
+    floorlist = floorList()
+    global level_items
+    level_items = itemChoose(floorlist)
+    itemAdd()
+    pad1.addch(location['lrow'] + 6, location['lcol'] + 14, '@', rainbow.yellow_bg)
+    pad1.subpad(25, 25, 2, 2)
+    pad1.refresh(location['lrow'], location['lcol'], location['pminrow'], location['pmincol'], location['pmaxrow'], location['pmaxcol'])
+    return level_items.lvl1
 

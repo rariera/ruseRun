@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 
 from classes import Character
-
+import curses
 
 global character
 character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = [])
+
+def overlay():
+    window3.touchwin()
+    inventory()
+    window3.refresh()
 
 def checkAnswer(answer):
     '''decides what to do with the input'''
