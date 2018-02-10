@@ -7,7 +7,6 @@ from classes import LevelItems
 rainbow = Colour()
 level_items = LevelItems(lvl1 = {})
 
-
 class Item(object): 
     def __init__(self, name, tile, colour, type):
         self.name = name
@@ -56,6 +55,6 @@ def itemChoose(floorlist):
             list = itemdict['weapons']
         elif listnum == 2:
             list = itemdict['armour']
-        level_items.lvl1[i] = [choice(list)] 
+        level_items.lvl1[i] = [choice(list)]
     return level_items
 

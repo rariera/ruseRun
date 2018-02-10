@@ -20,7 +20,7 @@ def floorList():
     for i in range(-1, 280):
         for k in range(0, 280):
             item = screen.getChar(screen.pad, i, k)
-            if item[0] == ord('.') or item[0] == ord('"'):
+            if item[0] == '.' or item[0] == '"':
                 loc = (i, k)
                 floorlist.append(loc)
     return floorlist
@@ -32,11 +32,11 @@ def itemAdd():
         x = tuple[1]
         list = i[1]
         item = list[0]
-        prev = screen.getChar(pad, y, x)
+        prev = screen.getChar(screen.pad, y, x)
         list.append(prev[0])
-        screen.addChar(pad, y, x, item.tile, item.colour)
+        screen.addChar(screen.pad, y, x, item.tile, item.colour)
 
-def pickUp():
+def pickUp(character):
     item = 0
     for i in level_items.lvl1.keys():
         if i == (screen.location['lrow'] + 6, screen.location['lcol'] + 14):
@@ -44,15 +44,15 @@ def pickUp():
     if item != 0:
         list = level_items.lvl1[item]
         character.pc = (list[1], rainbow.white)
-        pad1.addch(item[0], item[1], list[1])
+        screen.addString(screen.pad, item[0], item[1], list[1], rainbow.white)
         character.inventory.append(list[0])
         del level_items.lvl1[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)]
 
-def putDown():
+def putDown(character):
     level_items.lvl1[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
     character.pc = (item.tile, item.colour)
 
-def inventory():
+def inventory(character):
     types = {
             'food': [],
             'weaponry': [],
@@ -60,18 +60,18 @@ def inventory():
             }
     for i in character.inventory:
         types[i.type].append(i)
-    screen.addString(wininvent, 0, 0, 'Inventory:', rainbow.blue)
+    screen.addString(screen.wininvent, 0, 0, 'Inventory:', rainbow.blue)
     line = 2
     for i in types.keys():
         if len(types[i]) > 0:
-            screen.addString(wininvent, line, 0, i.upper(), rainbow.yellow)
+            screen.addString(screen.wininvent, line, 0, i.upper(), rainbow.yellow)
             numbers = {}
             for n in types[i]:
                 number = types[i].count(n)
                 numbers[n] = number
             line += 1
             for k in numbers.keys():
-                screen.addString(wininvent, line, 0, k.name + '(' + str(numbers[k]) + ')', rainbow.white)
+                screen.addString(screen.wininvent, line, 0, k.name + '(' + str(numbers[k]) + ')', rainbow.white)
                 line += 1
             line += 1
 

@@ -2,7 +2,7 @@
 
 import curses
 
-
+curses.initscr()
 pad1 = curses.newpad(280, 280) #creating a window that is 40x40
 window1 = curses.newwin(28, 30, 2, 40)
 window2 = curses.newwin(15, 50, 31, 2)

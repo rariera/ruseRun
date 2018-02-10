@@ -2,33 +2,39 @@
 
 from classes import Character
 import curses
+from movement import moveChar
+from interface import Interface
+from itemcmds import pickUp, inventory
+
 
 global character
 character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = [])
 
+screen = Interface()
+
 def overlay():
-    window3.touchwin()
-    inventory()
-    window3.refresh()
+    screen.wininvent.touchwin()
+    inventory(character)
+    screen.winRefresh(screen.wininvent)
 
 def checkAnswer(answer):
     '''decides what to do with the input'''
     if character.state == 'game':
         if answer == 'KEY_UP':
-            moveChar('up')
+            moveChar(character, 'up')
         elif answer == 'KEY_DOWN':
-            moveChar('down')
+            moveChar(character, 'down')
         elif answer == 'KEY_LEFT':
-            moveChar('left')
+            moveChar(character, 'left')
         elif answer == 'KEY_RIGHT':
-            moveChar('right')
+            moveChar(character, 'right')
         elif answer == 'g':
-            pickUp()
+            pickUp(character)
         elif answer == 'i':
             overlay()
         elif answer == '''
 ''':
-            interinit()
+            screen.interinit()
     elif character.state == 'inventory':
         pass
 
