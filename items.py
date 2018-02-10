@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import curses
 from random import randint, choice
 from colours import Colour
 from classes import LevelItems

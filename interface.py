@@ -10,8 +10,7 @@ window3 = curses.newwin(45, 70, 2, 2)
 
 
 class Interface(object):
-    def __init__(self):
-        self.location = {
+    location = {
     'lrow': 2,
     'lcol': 2,
     'pminrow': 5,
@@ -19,35 +18,35 @@ class Interface(object):
     'pmaxrow': 30,
     'pmaxcol': 30
     }
-        self.pad = pad1
-        self.winstatus = window1
-        self.windialogue = window2
-        self.wininvent = window3
+    pad = pad1
+    winstatus = window1
+    windialogue = window2
+    wininvent = window3
     
-    def addChar(window, y, x, char, colour):
+    def addChar(cls, window, y, x, char, colour):
         window.addch(y, x, char, colour)
 
-    def addString(window, y, x, string, colour):
+    def addString(cls, window, y, x, string, colour):
         window.addstr(y, x, string, colour)
 
-    def padRefresh():
-        pad1.refresh(self.location['lrow'], self.location['lcol'], self.location['pminrow'], self.location['pmincol'], self.location['pmaxrow'], self.location['pmaxcol'])
+    def padRefresh(cls):
+        pad1.refresh(cls.location['lrow'], cls.location['lcol'], cls.location['pminrow'], cls.location['pmincol'], cls.location['pmaxrow'], cls.location['pmaxcol'])
    
-    def winRefresh(window):
+    def winRefresh(cls, window):
         window.refresh()
 
-    def getChar(window, y, x):
-        window.inch(y, x)
+    def getChar(cls, window, y, x):
+        attrs = window.inch(y, x)
         char = chr(attrs & curses.A_CHARTEXT)
         color = attrs & curses.A_COLOR
         return (char, color)
     
-    def interinit():
-        self.wininvent.erase()
-        winRefresh(self.wininvent)
-        self.winstatus.box()
-        winRefresh(self.winstatus)
-        self.windialogue.box()
-        winRefresh(self.windialogue)
+    def interinit(cls):
+        cls.wininvent.erase()
+        cls.wininvent.refresh()
+        cls.winstatus.box()
+        cls.winstatus.refresh()
+        cls.windialogue.box()
+        cls.windialogue.refresh()
 
-        padRefresh()       
+        cls.padRefresh()
