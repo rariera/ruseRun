@@ -50,3 +50,6 @@ class Interface(object):
         cls.windialogue.refresh()
 
         cls.padRefresh()
+
+    def winClear(cls, window):
+        window.erase()

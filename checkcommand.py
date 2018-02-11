@@ -4,13 +4,18 @@ from classes import Character
 import curses
 from movement import moveChar
 from interface import Interface
-from itemcmds import pickUp, inventory
-
+from itemcmds import pickUp, inventory, openDesc
+import string
 
 global character
-character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = [])
+character = Character(level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = {
+    'food': [],
+    'weaponry': [],
+    'armour': []
+   }, alphanum = list(string.ascii_lowercase + string.ascii_uppercase))
 
 screen = Interface()
+
 
 def overlay():
     screen.wininvent.touchwin()
@@ -32,9 +37,13 @@ def checkAnswer(answer):
             pickUp(character)
         elif answer == 'i':
             overlay()
+    elif character.state == 'inventory':
+        if answer in character.alphanum:
+            openDesc(character, answer)
         elif answer == '''
 ''':
             screen.interinit()
-    elif character.state == 'inventory':
-        pass
+            character.state = 'game'
+
+
 

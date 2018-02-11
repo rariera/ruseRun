@@ -1,0 +1,4 @@
+Need to Do:
+add letter variable to each object, when picked up, letter goes off alphanum.
+When dropped, letter added to alphanum
+when displaying, you display the letter next to the word so user can choose it.
