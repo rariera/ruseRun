@@ -38,7 +38,7 @@ def checkAnswer(answer):
         elif answer == 'i':
             overlay()
     elif character.state == 'inventory':
-        if answer in character.alphanum:
+        if answer in string.ascii_lowercase or answer in string.ascii_uppercase:
             openDesc(character, answer)
         elif answer == '''
 ''':

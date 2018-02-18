@@ -48,13 +48,13 @@ def pickUp(character):
         invent = list[0]
         if invent in character.inventory[invent.type]:
             screen.addString(screen.wininvent, 4, 15, 'invent in character.invent...!!!', rainbow.green)
-            invent.letter = character.alphanum[0]
-            character.alphanum.remove(invent.letter)
-        else:
-            screen.addString(screen.wininvent, 4, 15, 'invent not in character.invent...', rainbow.red)
             index = character.inventory[invent.type].index(invent)
             letter_item = character.inventory[invent.type][index]
             invent.letter = letter_item.letter
+        else:
+            screen.addString(screen.wininvent, 4, 15, 'invent not in character.invent...', rainbow.red)
+            invent.letter = character.alphanum[0]
+            character.alphanum.remove(invent.letter)
         character.inventory[invent.type].append(invent)
         del level_items.lvl1[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)]
 
@@ -82,19 +82,14 @@ def inventory(character):
             line += 1 
 
 def openDesc(character, input):
-    item = False
+    item = 0
     for list in character.inventory:
         for i in character.inventory[list]:
             if i.letter == input:
                 item = i
-    if item == False:
-        screen.addString(screen.wininvent, 10, 10, 'item is False!!', rainbow.red)
-        screen.winRefresh(screen.wininvent)
-    else:
-        screen.addString(screen.wininvent, 5, 5, str(item), rainbow.green)
+                continue
+    if item != 0:
         screen.winClear(screen.wininvent)
-        screen.addString(screen.wininvent, 5, 5, 'Huzzah!!', rainbow.green)
-        screen.addString(screen.wininvent, 5, 5, str(item), rainbow.green)
         screen.addString(screen.wininvent, 0, 0, item.name.upper(), rainbow.blue)
         screen.winRefresh(screen.wininvent)
 
