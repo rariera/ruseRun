@@ -3,10 +3,12 @@
 
 
 class Character(object):
-    def __init__(self, level, pc, inventory):
+    def __init__(self, level, pc, state, inventory, alphanum):
         self.level = level
         self.pc = pc
+        self.state = state
         self.inventory = inventory
+        self.alphanum = alphanum
 
 class LevelItems(object):
     def __init__(self, lvl1):

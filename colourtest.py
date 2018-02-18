@@ -4,7 +4,7 @@ from curses import wrapper, panel
 import curses
 
 curses.initscr()
-pad1 = curses.newpad(40, 40) #creating a window that is 40x40
+pad1 = curses.newwin(40, 40) #creating a window that is 40x40
 
 gamemap = '''.........................
 ............................
@@ -36,9 +36,19 @@ def main(stdscr):
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
     pad1.addch(5, 5, 'D', curses.A_REVERSE)
     pad1.addstr(7, 7, 'DDDDDDDDD', curses.color_pair(1))
-    pad1.refresh(2, 2, 5, 5, 30, 30)
-    answer = stdscr.getkey()
-
+    pad1.refresh()
+    while True:
+        answer = stdscr.getkey()
+        if answer == '':
+            pad1.addstr(3, 3, 'space')
+        elif answer == ' ':
+            pad1.addstr(3, 3, 'spaace')
+        elif answer == '''
+''':
+            pad1.addstr(3, 3, '/n')
+        else:
+            pad1.addstr(3, 3, answer)
+        pad1.refresh()
 
 wrapper(main)
 
