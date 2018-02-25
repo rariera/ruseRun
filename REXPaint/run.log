@@ -54,3 +54,5 @@ I=0002305 |   ...CCommands
 I=0002305 |   ...CMessage
 I=0002306 \---DONE
 I=0002306 Starting REX loop
+I=15180207 Saving config
+I=15180229 exitREXPaint() | Cleaning up program before exit
