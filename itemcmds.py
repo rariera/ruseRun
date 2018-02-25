@@ -7,7 +7,7 @@ from items import itemChoose
 rainbow = Colour()
 screen = Interface()
 
-map = open('farm.txt', 'r')
+map = open('Oval.txt', 'r')
 gameMap = map.read()
 
 map2 = open('map2.txt', 'r')
