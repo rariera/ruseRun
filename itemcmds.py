@@ -52,7 +52,6 @@ def pickUp(character):
             letter_item = character.inventory[invent.type][index]
             invent.letter = letter_item.letter
         else:
-            screen.addString(screen.wininvent, 4, 15, 'invent not in character.invent...', rainbow.red)
             invent.letter = character.alphanum[0]
             character.alphanum.remove(invent.letter)
         character.inventory[invent.type].append(invent)
