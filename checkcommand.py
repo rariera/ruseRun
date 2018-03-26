@@ -44,6 +44,6 @@ def checkAnswer(answer):
 ''':
             screen.interinit()
             character.state = 'game'
-
+    return character
 
 
