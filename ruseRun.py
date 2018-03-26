@@ -11,13 +11,14 @@ def main(stdscr):
     curses.curs_set(0)
     curses.initscr()
     curses.start_color()
-    mapinit()
+    lvls = mapinit()
     while True:
         answer = stdscr.getkey()    #input a key
-        checkAnswer(answer)
-        
+        character = checkAnswer(answer)
+        #monstersUpdate(character, lvls)
 
 
+ 
  
 #options = {
 #        'KEY_UP': moveChar('up'),

@@ -45,7 +45,7 @@ def itemChoose(floorlist):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
     for i in floorlist:
-        num = randint(0, 25)
+        num = randint(0, 100)
         if num == 0:
             itemplaces.append(i)
     for i in itemplaces:

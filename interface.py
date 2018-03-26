@@ -30,6 +30,7 @@ class Interface(object):
         window.addstr(y, x, string, colour)
 
     def padRefresh(cls):
+
         pad1.refresh(cls.location['lrow'], cls.location['lcol'], cls.location['pminrow'], cls.location['pmincol'], cls.location['pmaxrow'], cls.location['pmaxcol'])
    
     def winRefresh(cls, window):
