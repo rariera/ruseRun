@@ -3,6 +3,7 @@
 from interface import Interface
 import curses
 from colours import Colour
+from itemcmds import settingCheck
 
 rainbow = Colour()
 screen = Interface()
@@ -10,8 +11,10 @@ screen = Interface()
 def verify(character, direction):
     if direction == 'up':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 5, screen.location['lcol'] + 14)
+        settingCheck(character, direction)
     elif direction == 'down':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 7, screen.location['lcol'] + 14)
+        settingCheck(character, direction)
     elif direction == 'left':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 13)
     elif direction == 'right':

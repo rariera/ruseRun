@@ -11,8 +11,8 @@ window3 = curses.newwin(45, 70, 2, 2)
 
 class Interface(object):
     location = {
-    'lrow': 50,
-    'lcol': 8,
+    'lrow': 60,
+    'lcol': 2,
     'pminrow': 5,
     'pmincol': 5,
     'pmaxrow': 30,

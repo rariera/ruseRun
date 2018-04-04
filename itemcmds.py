@@ -7,22 +7,63 @@ from items import itemChoose
 rainbow = Colour()
 screen = Interface()
 
-map = open('Oval.txt', 'r')
-gameMap = map.read()
+#map2 = open('map2.txt', 'r')
+#gameMap2 = map2.read()
 
-map2 = open('map2.txt', 'r')
-gameMap2 = map2.read()
+level1 = open('farm.txt', 'r')
+gameMap1 = level1.read()
+
+level2 = open('Oval.txt', 'r')
+gameMap2 = level2.read()
+
+def mapChoose(character):
+    if character.level == 1:
+        map = gameMap1
+    else:
+        map = gameMap2
+    return map
+   
+
+def lineCount(character):
+    map = mapChoose(character)
+    i = 0
+    for line in map:
+        i = i + 1
+    return i
+
+def settingCheck(character, direction):
+    lineNum = lineCount(character)
+    if direction == 'up' and screen.location['lrow'] + 6 <= 1:
+        if character.level == 2:
+            character.level = 1
+            screen.location['lrow'] = lineNum - 6
+    elif direction == 'down' and screen.location['lrow'] + 6 == lineNum:
+        if character.level == 1:
+            character.level = 2
+            screen.location['lrow'] = 1
+        map = mapChoose(character)
+        screen.pad.erase()
+        screen.addString(screen.pad, 0, 0, map)
+        lineNum = lineCount(character)
+        itemAdd()
+        screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
+
+
+
+                 
+
 
 
 def floorList():
     '''Generates list of available floor spaces on this floor'''
-    floorlist = []
-    for i in range(-1, 280):
-        for k in range(0, 280):
-            item = screen.getChar(screen.pad, i, k)
-            if item[0] == '.' or item[0] == '"':
-                loc = (i, k)
-                floorlist.append(loc)
+    floorlist = {'level1': [], 'level2': []}
+    for f in floorlist.keys():
+        for i in range(-1, 280):
+            for k in range(0, 280):
+                item = screen.getChar(screen.pad, i, k)
+                if item[0] == '.' or item[0] == '"':
+                    loc = (i, k)
+                    floorlist[f].append(loc)
     return floorlist
 
 def itemAdd():
@@ -94,7 +135,7 @@ def openDesc(character, input):
 def mapinit():
     '''Initialises the map and interface'''
     screen.interinit()
-    screen.addString(screen.pad, 0, 0, gameMap, rainbow.white)
+    screen.addString(screen.pad, 0, 0, gameMap1, rainbow.white)
     floorlist = floorList()
     global level_items
     level_items = itemChoose(floorlist)

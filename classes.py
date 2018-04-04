@@ -11,5 +11,6 @@ class Character(object):
         self.alphanum = alphanum
 
 class LevelItems(object):
-    def __init__(self, lvl1):
+    def __init__(self, lvl1, lvl2):
         self.lvl1 = lvl1
+        self.lvl2 = lvl2

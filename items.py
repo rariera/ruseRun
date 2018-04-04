@@ -5,7 +5,7 @@ from colours import Colour
 from classes import LevelItems
 
 rainbow = Colour()
-level_items = LevelItems(lvl1 = {})
+level_items = LevelItems(lvl1 = {}, lvl2 = {})
 
 class Item(object): 
     def __init__(self, name, tile, colour, type, letter):
@@ -44,18 +44,24 @@ itemdict = {
 def itemChoose(floorlist):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
-    for i in floorlist:
-        num = randint(0, 100)
-        if num == 0:
-            itemplaces.append(i)
-    for i in itemplaces:
-        listnum = randint(0, 2)
-        if listnum == 0:
-            list = itemdict['food']
-        elif listnum == 1:
-            list = itemdict['weapons']
-        elif listnum == 2:
-            list = itemdict['armour']
-        level_items.lvl1[i] = [choice(list)]
+    for key in floorlist.keys():
+        x = 1
+        for i in floorlist:
+            num = randint(0, 100)
+            if num == 0:
+                itemplaces.append(i)
+        for i in itemplaces:
+            listnum = randint(0, 2)
+            if listnum == 0:
+                list = itemdict['food']
+            elif listnum == 1:
+                list = itemdict['weapons']
+            elif listnum == 2:
+                list = itemdict['armour']
+            if x == 1:
+                level_items.lvl1[i] = [choice(list)]
+            elif x == 2:
+                level_items.lvl2[i] = [choice(list)]
+        x = x + 1
     return level_items
 
