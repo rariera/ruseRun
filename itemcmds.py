@@ -29,7 +29,8 @@ def mapChoose(character):
 def lineCount(character):
     level = mapChoose(character)
     level = level[0]
-    for i, 1 in enumerate(level):
+    for i, l in enumerate(level):
+        pass
     return i
 
 def settingCheck(character, direction):
