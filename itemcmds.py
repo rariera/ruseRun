@@ -19,31 +19,38 @@ gameMap2 = level2.read()
 def mapChoose(character):
     if character.level == 1:
         map = gameMap1
+        level = level1
     else:
         map = gameMap2
-    return map
+        level = level2
+    return (map, level)
    
 
 def lineCount(character):
-    map = mapChoose(character)
-    i = 0
-    for line in map:
-        i = i + 1
+    level = mapChoose(character)
+    level = level[0]
+    for i, 1 in enumerate(level):
     return i
 
 def settingCheck(character, direction):
     lineNum = lineCount(character)
+    screen.addString(screen.windialogue, 4, 2, str(lineNum), rainbow.red)
+    screen.winRefresh(screen.windialogue)
     if direction == 'up' and screen.location['lrow'] + 6 <= 1:
+        screen.addString(screen.windialogue, 4, 2, 'Check #1', rainbow.yellow)
+        screen.winRefresh(screen.windialogue)
         if character.level == 2:
             character.level = 1
-            screen.location['lrow'] = lineNum - 6
-    elif direction == 'down' and screen.location['lrow'] + 6 == lineNum:
+            screen.location['lrow'] = lineNum - 8
+    elif direction == 'down' and screen.location['lrow'] + 6  >= lineNum:
         if character.level == 1:
+            screen.addString(screen.windialogue, 5, 2, 'Check #2', rainbow.green)
+            screen.winRefresh(screen.windialogue)
             character.level = 2
             screen.location['lrow'] = 1
         map = mapChoose(character)
         screen.pad.erase()
-        screen.addString(screen.pad, 0, 0, map)
+        screen.addString(screen.pad, 0, 0, map, rainbow.white)
         lineNum = lineCount(character)
         itemAdd()
         screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
