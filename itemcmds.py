@@ -19,29 +19,26 @@ gameMap2 = level2.read()
 def mapChoose(character):
     if character.level == 1:
         map = gameMap1
-        level = level1
+        lineNum = 220
     else:
         map = gameMap2
-        level = level2
-    return (map, level)
+        lineNum = 320
+    return (map, lineNum)
    
 
 def lineCount(character):
     level = mapChoose(character)
-    level = level[0]
-    for i, l in enumerate(level):
-        pass
-    return i
+    lineNum = level[1]
+    return lineNum 
 
 def settingCheck(character, direction):
     lineNum = lineCount(character)
-    screen.addString(screen.windialogue, 4, 2, str(lineNum), rainbow.red)
-    screen.winRefresh(screen.windialogue)
     if direction == 'up' and screen.location['lrow'] + 6 <= 1:
         screen.addString(screen.windialogue, 4, 2, 'Check #1', rainbow.yellow)
         screen.winRefresh(screen.windialogue)
         if character.level == 2:
             character.level = 1
+            lineNum = lineCount(character)
             screen.location['lrow'] = lineNum - 8
     elif direction == 'down' and screen.location['lrow'] + 6  >= lineNum:
         if character.level == 1:
@@ -49,12 +46,13 @@ def settingCheck(character, direction):
             screen.winRefresh(screen.windialogue)
             character.level = 2
             screen.location['lrow'] = 1
-        map = mapChoose(character)
-        screen.pad.erase()
-        screen.addString(screen.pad, 0, 0, map, rainbow.white)
-        lineNum = lineCount(character)
-        itemAdd()
-        screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
+    level = mapChoose(character)
+    map = level[0]
+    screen.pad.erase()
+    screen.addString(screen.pad, 0, 0, map, rainbow.white)
+    lineNum = lineCount(character)
+    itemAdd()
+    screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
 
 
 
