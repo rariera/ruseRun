@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 
-from interface import screen
+from interface import Interface
 from classes import LevelMonsters
+from colours import Colour
+from random import randint, choice
 
+
+rainbow = Colour()
+screen = Interface()
 level_monsters = LevelMonsters(lvl1 = [], lvl2 = [])
 
 class Monster(object):
-    def __init__(self, name, tile, colour, HP, y_coord, x_coord):
+    def __init__(self, name, tile, colour, HP, map, y_coord, x_coord):
         self.name = name
         self.tile = tile
         self.colour = colour
@@ -32,7 +37,7 @@ def moveChoose(monster, y, x, character):
             moveMonster(monster, 'right')
         else:
             moveMonster(monster, 'left')
-    elif monstery = 1 and monsterx = 1:
+    elif monstery == 1 and monsterx == 1:
         if y == screen.location['lrow'] + 6:
             attackPlayer(character, monster)
         else:
@@ -74,20 +79,22 @@ def monsterChoose(floorlist):
         for i in floorlist:
             num = randint(0, 100)
             if num == 0:
-                itemplaces.append(i)
-        for i in itemplaces:
+                monsterplaces.append(i)
+        for i in monsterplaces:
             monster = [choice(monsters)]
             monster.y_coord = i[0]
             monster.x_coord = i[1]
-           if x == 1:
+            if x == 1:
                 level_monsters.lvl1.append(monster)
             elif x == 2:
                 level_monsters.lvl2.append(monster)
         x += 1
     return level_monsters
 
-def monsterAdd():
-    for key in level_monsters.keys():
-        for monster in key:
+def monsterAdd(level_monsters):
+    for level in vars(level_monsters).items():
+        for list in level:
+            monster = list[0]
             prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-
+            list.append(prev[0])
+            screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)

@@ -3,6 +3,7 @@
 from colours import Colour
 from interface import Interface
 from items import itemChoose
+from monsters import monsterChoose, monsterAdd
 
 rainbow = Colour()
 screen = Interface()
@@ -72,16 +73,18 @@ def floorList():
                     floorlist[f].append(loc)
     return floorlist
 
-def itemAdd():
-    for i in level_items.lvl1.items():
-        tuple = i[0]
-        y = tuple[0]
-        x = tuple[1]
-        list = i[1]
-        item = list[0]
-        prev = screen.getChar(screen.pad, y, x)
-        list.append(prev[0])
-        screen.addChar(screen.pad, y, x, item.tile, item.colour)
+def itemAdd(level_items):
+    for level in vars(level_items).items():
+        for i in level:
+            pass
+            #            tuple = i[0]
+#            y = tuple[0]
+ #           x = tuple[1]
+  #          list = i[1]
+   #         item = list[0]
+    #        prev = screen.getChar(screen.pad, y, x)
+     #       list.append(prev[0])
+      #      screen.addChar(screen.pad, y, x, item.tile, item.colour)
 
 def pickUp(character):
     item = 0
@@ -145,7 +148,9 @@ def mapinit():
     floorlist = floorList()
     global level_items
     level_items = itemChoose(floorlist)
-    itemAdd()
+    itemAdd(level_items)
+    level_monsters = monsterChoose(floorlist)
+    monsterAdd(level_monsters)
     screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
     screen.padRefresh()
     return level_items.lvl1
