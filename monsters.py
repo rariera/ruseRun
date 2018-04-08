@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 from interface import screen
+from classes import LevelMonsters
 
+level_monsters = LevelMonsters(lvl1 = [], lvl2 = [])
 
 class Monster(object):
     def __init__(self, name, tile, colour, HP, y_coord, x_coord):
@@ -60,3 +62,32 @@ def monstersUpdate(character, lvls):
 #if item, then pickup. If character, then attack
 
 #moveMonster, monsPickup, attackPlayer, monsCreate
+
+monsters = [goblin]
+
+def monsterChoose(floorlist):
+    '''Chooses which monster will be placed in which spot'''
+    monsterplaces = []
+    for key in floorlist.keys():
+        x = 1
+        n = 1
+        for i in floorlist:
+            num = randint(0, 100)
+            if num == 0:
+                itemplaces.append(i)
+        for i in itemplaces:
+            monster = [choice(monsters)]
+            monster.y_coord = i[0]
+            monster.x_coord = i[1]
+           if x == 1:
+                level_monsters.lvl1.append(monster)
+            elif x == 2:
+                level_monsters.lvl2.append(monster)
+        x += 1
+    return level_monsters
+
+def monsterAdd():
+    for key in level_monsters.keys():
+        for monster in key:
+            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
+

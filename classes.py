@@ -14,3 +14,8 @@ class LevelItems(object):
     def __init__(self, lvl1, lvl2):
         self.lvl1 = lvl1
         self.lvl2 = lvl2
+
+class LevelMonsters(object):
+    def __init__(self, lvl1, lvl2):
+        self.lvl1 = lvl1
+        self.lvl2 = lvl2

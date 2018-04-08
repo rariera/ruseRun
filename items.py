@@ -62,6 +62,6 @@ def itemChoose(floorlist):
                 level_items.lvl1[i] = [choice(list)]
             elif x == 2:
                 level_items.lvl2[i] = [choice(list)]
-        x = x + 1
+        x += 1
     return level_items
 
