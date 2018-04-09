@@ -46,7 +46,7 @@ def itemChoose(floorlist):
     itemplaces = []
     for key in floorlist.keys():
         x = 1
-        for i in floorlist:
+        for i in key:
             num = randint(0, 100)
             if num == 0:
                 itemplaces.append(i)

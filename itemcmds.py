@@ -52,7 +52,7 @@ def settingCheck(character, direction):
     screen.pad.erase()
     screen.addString(screen.pad, 0, 0, map, rainbow.white)
     lineNum = lineCount(character)
-    itemAdd()
+    itemAdd(level_items, character.level)
     screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
 
 
@@ -73,18 +73,28 @@ def floorList():
                     floorlist[f].append(loc)
     return floorlist
 
-def itemAdd(level_items):
-    for level in vars(level_items).items():
-        for i in level:
-            pass
-            #            tuple = i[0]
-#            y = tuple[0]
- #           x = tuple[1]
-  #          list = i[1]
-   #         item = list[0]
-    #        prev = screen.getChar(screen.pad, y, x)
-     #       list.append(prev[0])
-      #      screen.addChar(screen.pad, y, x, item.tile, item.colour)
+def itemAdd(level_items, charlvl):
+    if charlvl == 1:
+        level = level_items.lvl1
+    else:
+        level = level_items.lvl2
+
+    for i in level:
+        tuple = i[0]
+        screen.addString(screen.windialogue, 1, 2, 'tuple: ' + str(tuple), rainbow.red)
+        y = tuple[0]
+        screen.addString(screen.windialogue, 2, 2, 'y: ' + str(y), rainbow.yellow)
+        x = tuple[1]
+        screen.addString(screen.windialogue, 3, 2, 'x: ' + str(x), rainbow.green)
+        list = i[1]
+        screen.addString(screen.windialogue, 4, 2, 'list: ' + str(list), rainbow.cyan)
+        item = list[0]
+        screen.addString(screen.windialogue, 5, 2, 'item: ' + str(item), rainbow.blue)
+        screen.winRefresh(screen.windialogue)
+        prev = screen.getChar(screen.pad, y, x)
+        list.append(prev[0])
+        screen.addChar(screen.pad, y, x, item.tile, item.colour)
+    screen.padRefresh()
 
 def pickUp(character):
     item = 0
@@ -145,10 +155,11 @@ def mapinit():
     '''Initialises the map and interface'''
     screen.interinit()
     screen.addString(screen.pad, 0, 0, gameMap1, rainbow.white)
+    screen.padRefresh()
     floorlist = floorList()
     global level_items
     level_items = itemChoose(floorlist)
-    itemAdd(level_items)
+    itemAdd(level_items, 1)
     level_monsters = monsterChoose(floorlist)
     monsterAdd(level_monsters)
     screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)

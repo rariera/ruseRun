@@ -73,10 +73,14 @@ monsters = [goblin]
 def monsterChoose(floorlist):
     '''Chooses which monster will be placed in which spot'''
     monsterplaces = []
+    x = 1
     for key in floorlist.keys():
-        x = 1
-        n = 1
+        screen.addString(screen.windialogue, 7, 2, str(x), rainbow.cyan)
+        screen.winRefresh(screen.windialogue)
+        y = 1
         for i in floorlist:
+            screen.addString(screen.windialogue, 8, 2, str(y), rainbow.cyan)
+            screen.winRefresh(screen.windialogue)
             num = randint(0, 100)
             if num == 0:
                 monsterplaces.append(i)
@@ -92,9 +96,15 @@ def monsterChoose(floorlist):
     return level_monsters
 
 def monsterAdd(level_monsters):
-    for level in vars(level_monsters).items():
+    for i in range(0, 1):
+        if i == 0:
+            level = level_monsters.lvl1
+        elif i == 1:
+            level = level_monsters.lvl2
+        screen.addString(screen.windialogue, 5, 2, str(level), rainbow.yellow)
+        screen.winRefresh(screen.windialogue)
         for list in level:
-            monster = list[0]
+            monster = list
             prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
             list.append(prev[0])
             screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
