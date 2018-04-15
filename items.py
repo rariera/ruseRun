@@ -41,27 +41,24 @@ itemdict = {
         'armour': [blazer]
         }
 
-def itemChoose(floorlist):
+def itemChoose(floorlist, charlvl):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
-    for key in floorlist.keys():
-        x = 1
-        for i in key:
-            num = randint(0, 100)
-            if num == 0:
-                itemplaces.append(i)
-        for i in itemplaces:
-            listnum = randint(0, 2)
-            if listnum == 0:
-                list = itemdict['food']
-            elif listnum == 1:
-                list = itemdict['weapons']
-            elif listnum == 2:
-                list = itemdict['armour']
-            if x == 1:
-                level_items.lvl1[i] = [choice(list)]
-            elif x == 2:
-                level_items.lvl2[i] = [choice(list)]
-        x += 1
+    for i in floorlist:
+        num = randint(0, 100)
+        if num == 0:
+            itemplaces.append(i)
+    for i in itemplaces:
+        listnum = randint(0, 2)
+        if listnum == 0:
+            list = itemdict['food']
+        elif listnum == 1:
+            list = itemdict['weapons']
+        elif listnum == 2:
+            list = itemdict['armour']
+        if charlvl == 1:
+            level_items.lvl1[i] = [choice(list)]
+        elif charlvl == 2:
+            level_items.lvl2[i] = [choice(list)]
     return level_items
 

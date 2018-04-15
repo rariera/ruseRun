@@ -7,7 +7,7 @@ pad1 = curses.newpad(330, 410) #creating a window that is 40x40
 window1 = curses.newwin(28, 30, 2, 40)
 window2 = curses.newwin(15, 50, 31, 2)
 window3 = curses.newwin(45, 70, 2, 2)
-
+window4 = curses.newwin(45, 100, 2, 75)
 
 class Interface(object):
     location = {
@@ -22,6 +22,7 @@ class Interface(object):
     winstatus = window1
     windialogue = window2
     wininvent = window3
+    wintest = window4
     
     def addChar(cls, window, y, x, char, colour):
         window.addch(y, x, char, colour)
@@ -49,6 +50,8 @@ class Interface(object):
         cls.winstatus.refresh()
         cls.windialogue.box()
         cls.windialogue.refresh()
+        cls.wintest.box()
+        cls.wintest.refresh()
 
         cls.padRefresh()
 

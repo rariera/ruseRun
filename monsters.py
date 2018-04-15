@@ -11,16 +11,18 @@ screen = Interface()
 level_monsters = LevelMonsters(lvl1 = [], lvl2 = [])
 
 class Monster(object):
-    def __init__(self, name, tile, colour, HP, map, y_coord, x_coord):
+    def __init__(self, y_coord, x_coord, name, tile, colour, HP, map):
+        self.y_coord = y_coord
+        self.x_coord = x_coord
         self.name = name
         self.tile = tile
         self.colour = colour
         self.HP = HP
         self.map = map
-        self.y_coord = y_coord
-        self.x_coord = x_coord
 
-goblin = Monster(name = 'goblin', tile = 'g', colour = rainbow.green, HP = 5, map = 2, y_coord = 20, x_coord = 20) 
+class Goblin(Monster):
+    def __init__(self, y_coord, x_coord, name='goblin', tile='g', colour=rainbow.green, HP=5, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
 
 zeroItems = []
 
@@ -68,43 +70,43 @@ def monstersUpdate(character, lvls):
 
 #moveMonster, monsPickup, attackPlayer, monsCreate
 
-monsters = [goblin]
 
-def monsterChoose(floorlist):
+#goblin = Monster(name = 'goblin', tile = 'g', colour = rainbow.green, HP = 5, map = 2, y_coord = 20, x_coord = 20) 
+#monsters = [goblin]
+
+def monsterChoose(floorlist, charlvl, density=75):
     '''Chooses which monster will be placed in which spot'''
     monsterplaces = []
-    x = 1
-    for key in floorlist.keys():
-        screen.addString(screen.windialogue, 7, 2, str(x), rainbow.cyan)
-        screen.winRefresh(screen.windialogue)
-        y = 1
-        for i in floorlist:
-            screen.addString(screen.windialogue, 8, 2, str(y), rainbow.cyan)
-            screen.winRefresh(screen.windialogue)
-            num = randint(0, 100)
-            if num == 0:
-                monsterplaces.append(i)
-        for i in monsterplaces:
-            monster = [choice(monsters)]
-            monster.y_coord = i[0]
-            monster.x_coord = i[1]
-            if x == 1:
-                level_monsters.lvl1.append(monster)
-            elif x == 2:
-                level_monsters.lvl2.append(monster)
-        x += 1
+    if charlvl == 1:
+        level = level_monsters.lvl1
+    else:
+        level = level_monsters.lvl2
+    for i in floorlist:
+        num = randint(0, density)
+        if num == 1:
+             monsterplaces.append(i) 
+    for x in monsterplaces:
+#       monster = choice(monsters)
+        monster = Goblin(y_coord=x[0], x_coord=x[1])
+#       monster.y_coord = x[0]
+#       monster.x_coord = x[1]
+        monsterlist = [monster]
+        level.append(monsterlist)
     return level_monsters
 
-def monsterAdd(level_monsters):
-    for i in range(0, 1):
-        if i == 0:
-            level = level_monsters.lvl1
-        elif i == 1:
-            level = level_monsters.lvl2
-        screen.addString(screen.windialogue, 5, 2, str(level), rainbow.yellow)
-        screen.winRefresh(screen.windialogue)
-        for list in level:
-            monster = list
-            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-            list.append(prev[0])
-            screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
+def monsterAdd(level_monsters, charlvl):
+    if charlvl == 1:
+        level = level_monsters.lvl1
+    else:
+        level = level_monsters.lvl2
+    x = 0
+    for monsterlist in level:
+        x += 1
+        monster = monsterlist[0]
+        prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
+        monsterlist.append(prev[0])
+        screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
+    screen.addString(screen.wintest, 2, 2, str(x), rainbow.cyan)
+    screen.winRefresh(screen.wintest)
+    screen.padRefresh()
+
