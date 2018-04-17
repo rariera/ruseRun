@@ -3,7 +3,7 @@
 from curses import wrapper, ascii
 import curses
 from checkcommand import checkAnswer
-from itemcmds import mapinit
+from map import mapinit
 
 
 def main(stdscr):
@@ -11,20 +11,19 @@ def main(stdscr):
     curses.curs_set(0)
     curses.initscr()
     curses.start_color()
-    lvls = mapinit()
+    levels = mapinit()
+    level_monsters = levels[0]
+    level_items = levels[1]
     while True:
         answer = stdscr.getkey()    #input a key
-        character = checkAnswer(answer)
-        #monstersUpdate(character, lvls)
+        levels = checkAnswer(answer, level_monsters, level_items)
+        level_monsters = levels[0]
+        level_items = levels[1]
+
 
 
  
  
-#options = {
-#        'KEY_UP': moveChar('up'),
-#        'KEY_DOWN': moveChar('down'),
-#        'KEY_LEFT': moveChar('left'),
-#        'KEY_RIGHT': moveChar('right')
 
         
 

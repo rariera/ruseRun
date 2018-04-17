@@ -3,67 +3,9 @@
 from colours import Colour
 from interface import Interface
 from items import itemChoose
-from monsters import monsterChoose, monsterAdd
 
 rainbow = Colour()
 screen = Interface()
-
-#map2 = open('map2.txt', 'r')
-#gameMap2 = map2.read()
-
-level1 = open('farm.txt', 'r')
-gameMap1 = level1.read()
-
-level2 = open('Oval.txt', 'r')
-gameMap2 = level2.read()
-
-def mapChoose(character):
-    if character.level == 1:
-        map = gameMap1
-        lineNum = 219
-    else:
-        map = gameMap2
-        lineNum = 320
-    return (map, lineNum)
-   
-
-def lineCount(character):
-    level = mapChoose(character)
-    lineNum = level[1]
-    return lineNum 
-
-def settingCheck(character, direction):
-    lineNum = lineCount(character)
-    changing = False
-    if direction == 'up' and screen.location['lrow'] + 6 <= 1:
-        changing = True
-        screen.addString(screen.windialogue, 4, 2, 'Check #1', rainbow.yellow)
-        screen.winRefresh(screen.windialogue)
-        if character.level == 2:
-            character.level = 1
-            lineNum = lineCount(character)
-            screen.location['lrow'] = lineNum - 8
-    elif direction == 'down' and screen.location['lrow'] + 6  >= lineNum:
-        changing = True
-        if character.level == 1:
-            screen.addString(screen.windialogue, 5, 2, 'Check #2', rainbow.green)
-            screen.winRefresh(screen.windialogue)
-            character.level = 2
-            screen.location['lrow'] = 1
-    if changing == True:
-        level = mapChoose(character)
-        map = level[0]
-        screen.pad.erase()
-        screen.addString(screen.pad, 0, 0, map, rainbow.white)
-        lineNum = lineCount(character)
-        itemAdd(level_items, character.level)
-        monsterAdd(level_monsters, character.level)
-        screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
-
-
-
-                 
-
 
 
 def floorList():
@@ -92,13 +34,17 @@ def itemAdd(level_items, charlvl):
         screen.addChar(screen.pad, y, x, item.tile, item.colour)
     screen.padRefresh()
 
-def pickUp(character):
+def pickUp(character, level_monsters, level_items):
+    if character.level == 1:
+        level = level_items.lvl1
+    else:
+        level = level_items.lvl2
     item = 0
-    for i in level_items.lvl1.keys():
+    for i in level.keys():
         if i == (screen.location['lrow'] + 6, screen.location['lcol'] + 14):
             item = i
     if item != 0:
-        list = level_items.lvl1[item]
+        list = level[item]
         character.pc = (list[1], rainbow.white)
         screen.addString(screen.pad, item[0], item[1], list[1], rainbow.white)
         invent = list[0]
@@ -110,11 +56,17 @@ def pickUp(character):
             invent.letter = character.alphanum[0]
             character.alphanum.remove(invent.letter)
         character.inventory[invent.type].append(invent)
-        del level_items.lvl1[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)]
+        del level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)]
+        return level_monsters, level_items
 
-def putDown(character):
-    level_items.lvl1[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
+def putDown(character, level_items):
+    if character.level == 1:
+        level = level_items.lvl1
+    else:
+        level = level_items.lvl2
+    level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
     character.pc = (item.tile, item.colour)
+    return level_items
 
 def inventory(character):
     screen.addString(screen.wininvent, 0, 0, 'Inventory:', rainbow.blue)
@@ -147,19 +99,4 @@ def openDesc(character, input):
         screen.addString(screen.wininvent, 0, 0, item.name.upper(), rainbow.blue)
         screen.winRefresh(screen.wininvent)
 
-def mapinit():
-    '''Initialises the map and interface'''
-    screen.interinit()
-    screen.addString(screen.pad, 0, 0, gameMap1, rainbow.white)
-    screen.padRefresh()
-    floorlist = floorList()
-    global level_items
-    level_items = itemChoose(floorlist, 1)
-    itemAdd(level_items, 1)
-    global level_monsters
-    level_monsters = monsterChoose(floorlist, 1)
-    monsterAdd(level_monsters, 1)
-    screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
-    screen.padRefresh()
-    return level_items.lvl1
 

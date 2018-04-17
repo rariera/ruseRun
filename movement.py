@@ -3,22 +3,24 @@
 from interface import Interface
 import curses
 from colours import Colour
-from itemcmds import settingCheck
+from map import settingCheck
 
 rainbow = Colour()
 screen = Interface()
 
-def verify(character, direction):
+def verify(character, direction, level_monsters, level_items):
     if direction == 'up':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 5, screen.location['lcol'] + 14)
-        settingCheck(character, direction)
+        levels = settingCheck(character, direction, level_monsters, level_items)
     elif direction == 'down':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 7, screen.location['lcol'] + 14)
-        settingCheck(character, direction)
+        levels = settingCheck(character, direction, level_monsters, level_items)
     elif direction == 'left':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 13)
+        levels = 'levels'
     elif direction == 'right':
         attrs = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 15)
+        levels = 'levels'
     if attrs[0] == '+':
         pad1.erase()
         if character.level == 1:
@@ -27,12 +29,14 @@ def verify(character, direction):
         elif character.level == 2:
             screen.addString(screen.pad, 0, 0, gameMap)
             character.level = 1
-    return attrs
+    return (attrs, levels)
         
-def moveChar(character, direction):
+def moveChar(character, direction, level_monsters, level_items):
     '''Moves the character symbol in accordance with the direction.'''
     if direction == 'up':
-        item = verify(character, direction)
+        attrs = verify(character, direction, level_monsters, level_items)
+        item = attrs[0]
+        levels = attrs[1]
         if item[0] != '#':
             screen.location['lrow'] -= 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg) 
@@ -41,7 +45,9 @@ def moveChar(character, direction):
             screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
             screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     elif direction == 'down':
-        item = verify(character, direction)
+        attrs = verify(character, direction, level_monsters, level_items)
+        item = attrs[0]
+        levels = attrs[1]
         if item[0] != '#':
             screen.location['lrow'] += 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
@@ -50,7 +56,9 @@ def moveChar(character, direction):
             screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
             screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     elif direction == 'left':
-        item = verify(character, direction)
+        attrs = verify(character, direction, level_monsters, level_items)
+        item = attrs[0]
+        levels = attrs[1]
         if item[0] != '#':
             screen.location['lcol'] -= 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
@@ -59,7 +67,9 @@ def moveChar(character, direction):
             screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
             screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     elif direction == 'right':
-        item = verify(character, direction)
+        attrs = verify(character, direction, level_monsters, level_items)
+        item = attrs[0]
+        levels = attrs[1]
         if item[0] != '#':
             screen.location['lcol'] += 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
@@ -69,4 +79,5 @@ def moveChar(character, direction):
             screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.padRefresh()
     screen.winRefresh(screen.winstatus)
+    return levels
 

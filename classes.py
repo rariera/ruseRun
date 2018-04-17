@@ -3,8 +3,9 @@
 
 
 class Character(object):
-    def __init__(self, level, pc, state, inventory, alphanum):
+    def __init__(self, level, cleared, pc, state, inventory, alphanum):
         self.level = level
+        self.cleared = cleared
         self.pc = pc
         self.state = state
         self.inventory = inventory
