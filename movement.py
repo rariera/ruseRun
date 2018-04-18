@@ -33,50 +33,32 @@ def verify(character, direction, level_monsters, level_items):
         
 def moveChar(character, direction, level_monsters, level_items):
     '''Moves the character symbol in accordance with the direction.'''
+    attrs = verify(character, direction, level_monsters, level_items)
+    item = attrs[0]
+    levels = attrs[1]
     if direction == 'up':
-        attrs = verify(character, direction, level_monsters, level_items)
-        item = attrs[0]
-        levels = attrs[1]
         if item[0] != '#':
             screen.location['lrow'] -= 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg) 
             screen.addChar(screen.pad, screen.location['lrow'] + 7, screen.location['lcol'] + 14, character.pc[0], character.pc[1])
-            character.pc = item
-            screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
-            screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     elif direction == 'down':
-        attrs = verify(character, direction, level_monsters, level_items)
-        item = attrs[0]
-        levels = attrs[1]
         if item[0] != '#':
             screen.location['lrow'] += 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
             screen.addChar(screen.pad, screen.location['lrow'] + 5, screen.location['lcol'] + 14, character.pc[0], character.pc[1])
-            character.pc = item
-            screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
-            screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     elif direction == 'left':
-        attrs = verify(character, direction, level_monsters, level_items)
-        item = attrs[0]
-        levels = attrs[1]
         if item[0] != '#':
             screen.location['lcol'] -= 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 15, character.pc[0], character.pc[1])
-            character.pc = item
-            screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
-            screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     elif direction == 'right':
-        attrs = verify(character, direction, level_monsters, level_items)
-        item = attrs[0]
-        levels = attrs[1]
         if item[0] != '#':
             screen.location['lcol'] += 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 13, character.pc[0], character.pc[1])
-            character.pc = item
-            screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
-            screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
+    character.pc = item
+    screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
+    screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.padRefresh()
     screen.winRefresh(screen.winstatus)
     return levels
