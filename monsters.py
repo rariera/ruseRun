@@ -32,15 +32,15 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
     monsterx = abs(monster.x_coord - closest_x) #number of moves left/right to reach @
     proximity = monstery + monsterx #proximity is the number of moves to reach @
     if monstery > 1 or monsterx > 1:
-        if monstery > monsterx:
+        if monstery > monsterx or monstery == monsterx:
             if monster.y_coord - closest_y < 0:
                 moveMonster(monsterlist, 'up')
-            else:
+            elif monster.y_coord - closest_y > 0:
                 moveMonster(monsterlist, 'down')
         elif monsterx > monstery:
             if monster.x_coord - closest_x < 0:
                 moveMonster(monsterlist, 'right')
-            else:
+            elif monster.x_coord - closest_x > 0:
                 moveMonster(monsterlist, 'left')
     #elif monstery == 1 and monsterx == 1:
      #   if closest_y == screen.location['lrow'] + 6:
@@ -78,9 +78,9 @@ def moveMonster(monsterlist, direction):
 
 def monsVerify(y_coord, x_coord):
     place = screen.getChar(screen.pad, y_coord, x_coord)
-    move = True
-    if place[0] == '#':
-        move = False
+    move = False
+    if place[0] in ['"', '.', '|', '-', '_', str('/'), ' ', '/']:
+        move = True
     return move
 
 
