@@ -4,6 +4,7 @@ from interface import Interface
 import curses
 from colours import Colour
 from map import settingCheck
+import string
 
 rainbow = Colour()
 screen = Interface()
@@ -37,26 +38,29 @@ def moveChar(character, direction, level_monsters, level_items):
     item = attrs[0]
     levels = attrs[1]
     if direction == 'up':
-        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P']:
+        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
             screen.location['lrow'] -= 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg) 
             screen.addChar(screen.pad, screen.location['lrow'] + 7, screen.location['lcol'] + 14, character.pc[0], character.pc[1])
+            character.pc = item
     elif direction == 'down':
-        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P']:
+        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
             screen.location['lrow'] += 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
             screen.addChar(screen.pad, screen.location['lrow'] + 5, screen.location['lcol'] + 14, character.pc[0], character.pc[1])
+            character.pc = item
     elif direction == 'left':
-        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P']:
+        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
             screen.location['lcol'] -= 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 15, character.pc[0], character.pc[1])
+            character.pc = item
     elif direction == 'right':
-        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P']:
+        if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
             screen.location['lcol'] += 1
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
             screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 13, character.pc[0], character.pc[1])
-    character.pc = item
+            character.pc = item
     screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
     screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.padRefresh()

@@ -32,7 +32,7 @@ class Armour(Item):
 
 orange = Food(name = 'orange', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 6)
 branch = Weapon(name = 'branch', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 3)
-football = Weapon(name = 'football', tile = 'O', colour = rainbow.blue, type = 'weaponry', letter = '!', damage = 5)
+football = Weapon(name = 'football', tile = ')', colour = rainbow.blue, type = 'weaponry', letter = '!', damage = 5)
 blazer = Armour(name = 'blazer', tile = '(', colour = rainbow.green, type = 'armour', letter = '!', hp = 3)
 
 itemdict = {
