@@ -3,7 +3,7 @@
 import curses
 
 curses.initscr()
-pad1 = curses.newpad(330, 430) #creating a window that is 40x40
+pad1 = curses.newpad(330, 430)
 window1 = curses.newwin(28, 30, 2, 40)
 window2 = curses.newwin(15, 50, 31, 2)
 window3 = curses.newwin(45, 70, 2, 2)
@@ -31,7 +31,6 @@ class Interface(object):
         window.addstr(y, x, string, colour)
 
     def padRefresh(cls):
-
         pad1.refresh(cls.location['lrow'], cls.location['lcol'], cls.location['pminrow'], cls.location['pmincol'], cls.location['pmaxrow'], cls.location['pmaxcol'])
    
     def winRefresh(cls, window):
@@ -52,8 +51,11 @@ class Interface(object):
         cls.windialogue.refresh()
         cls.wintest.box()
         cls.wintest.refresh()
-
         cls.padRefresh()
+
+    def getMax(cls, window):
+        maxyx = window.getmaxyx()
+        return maxyx
 
     def winClear(cls, window):
         window.erase()

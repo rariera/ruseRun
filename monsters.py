@@ -5,6 +5,7 @@ from classes import LevelMonsters
 from colours import Colour
 from random import randint, choice, sample
 from itemcmds import floorList
+import string
 
 rainbow = Colour()
 screen = Interface()
@@ -50,45 +51,46 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
 
 def moveMonster(monsterlist, direction):
     monster = monsterlist[0]
+    previous = monsterlist[1]
     if direction == 'up':
         move = monsVerify(monster.y_coord - 1, monster.x_coord)
         if move == True:
             monster.y_coord -= 1
-            screen.addChar(screen.pad, monster.y_coord + 1, monster.x_coord, monsterlist[1], rainbow.white)
-            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-            monsterlist.append(prev[0])
+            screen.addChar(screen.pad, monster.y_coord + 1, monster.x_coord, previous[0], previous[1])
             del monsterlist[1]
+            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
+            monsterlist.append(prev)
     elif direction == 'down':
         move = monsVerify(monster.y_coord + 1, monster.x_coord)
         if move == True:
             monster.y_coord += 1
-            screen.addChar(screen.pad, monster.y_coord - 1, monster.x_coord, monsterlist[1], rainbow.white)
-            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-            monsterlist.append(prev[0])
+            screen.addChar(screen.pad, monster.y_coord - 1, monster.x_coord, previous[0], previous[1])
             del monsterlist[1]
+            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
+            monsterlist.append(prev)
     elif direction == 'left':
         move = monsVerify(monster.y_coord, monster.x_coord - 1)
         if move == True:
             monster.x_coord -= 1
-            screen.addChar(screen.pad, monster.y_coord, monster.x_coord + 1, monsterlist[1], rainbow.white)
-            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-            monsterlist.append(prev[0])
+            screen.addChar(screen.pad, monster.y_coord, monster.x_coord + 1, previous[0], previous[1])
             del monsterlist[1]
+            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
+            monsterlist.append(prev)
     elif direction == 'right':
         move = monsVerify(monster.y_coord, monster.x_coord + 1)
         if move == True:
             monster.x_coord += 1
-            screen.addChar(screen.pad, monster.y_coord, monster.x_coord - 1, monsterlist[1], rainbow.white)
-            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-            monsterlist.append(prev[0])
+            screen.addChar(screen.pad, monster.y_coord, monster.x_coord - 1, previous[0], previous[1])
             del monsterlist[1]
+            prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
+            monsterlist.append(prev)
     screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
     screen.padRefresh()
 
 def monsVerify(y_coord, x_coord):
     place = screen.getChar(screen.pad, y_coord, x_coord)
     move = False
-    if place[0] in ['"', '.', '|', '-', '_', str('/'), '/']:
+    if place[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or place[0] not in string.ascii_letters and place[0] != '#':
         move = True
     return move
 
@@ -104,8 +106,6 @@ def monstersUpdate(character, level_monsters):
     for monsterlist in level:
         monster = monsterlist[0]
         if screen.location['lrow'] + 6 in range(monster.y_coord - 20, monster.y_coord + 20) and screen.location['lcol'] + 14 in range(monster.x_coord - 20, monster.x_coord + 20):
-            screen.addString(screen.wintest, 2, 2, 'monstersUpdate()', rainbow.red)
-            screen.winRefresh(screen.wintest)
             if screen.location['lrow'] + 6 in range(monster.y_coord - 10, monster.y_coord + 10) or screen.location['lcol'] + 14 in range(monster.x_coord - 10, monster.x_coord + 10):
                 moveChoose(monsterlist, screen.location['lrow'] + 6, screen.location['lcol'] + 14, character)
             else: 
@@ -114,8 +114,6 @@ def monstersUpdate(character, level_monsters):
                     if monsterlist[0].y_coord - closest_item[0] + monsterlist[0].x_coord - closest_item[1] >  monsterlist[0].y_coord - i[0] + monsterlist[0].x_coord - i[1]:
                         closest_item = i
                 moveChoose(monsterlist, closest_item[0], closest_item[1], character)
-    screen.addString(screen.wintest, 4, 2, 'End', rainbow.green)
-    screen.winRefresh(screen.wintest)
 
          
         #make list of x-coords including items + character (character must be differentiated) 
@@ -156,7 +154,7 @@ def monsterAdd(level_monsters, charlvl):
         x += 1
         monster = monsterlist[0]
         prev = screen.getChar(screen.pad, monster.y_coord, monster.x_coord)
-        monsterlist.append(prev[0])
+        monsterlist.append(prev)
         screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
     screen.padRefresh()
 
