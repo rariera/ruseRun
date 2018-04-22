@@ -93,6 +93,19 @@ def inventory(character):
                 index += 1
             line += 1 
 
+def equipItem(character, item):
+    if item.type == 'weaponry' and character.equipment['weapon'] != item:
+        character.equipment['weapon'] = item
+        screen.addString(screen.wintest, 3, 2, 'Character equipped ' + character.equipment['weapon'].name, rainbow.yellow)
+        screen.winRefresh(screen.wintest)
+
+def unequipItem(character, item):
+    if item.type == 'weaponry' and character.equipment['weapon'] == item:
+        screen.addString(screen.wintest, 3, 2, 'Character is now unarmed', rainbow.yellow)
+        screen.winRefresh(screen.wintest)
+        character.equipment['weapon'] = False
+       
+
 def openDesc(character, input):
     item = False
     for list in character.inventory:

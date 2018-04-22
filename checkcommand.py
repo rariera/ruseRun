@@ -5,7 +5,7 @@ from classes import Character
 import curses
 from movement import moveChar
 from interface import Interface
-from itemcmds import pickUp, inventory, openDesc, putDown
+from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem
 import string
 from monsters import monstersUpdate
 
@@ -64,6 +64,10 @@ def checkAnswer(answer, level_monsters, level_items):
             putDown(character, character.state, level_items)
             character.state = 'inventory'
             overlay()
+        elif answer == 'q':
+            equipItem(character, character.state)
+        elif answer == 'u':
+            unequipItem(character, character.state)
         elif answer == '''
 ''':
             character.state = 'inventory'
