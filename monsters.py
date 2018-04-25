@@ -45,7 +45,7 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
                 moveMonster(monsterlist, 'left')
     #elif monstery == 1 and monsterx == 1:
      #   if closest_y == screen.location['lrow'] + 6:
-      #      attackPlayer(character, monster)
+      #      monsterAttack(character, monster)
        # else:
         #    monsPickup(monster, lvls.lvl1((y, x)))
 
@@ -157,4 +157,19 @@ def monsterAdd(level_monsters, charlvl):
         monsterlist.append(prev)
         screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
     screen.padRefresh()
+
+def monsterDeath(character, monsterlist, level_monsters):
+    monster = monsterlist[0]
+    prev = monsterlist[1]
+    screen.addLine("You kill the " + monster.name, rainbow.red)
+    screen.addChar(screen.pad, monster.y_coord, monster.x_coord, prev[0], prev[1])
+    if character.level == 1:
+        level = level_monsters.lvl1
+    else:
+        level = level_monsters.lvl2
+    level.remove(monsterlist)
+
+    #print that monster is dead
+    #get rid of 'g'
+    #remove monster from level_monsters
 
