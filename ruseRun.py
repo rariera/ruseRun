@@ -14,7 +14,8 @@ def main(stdscr):
     levels = mapinit()
     level_monsters = levels[0]
     level_items = levels[1]
-    while True:
+    loop = True
+    while loop == True:
         answer = stdscr.getkey()    #input a key
         levels = checkAnswer(answer, level_monsters, level_items)
         level_monsters = levels[0]

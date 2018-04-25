@@ -32,7 +32,7 @@ class Interface(object):
 
     def padRefresh(cls):
         pad1.refresh(cls.location['lrow'], cls.location['lcol'], cls.location['pminrow'], cls.location['pmincol'], cls.location['pmaxrow'], cls.location['pmaxcol'])
-   
+
     def winRefresh(cls, window):
         window.refresh()
 
@@ -42,12 +42,17 @@ class Interface(object):
         color = attrs & curses.A_COLOR
         return (char, color)
     
+    def addLine(cls, line, colour):
+        cls.windialogue.scrollok(True)
+        cls.windialogue.addstr(12, 2, line, colour)
+        cls.windialogue.scroll(1)
+        cls.windialogue.refresh()
+
     def interinit(cls):
         cls.wininvent.erase()
         cls.wininvent.refresh()
         cls.winstatus.box()
         cls.winstatus.refresh()
-        cls.windialogue.box()
         cls.windialogue.refresh()
         cls.wintest.box()
         cls.wintest.refresh()

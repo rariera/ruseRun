@@ -6,6 +6,7 @@ from colours import Colour
 from random import randint, choice, sample
 from itemcmds import floorList
 import string
+from fighting import deathCheck, charDeath
 
 rainbow = Colour()
 screen = Interface()
@@ -43,10 +44,10 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
                 moveMonster(monsterlist, 'right')
             elif monster.x_coord - closest_x > 0:
                 moveMonster(monsterlist, 'left')
-    #elif monstery == 1 and monsterx == 1:
-     #   if closest_y == screen.location['lrow'] + 6:
-      #      attackPlayer(character, monster)
-       # else:
+    elif monstery == 1 and monsterx == 1:
+        if closest_y == screen.location['lrow'] + 6:
+            monsterAttack(character, monsterlist)
+        #else:
         #    monsPickup(monster, lvls.lvl1((y, x)))
 
 def moveMonster(monsterlist, direction):
@@ -157,4 +158,20 @@ def monsterAdd(level_monsters, charlvl):
         monsterlist.append(prev)
         screen.addChar(screen.pad, monster.y_coord, monster.x_coord, monster.tile, monster.colour)
     screen.padRefresh()
+
+def monsterAttack(character, monsterlist):
+    monster = monsterlist[0]
+    num = randint(0, 3)
+    if num == 0:
+        screen.addLine("The " + monster.name + " missed you.", rainbow.white)
+    elif num == 1: 
+        screen.addLine("The " + monster.name + " hit you but did no damage", rainbow.white)
+    else:
+        screen.addLine("The " + monster.name + " hit you.", rainbow.white)
+        hits = monster.HP + randint(0, 2)
+        character.HP = character.HP - hits
+        death = deathCheck(character, character.HP)
+        if death == True:
+            charDeath(character)
+    
 

@@ -41,6 +41,7 @@ def pickUp(character, level_monsters, level_items):
     else:
         level = level_items.lvl2
     item = 0
+    coords = 0
     for i in level.keys():
         if i == (screen.location['lrow'] + 6, screen.location['lcol'] + 14):
             coords = i
@@ -92,6 +93,19 @@ def inventory(character):
                 line += 1
                 index += 1
             line += 1 
+
+def equipItem(character, item):
+    if item.type == 'weaponry' and character.equipment['weapon'] != item:
+        character.equipment['weapon'] = item
+        screen.addString(screen.wintest, 3, 2, 'Character equipped ' + character.equipment['weapon'].name, rainbow.yellow)
+        screen.winRefresh(screen.wintest)
+
+def unequipItem(character, item):
+    if item.type == 'weaponry' and character.equipment['weapon'] == item:
+        screen.addString(screen.wintest, 3, 2, 'Character is now unarmed', rainbow.yellow)
+        screen.winRefresh(screen.wintest)
+        character.equipment['weapon'] = False
+       
 
 def openDesc(character, input):
     item = False
