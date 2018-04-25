@@ -53,7 +53,6 @@ class Interface(object):
         cls.wininvent.refresh()
         cls.winstatus.box()
         cls.winstatus.refresh()
-        cls.windialogue.box()
         cls.windialogue.refresh()
         cls.wintest.box()
         cls.wintest.refresh()

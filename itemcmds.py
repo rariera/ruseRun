@@ -41,6 +41,7 @@ def pickUp(character, level_monsters, level_items):
     else:
         level = level_items.lvl2
     item = 0
+    coords = 0
     for i in level.keys():
         if i == (screen.location['lrow'] + 6, screen.location['lcol'] + 14):
             coords = i

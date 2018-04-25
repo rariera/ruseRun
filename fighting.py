@@ -3,7 +3,7 @@
 from random import randint
 from interface import Interface
 from colours import Colour
-from monsters import monsterDeath
+import sys
 
 rainbow = Colour()
 screen = Interface()
@@ -39,13 +39,13 @@ def playerAttack(character, direction, level_monsters):
         if monsterlist[0].y_coord == y and monsterlist[0].x_coord == x:
             monsterl = monsterlist
     if monsterl:
-        monster = monsterlist[0]
+        monster = monsterl[0]
         if randint(0, 2) == 0:
             #miss monster
-            screen.addLine("You missed the " + monster.name, rainbow.magenta)
+            screen.addLine("You missed the " + monster.name, rainbow.white)
         else:
             #hit monster
-            screen.addLine("You strike the " + monster.name, rainbow.green)
+            screen.addLine("You strike the " + monster.name, rainbow.white)
             if character.equipment['weapon']:
                 damage = character.equipment['weapon'].damage
             else:
@@ -61,4 +61,25 @@ def deathCheck(being, health):
     if health <= 0:
         health = 0
         death = True
+    elif health <= 5:
+        screen.addLine("* * *LOW HITPOINT WARNING* * *", rainbow.red)
     return death
+
+def monsterDeath(character, monsterlist, level_monsters):
+    monster = monsterlist[0]
+    prev = monsterlist[1]
+    screen.addLine("You kill the " + monster.name, rainbow.red)
+    screen.addChar(screen.pad, monster.y_coord, monster.x_coord, prev[0], prev[1])
+    if character.level == 1:
+        level = level_monsters.lvl1
+    else:
+        level = level_monsters.lvl2
+    level.remove(monsterlist)
+    #print that monster is dead
+
+def charDeath(character):
+    screen.addLine("You die...", rainbow.white)
+    sys.exit("YAY!!")
+    #Maybe print inventory now?
+
+

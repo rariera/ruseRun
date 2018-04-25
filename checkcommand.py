@@ -17,7 +17,7 @@ character = Character(level = 1, cleared = 0, pc = ('"', ord('"') & curses.A_COL
     }, alphanum = list(string.ascii_lowercase + string.ascii_uppercase), equipment = {
         'weapon': False, 
         'armour': False
-        })
+        }, HP = 20)
 
 screen = Interface()
 
