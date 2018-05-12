@@ -23,8 +23,10 @@ def itemAdd(level_items, charlvl):
     '''Adds the items on the current level to the pad'''
     if charlvl == 1:
         level = level_items.lvl1
-    else:
+    elif charlvl == 2:
         level = level_items.lvl2
+    else:
+        level = level_items.lvl3
     for key in level.keys():
         choicelist = level[key]
         item = choicelist[0]
@@ -38,8 +40,10 @@ def itemAdd(level_items, charlvl):
 def pickUp(character, level_monsters, level_items):
     if character.level == 1:
         level = level_items.lvl1
-    else:
+    elif charlvl == 2:
         level = level_items.lvl2
+    else:
+        level = level_items.lvl3
     item = 0
     coords = 0
     for i in level.keys():
@@ -66,8 +70,10 @@ def pickUp(character, level_monsters, level_items):
 def putDown(character, item, level_items):
     if character.level == 1:
         level = level_items.lvl1
-    else:
+    elif chararacter.level == 2:
         level = level_items.lvl2
+    else:
+        level = level_items.lvl3
     level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
     character.pc = (item.tile, item.colour)
     character.inventory[item.type].remove(item)

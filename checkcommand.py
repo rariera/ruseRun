@@ -10,7 +10,7 @@ import string
 from monsters import monstersUpdate
 
 global character
-character = Character(level = 1, cleared = 0, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = {
+character = Character(setting = 1, level = 1, cleared = 0, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = {
     'weaponry': [],
     'armour': [],
     'food': []
@@ -49,8 +49,8 @@ def checkAnswer(answer, level_monsters, level_items):
         if type(levels) is types.MethodType:
             level_monsters = levels[0]
             level_items = levels[1] 
-        if overlaid == False:
-            monstersUpdate(character, level_monsters)
+#        if overlaid == False:
+#            monstersUpdate(character, level_monsters)
     elif character.state == 'inventory':
         if answer in string.ascii_lowercase or answer in string.ascii_uppercase:
             item = openDesc(character, answer)

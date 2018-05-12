@@ -3,7 +3,7 @@
 from interface import Interface
 import curses
 from colours import Colour
-from map import settingCheck
+from map import settingCheck, inOut, upDown 
 import string
 from fighting import directFind, playerAttack
 
@@ -25,13 +25,11 @@ def verify(character, direction, level_monsters, level_items):
     x = yx[1]
     attrs = screen.getChar(screen.pad, y, x)
     if attrs[0] == '+':
-        pad1.erase()
-        if character.level == 1:
-            screen.addString(screen.pad, 0, 0, gameMap2)
-            character.level = 2
-        elif character.level == 2:
-            screen.addString(screen.pad, 0, 0, gameMap)
-            character.level = 1
+        inOut(character, direction, level_monsters, level_items) 
+    elif attrs[0] == '>':
+        upDown(character, direction, 'down')
+    elif attrs[0] == '<':
+        upDown(character, direction, 'up')
     return (attrs, levels)
         
 def moveChar(character, direction, level_monsters, level_items):

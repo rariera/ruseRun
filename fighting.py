@@ -23,7 +23,15 @@ def directFind(direction):
         x = screen.location['lcol'] + 15
     return y, x
 
-
+def compass(direction):
+    if direction == 'up':
+        screen.location['lrow'] -= 1
+    elif direction == 'down':
+        screen.location['lrow'] += 1
+    elif direction == 'left':
+        screen.location['lcol'] -= 1
+    elif direction == 'right':
+        screen.location['lcol'] += 1
 
 
 def playerAttack(character, direction, level_monsters):
@@ -79,7 +87,7 @@ def monsterDeath(character, monsterlist, level_monsters):
 
 def charDeath(character):
     screen.addLine("You die...", rainbow.white)
-    sys.exit("YAY!!")
+    sys.exit("You died. Better luck next time!")
     #Maybe print inventory now?
 
 

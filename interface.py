@@ -3,7 +3,7 @@
 import curses
 
 curses.initscr()
-pad1 = curses.newpad(330, 430)
+pad1 = curses.newpad(340, 430)
 window1 = curses.newwin(28, 30, 2, 40)
 window2 = curses.newwin(15, 50, 31, 2)
 window3 = curses.newwin(45, 70, 2, 2)

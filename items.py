@@ -5,7 +5,7 @@ from colours import Colour
 from classes import LevelItems
 
 rainbow = Colour()
-level_items = LevelItems(lvl1 = {}, lvl2 = {})
+level_items = LevelItems(lvl1 = {}, lvl2 = {}, lvl3 = {})
 
 class Item(object): 
     def __init__(self, name, tile, colour, type, letter):
@@ -60,5 +60,7 @@ def itemChoose(floorlist, charlvl):
             level_items.lvl1[i] = [choice(list)]
         elif charlvl == 2:
             level_items.lvl2[i] = [choice(list)]
+        elif charlvl == 3:
+            level_items.lvl3[i] = [choice(list)]
     return level_items
 

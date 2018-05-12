@@ -10,7 +10,7 @@ from fighting import deathCheck, charDeath
 
 rainbow = Colour()
 screen = Interface()
-level_monsters = LevelMonsters(lvl1 = [], lvl2 = [])
+level_monsters = LevelMonsters(lvl1 = [], lvl2 = [], lvl3 = [])
 
 class Monster(object):
     def __init__(self, y_coord, x_coord, name, tile, colour, HP, map):
@@ -99,8 +99,10 @@ def monsVerify(y_coord, x_coord):
 def monstersUpdate(character, level_monsters):
     if character.level == 1:
         level = level_monsters.lvl1
-    else:
+    elif character.level == 2:
         level = level_monsters.lvl2
+    else:
+        level = level_monsters.lvl3
     floorlist = floorList()
     sampleSize = len(floorlist) / 100
     zeroItems = sample(floorlist, int(sampleSize))
@@ -133,8 +135,10 @@ def monsterChoose(floorlist, charlvl, density=500):
     monsterplaces = []
     if charlvl == 1:
         level = level_monsters.lvl1
-    else:
+    elif charlvl == 2:
         level = level_monsters.lvl2
+    else:
+        level = level_monsters.lvl3
     for i in floorlist:
         num = randint(0, density)
         if num == 1:
@@ -148,8 +152,10 @@ def monsterChoose(floorlist, charlvl, density=500):
 def monsterAdd(level_monsters, charlvl):
     if charlvl == 1:
         level = level_monsters.lvl1
-    else:
+    elif charlvl == 2:
         level = level_monsters.lvl2
+    else:
+        level = level_monsters.lvl3
     x = 0
     for monsterlist in level:
         x += 1
