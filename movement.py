@@ -6,6 +6,8 @@ from colours import Colour
 from map import settingCheck, inOut, upDown 
 import string
 from fighting import directFind, playerAttack
+from begend import end
+
 
 rainbow = Colour()
 screen = Interface()
@@ -24,12 +26,6 @@ def verify(character, direction, level_monsters, level_items):
     y = yx[0]
     x = yx[1]
     attrs = screen.getChar(screen.pad, y, x)
-    if attrs[0] == '+':
-        inOut(character, direction, level_monsters, level_items) 
-    elif attrs[0] == '>':
-        upDown(character, direction, 'down')
-    elif attrs[0] == '<':
-        upDown(character, direction, 'up')
     return (attrs, levels)
         
 def moveChar(character, direction, level_monsters, level_items):
@@ -37,6 +33,14 @@ def moveChar(character, direction, level_monsters, level_items):
     attrs = verify(character, direction, level_monsters, level_items)
     item = attrs[0]
     levels = attrs[1]
+    if item[0] == '+':
+        inOut(character, direction, level_monsters, level_items) 
+    elif item[0] == '>':
+        upDown(character, direction, 'down')
+    elif item[0] == '<':
+        upDown(character, direction, 'up') 
+    elif item[0] == '*':
+        end(character)
     if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
         if direction == 'up':
             screen.location['lrow'] -= 1

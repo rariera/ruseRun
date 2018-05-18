@@ -4,7 +4,7 @@ from interface import Interface
 from itemcmds import floorList, itemChoose, itemAdd
 from monsters import monsterChoose, monsterAdd
 from colours import Colour
-from fighting import compass
+from fighting import compass, directFind
 
 screen = Interface()
 rainbow = Colour()
@@ -96,6 +96,9 @@ def settingCheck(character, direction, level_monsters, level_items):
         map = level[0]
         screen.pad.erase()
         screen.addString(screen.pad, 0, 0, map, rainbow.white)
+        screen.padRefresh()
+        square = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14)
+        character.pc = (square[0], square[1])
         lineNum = lineCount(character)
         if character.cleared < character.level:
             levels = mapChange(character)
@@ -114,32 +117,38 @@ def mapChange(character):
     monsterAdd(level_monsters, character.level)
     return level_monsters, level_items
 
-def settingChange(character):
+def settingChange(character, direction):
     level = mapChoose(character)
     map = level[0]
     screen.pad.erase()
     screen.addString(screen.pad, 0, 0, map, rainbow.white)
-    lineNum = lineCount(character)
+    screen.padRefresh()
+    directions = directFind(direction)
+    if direction in ['left, right']:
+        square = screen.getChar(screen.pad, screen.location['lrow'] + 6, directions[1])
+    else:
+        square = screen.getChar(screen.pad, directions[0], screen.location['lcol'] + 14)
+    character.pc = (square[0], square[1])
 
 def upDown(character, direction, lift):
     compass(direction)
     if lift == 'up':
         character.setting += 1
-        settingChange(character)
+        settingChange(character, direction)
     else:
         character.setting -= 1
-        settingChange(character)
+        settingChange(character, direction)
 
 def inOut(character, direction, level_monsters, level_items): 
-    compass(direction)
+#    compass(direction)
     if character.setting == 1:
         #going in
         character.setting = 2
-        settingChange(character)
+        settingChange(character, direction)
     else:
         #going outside
         character.setting = 1
-        settingChange(character)
+        settingChange(character, direction)
 
 
 def mapinit():
