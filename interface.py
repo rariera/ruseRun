@@ -58,6 +58,11 @@ class Interface(object):
         cls.wintest.refresh()
         cls.padRefresh()
 
+    def overlay(cls):
+        cls.wininvent.erase()
+        cls.wininvent.touchwin()
+        cls.wininvent.refresh()   
+
     def getMax(cls, window):
         maxyx = window.getmaxyx()
         return maxyx
