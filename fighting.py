@@ -10,17 +10,17 @@ screen = Interface()
 
 def directFind(direction):
     if direction == 'up':
-        y = screen.location['lrow'] + 5
+        y = screen.location['lrow'] + 7
         x = screen.location['lcol'] + 14
     elif direction == 'down':
-        y = screen.location['lrow'] + 7
+        y = screen.location['lrow'] + 5
         x = screen.location['lcol'] + 14
     elif direction == 'left':
         y = screen.location['lrow'] + 6
-        x = screen.location['lcol'] + 13
+        x = screen.location['lcol'] + 15
     elif direction == 'right':
         y = screen.location['lrow'] + 6
-        x = screen.location['lcol'] + 15
+        x = screen.location['lcol'] + 13
     return y, x
 
 def compass(direction):
@@ -33,9 +33,20 @@ def compass(direction):
     elif direction == 'right':
         screen.location['lcol'] += 1
 
+def reverseDirect(direction):
+    if direction == 'up':
+        rd = 'down'
+    elif direction == 'down':
+        rd = 'up'
+    elif direction == 'left':
+        rd = 'right'
+    elif direction == 'right':
+        rd = 'left'
+    return rd
 
 def playerAttack(character, direction, level_monsters):
-    xy = directFind(direction)
+    rd = reverseDirect(direction) 
+    xy = directFind(rd)
     y = xy[0]
     x = xy[1]
     monster = False

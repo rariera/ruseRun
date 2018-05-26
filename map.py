@@ -124,25 +124,22 @@ def settingChange(character, direction):
     screen.addString(screen.pad, 0, 0, map, rainbow.white)
     screen.padRefresh()
     directions = directFind(direction)
-    if direction in ['left, right']:
-        square = screen.getChar(screen.pad, screen.location['lrow'] + 6, directions[1])
-    else:
-        square = screen.getChar(screen.pad, directions[0], screen.location['lcol'] + 14)
-    character.pc = (square[0], square[1])
 
 def upDown(character, direction, lift):
     compass(direction)
     if lift == 'up':
         character.setting += 1
         settingChange(character, direction)
+        character.pc = ('!', rainbow.white)
     else:
         character.setting -= 1
         settingChange(character, direction)
+        character.pc = ('?', rainbow.white)
 
 def inOut(character, direction, level_monsters, level_items): 
-#    compass(direction)
+    character.pc = ('+', rainbow.white)
     if character.setting == 1:
-        #going in
+        #going inside
         character.setting = 2
         settingChange(character, direction)
     else:
