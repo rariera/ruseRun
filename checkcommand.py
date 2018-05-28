@@ -21,6 +21,11 @@ character = Character(setting = 1, level = 1, cleared = 0, pc = ('"', ord('"') &
 
 screen = Interface()
 
+def inputCheck(input):
+    if input == 'KEY_UP':
+        pass
+        #key up
+        #need arrows, some letters, enter
 
 def checkAnswer(answer, level_monsters, level_items):
     '''decides what to do with the input'''
