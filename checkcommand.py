@@ -17,15 +17,10 @@ character = Character(setting = 1, level = 1, cleared = 0, pc = ('"', ord('"') &
     }, alphanum = list(string.ascii_lowercase + string.ascii_uppercase), equipment = {
         'weapon': False, 
         'armour': False
-        }, HP = 20)
+        }, HP = 50)
 
 screen = Interface()
 
-def overlay():
-    screen.wininvent.erase()
-    screen.wininvent.touchwin()
-    inventory(character)
-    screen.winRefresh(screen.wininvent)
 
 def checkAnswer(answer, level_monsters, level_items):
     '''decides what to do with the input'''
@@ -44,7 +39,8 @@ def checkAnswer(answer, level_monsters, level_items):
         elif answer == 'g':
             levels = pickUp(character, level_monsters, level_items)
         elif answer == 'i':
-            overlay()
+            screen.overlay()
+            inventory(character)
             overlaid = True
         if type(levels) is types.MethodType:
             level_monsters = levels[0]
@@ -63,7 +59,8 @@ def checkAnswer(answer, level_monsters, level_items):
         if answer == 'd':
             putDown(character, character.state, level_items)
             character.state = 'inventory'
-            overlay()
+            screen.overlay()
+            inventory(character)
         elif answer == 'q':
             equipItem(character, character.state)
         elif answer == 'u':
@@ -71,7 +68,8 @@ def checkAnswer(answer, level_monsters, level_items):
         elif answer == '''
 ''':
             character.state = 'inventory'
-            overlay()
+            screen.overlay()
+            inventory(character)
     return level_monsters, level_items
 
 

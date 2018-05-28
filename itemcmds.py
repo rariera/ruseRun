@@ -99,6 +99,7 @@ def inventory(character):
                 line += 1
                 index += 1
             line += 1 
+    screen.winRefresh(screen.wininvent)
 
 def equipItem(character, item):
     if item.type == 'weaponry' and character.equipment['weapon'] != item:
