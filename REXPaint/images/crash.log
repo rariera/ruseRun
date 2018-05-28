@@ -1,0 +1,4 @@
+REXPaint v1.03
+
+I=0000001 Initializing resources
+F=0000006 XResourceMgr() | PhysFS::init() returned error: PHYSFS_addToSearchPath() failed to add base directory search path "C:\Users\rarie\ruseRun\REXPaint\REXPaint.exe C:\Users\rarie\ruseRun\REXPaint\images\", File not found

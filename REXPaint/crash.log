@@ -1,0 +1,127 @@
+REXPaint v1.03
+
+I=0000005 Initializing resources
+I=0000016 Initializing Rogue Engine X
+I=0000016 |   Starting SDL
+I=0000109 |   Importing icon
+I=0000113 |   Confirmed resource initialization
+I=0000113 |   Loading colors
+I=0000113 |   Initializing font type data
+I=0000114 |   Mapping standard ASCII values
+I=0000114 |   Loading fonts
+I=0000120 |   |   [font set: CP437 12x12]
+I=0000141 |   |   ...cp437_12x12.png
+I=0000157 |   |   ...cp437_12x12.png
+I=0000157 |   |   [font set: CP437 14x14]
+I=0000177 |   |   ...cp437_14x14.png
+I=0000206 |   |   ...cp437_14x14.png
+I=0000206 |   |   [font set: CP437 16x16]
+I=0000234 |   |   ...cp437_16x16.png
+I=0000261 |   |   ...cp437_16x16.png
+I=0000261 |   |   [font set: CP437 18x18]
+I=0000292 |   |   ...cp437_18x18.png
+I=0000323 |   |   ...cp437_18x18.png
+I=0000323 |   |   [font set ignored: CP437 20x20] (resolution exceeds desktop)
+I=0000323 |   |   [font set: CP437 8x8]
+I=0000330 |   |   ...cp437_8x8.png
+I=0000340 |   |   ...cp437_8x8.png
+I=0000340 |   |   [font set: CP437 10x10]
+I=0000352 |   |   ...cp437_10x10.png
+I=0000361 |   |   ...cp437_10x10.png
+I=0000361 |   \---DONE
+I=0000391 |   Setting video mode
+I=0000397 |   Initializing audio
+I=0001359 |   Creating console
+I=0001363 \---DONE
+I=0001366 RP::initialize() | Initializing program
+I=0001366 |   Mapping font glyphs
+I=0001366 |   Creating game consoles
+I=0001367 |   CProgram() | Creating CProgram
+I=0001367 |   |   Initializing input domains and commands
+I=0001368 |   |   Loading inline colors
+I=0001368 |   \---DONE
+I=0001368 |   Creating top-level consoles
+I=0001368 |   ...CPaint
+I=0001370 |   Loading palette: Palette
+I=0001376 |   ...CBrowse
+N=0002887 |   CPathButton::init() | Updating old file (xpVerno -1702016): images/quad1.xp
+N=0002898 |   CPathButton::init() | Ignoring protected file: images/quad2.xp
+N=0002898 |   CPathButton::init() | Ignoring protected file: images/quad3.xp
+I=0002917 |   ...CCanvas
+I=0002920 |   ...CPicker
+I=0002922 |   ...CFilename
+I=0002922 |   ...CResize
+I=0002922 |   ...CConfirm
+I=0002922 |   ...COptions
+I=0002922 |   ...CCommands
+I=0002923 |   ...CMessage
+I=0002923 \---DONE
+I=0002924 Starting REX loop
+****************************************************
+*** A Programm Fault occured:
+*** Error code C0000005: ACCESS VIOLATION
+****************************************************
+***   Address: 0040691D
+***     Flags: 00000000
+****************************************************
+*** CallStack:
+****************************************************
+
+  Fault Occured At $ADDRESS:0040691D
+         with 3C 64 68 04 C0 D8 05 05 
+
+***  0 called from $ADDRESS:0040A292
+         with E8 F3 19 00 D0 F5 19 00 E4 F3 19 00 FC E1 52 86 45 02 00 00 
+
+***  1 called from $ADDRESS:0043AF1F
+         with 10 BC 56 02 08 FE 53 02 07 00 00 00 
+
+***  2 called from $ADDRESS:00412750
+         with 08 FE 53 02 88 FA 19 00 
+
+***  3 called from $ADDRESS:0042D95E
+         with 08 FE 53 02 30 F9 53 02 00 00 00 00 
+
+***  4 called from $ADDRESS:00412750
+         with 38 E0 52 86 DC FA 19 00 DC FA 19 00 72 02 5D 00 00 00 00 00 
+
+***  5 called from $ADDRESS:0044C580
+         with 30 F9 53 02 98 C9 22 02 00 00 00 00 
+
+***  6 called from $ADDRESS:00412750
+         with 98 C9 22 02 
+
+***  7 called from $ADDRESS:00414BB0
+         with C0 E7 52 86 D4 FB 19 00 94 26 41 00 20 37 56 02 18 C4 56 02 
+
+***  8 called from $ADDRESS:0040EB18
+         with 03 00 00 00 58 FC 19 00 A0 9D 49 00 58 FC 19 00 00 00 00 00 
+
+***  9 called from $ADDRESS:0040ECE1
+         with C1 FE 19 00 10 C6 22 02 38 14 22 02 00 00 00 00 01 00 00 00 
+
+*** 10 called from $ADDRESS:0044D578
+         with 01 00 00 00 90 FE 19 00 00 00 40 00 52 45 58 50 61 69 6E 74 
+
+*** 11 called from $ADDRESS:00460C55
+         with 01 00 00 00 90 FE 19 00 A1 FE 19 00 00 00 00 00 01 00 00 00 
+
+*** 12 called from $ADDRESS:00460D0E
+         with 00 00 40 00 00 00 00 00 67 36 63 00 01 00 00 00 2C E4 52 86 
+
+*** 13 called from $ADDRESS:0046016D
+         with 00 C0 3E 00 60 84 A6 74 42 2D 4B 5F 
+
+*** 14 called from $ADDRESS:74A68484
+         with 00 C0 3E 00 FA A6 03 84 00 00 00 00 00 00 00 00 00 C0 3E 00 
+
+*** 15 called from $ADDRESS:77E02EC0
+         with FF FF FF FF A6 DE E1 77 
+
+*** 16 called from $ADDRESS:77E02E90
+         with 
+
+*** 17 called from $ADDRESS:00000000
+************************************************************
+
+
