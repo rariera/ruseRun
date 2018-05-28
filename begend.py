@@ -22,10 +22,10 @@ def beginning():
     screen.overlay()
     logo = open('ruseRun.txt', 'r')
     logo = logo.read()
-    screen.addString(screen.wininvent, 2, 2, logo, rainbow.white)
+    screen.addString(screen.wininvent, 1, 2, logo, rainbow.white)
     maxyx = gatMax(screen.wininvent)
     x = maxyx[1]
-    screen.addString(screen.wininvent, 54, int(x/2) - 8, '[PRESS ENTER]', rainbow.green)
+    screen.addString(screen.wininvent, 43, int(x/2) - 8, '[PRESS ENTER]', rainbow.green)
     screen.winRefresh(screen.wininvent)
     enter = False
     while enter == False:
