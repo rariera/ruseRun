@@ -2,19 +2,23 @@
 
 from curses import wrapper, ascii
 import curses
-from checkcommand import checkAnswer
+from checkcommand import checkAnswer, inputCheck
 from map import mapinit
-
+from begend import beginning
 
 def main(stdscr):
     '''The main function which will run throughout the game.'''
     curses.curs_set(0)
     curses.initscr()
     curses.start_color()
+    loop = False
+    beginning()
+    while loop == False:
+        input = stdscr.getkey()
+        inputCheck(input, level_monsters, level_items)
     levels = mapinit()
     level_monsters = levels[0]
     level_items = levels[1]
-    loop = True
     while loop == True:
         answer = stdscr.getkey()    #input a key
         levels = checkAnswer(answer, level_monsters, level_items)

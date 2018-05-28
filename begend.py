@@ -17,3 +17,22 @@ def end(character):
     screen.winRefresh(screen.wininvent)
     time.sleep(10) 
     sys.exit("Yay! You win!")
+
+def beginning():
+    screen.overlay()
+    logo = open('ruseRun.txt', 'r')
+    logo = logo.read()
+    screen.addString(screen.wininvent, 2, 2, logo, rainbow.white)
+    maxyx = gatMax(screen.wininvent)
+    x = maxyx[1]
+    screen.addString(screen.wininvent, 54, int(x/2) - 8, '[PRESS ENTER]', rainbow.green)
+    screen.winRefresh(screen.wininvent)
+    enter = False
+    while enter == False:
+        input = stdscr.getkey()
+        if input == '''
+        ''':
+            enter = True
+    #overlay, bring up logo & [press ENTER], when enter is pressed, finish function
+
+
