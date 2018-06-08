@@ -29,6 +29,7 @@ def inputCheck(input):
 
 def checkAnswer(answer, level_monsters, level_items):
     '''decides what to do with the input'''
+    screen.vline(20, 20)
     item = False
     if character.state == 'game':
         overlaid = False

@@ -6,7 +6,7 @@ curses.initscr()
 pad1 = curses.newpad(340, 430)
 window1 = curses.newwin(28, 30, 2, 40)
 window2 = curses.newwin(15, 50, 31, 2)
-window3 = curses.newwin(45, 70, 2, 2)
+window3 = curses.newwin(48, 124, 2, 2)
 window4 = curses.newwin(45, 100, 2, 75)
 
 class Interface(object):
@@ -26,6 +26,10 @@ class Interface(object):
     
     def addChar(cls, window, y, x, char, colour):
         window.addch(y, x, char, colour)
+
+    def vline(cls, y, x):
+        cls.pad.vline(y, x, ' ', 10)
+        cls.padRefresh()
 
     def addString(cls, window, y, x, string, colour):
         window.addstr(y, x, string, colour)
@@ -54,7 +58,6 @@ class Interface(object):
         cls.winstatus.box()
         cls.winstatus.refresh()
         cls.windialogue.refresh()
-        cls.wintest.box()
         cls.wintest.refresh()
         cls.padRefresh()
 

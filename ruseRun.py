@@ -11,11 +11,11 @@ def main(stdscr):
     curses.curs_set(0)
     curses.initscr()
     curses.start_color()
-    loop = False
+    loop = True
     beginning(stdscr)
-    while loop == False:
-        input = stdscr.getkey()
-        inputCheck(input)
+#    while loop == False:
+#        input = stdscr.getkey()
+#        inputCheck(input)
     levels = mapinit()
     level_monsters = levels[0]
     level_items = levels[1]
