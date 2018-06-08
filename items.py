@@ -41,6 +41,12 @@ itemdict = {
         'armour': [blazer]
         }
 
+def quipChar(character):
+    if character.equipment['weapon'] == 2:
+        character.equipment['weapon'] = branch
+    elif character.equipment['weapon'] == 3:
+        character.equipment['weapon'] = football
+
 def itemChoose(floorlist, charlvl):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []

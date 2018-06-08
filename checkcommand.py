@@ -1,25 +1,16 @@
 #!/usr/bin/env python3
 
 import types
-from classes import Character
 import curses
 from movement import moveChar
 from interface import Interface
 from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem
-import string
 from monsters import monstersUpdate
-
-global character
-character = Character(setting = 1, level = 1, cleared = 0, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = {
-    'weaponry': [],
-    'armour': [],
-    'food': []
-    }, alphanum = list(string.ascii_lowercase + string.ascii_uppercase), equipment = {
-        'weapon': False, 
-        'armour': False
-        }, HP = 50)
+from colours import Colour
+import string
 
 screen = Interface()
+rainbow = Colour()
 
 def inputCheck(input):
     if input == 'KEY_UP':
@@ -27,7 +18,7 @@ def inputCheck(input):
         #key up
         #need arrows, some letters, enter
 
-def checkAnswer(answer, level_monsters, level_items):
+def checkAnswer(character, answer, level_monsters, level_items):
     '''decides what to do with the input'''
     screen.vline(20, 20)
     item = False
@@ -76,6 +67,21 @@ def checkAnswer(answer, level_monsters, level_items):
             character.state = 'inventory'
             screen.overlay()
             inventory(character)
+    stats(character)
     return level_monsters, level_items
 
-
+def stats(character):
+    weapon = character.equipment['weapon']
+    if weapon == False:
+        weapon = 'None'
+    else:
+        weapon = weapon.name
+    armour = character.equipment['armour']
+    if armour == False:
+        armour = 'None'
+    else:
+        armour = armour.name
+    screen.addString(screen.winstatus, 2, 2, character.name, rainbow.yellow)
+    screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon, rainbow.white) 
+    screen.addString(screen.winstatus, 7, 2, 'Armour: ' + armour, rainbow.white) 
+    screen.winRefresh(screen.winstatus)
