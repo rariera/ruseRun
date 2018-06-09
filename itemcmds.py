@@ -40,7 +40,7 @@ def itemAdd(level_items, charlvl):
 def pickUp(character, level_monsters, level_items):
     if character.level == 1:
         level = level_items.lvl1
-    elif charlvl == 2:
+    elif character.level == 2:
         level = level_items.lvl2
     else:
         level = level_items.lvl3
@@ -56,7 +56,7 @@ def pickUp(character, level_monsters, level_items):
         screen.addString(screen.pad, coords[0], coords[1], prev[0], prev[1])
         invent = itemlist[0]
         screen.addString(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
-        if invent in character.inventory[invent.type]:
+        if invent in character.inventory['food']:
             index = character.inventory[invent.type].index(invent)
             letter_item = character.inventory[invent.type][index]
             invent.letter = letter_item.letter
@@ -78,41 +78,52 @@ def putDown(character, item, level_items):
     character.pc = (item.tile, item.colour)
     character.inventory[item.type].remove(item)
     screen.addString(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
-    screen.padRefresh()
     return level_items
 
 def inventory(character):
     screen.addString(screen.wininvent, 0, 0, 'Inventory:', rainbow.blue)
     character.state = 'inventory'
     line = 2
-    index = 0
     for i in character.inventory.keys():
-        if len(character.inventory[i]) > 0:
-            screen.addString(screen.wininvent, line, 0, i.upper(), rainbow.yellow)
-            numbers = {}
-            for n in character.inventory[i]:
-                number = character.inventory[i].count(n)
-                numbers[n] = number
-            line += 1
-            for k in numbers.keys():
-                screen.addString(screen.wininvent, line, 0, k.letter + ' - ' + k.name + '(' + str(numbers[k]) + ')', rainbow.white)
+        if i == 'food':
+            if len(character.inventory[i]) > 0:
+                screen.addString(screen.wininvent, line, 0, i.upper(), rainbow.yellow)
+                numbers = {}
+                for n in character.inventory[i]:
+                    number = character.inventory[i].count(n)
+                    numbers[n] = number
                 line += 1
-                index += 1
-            line += 1 
+                for k in numbers.keys():
+                    screen.addString(screen.wininvent, line, 0, k.letter + ' - ' + k.name + '(' + str(numbers[k]) + ')', rainbow.white)
+                    line += 1
+                line += 1 
+        else:
+            if len(character.inventory[i]) > 0:
+                screen.addString(screen.wininvent, line, 0, i.upper(), rainbow.yellow)
+                line += 1
+                numbers = []
+                for n in character.inventory[i]:
+                    numbers.append(n)
+                    for i in numbers:
+                        screen.addString(screen.wininvent, line, 0, i.letter + ' - ' + i.name, rainbow.white) 
+                        line += 1
     screen.winRefresh(screen.wininvent)
 
 def equipItem(character, item):
     if item.type == 'weaponry' and character.equipment['weapon'] != item:
         character.equipment['weapon'] = item
-        screen.addString(screen.wintest, 3, 2, 'Character equipped ' + character.equipment['weapon'].name, rainbow.yellow)
-        screen.winRefresh(screen.wintest)
 
 def unequipItem(character, item):
     if item.type == 'weaponry' and character.equipment['weapon'] == item:
-        screen.addString(screen.wintest, 3, 2, 'Character is now unarmed', rainbow.yellow)
-        screen.winRefresh(screen.wintest)
         character.equipment['weapon'] = False
-       
+
+def wearItem(character, item):
+    if item.type == 'armour' and character.equipment['armour'] != item:
+        character.equipment['armour'] = item
+
+def takeOff(character, item):
+    if item.type == 'armour' and character.equipment['armour'] == item:
+        character.equipment['armour'] = False
 
 def openDesc(character, input):
     item = False

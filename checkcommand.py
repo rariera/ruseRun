@@ -4,7 +4,7 @@ import types
 import curses
 from movement import moveChar
 from interface import Interface
-from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem
+from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem, wearItem, takeOff
 from monsters import monstersUpdate
 from colours import Colour
 import string
@@ -20,7 +20,6 @@ def inputCheck(input):
 
 def checkAnswer(character, answer, level_monsters, level_items):
     '''decides what to do with the input'''
-    screen.vline(20, 20)
     item = False
     if character.state == 'game':
         overlaid = False
@@ -39,19 +38,28 @@ def checkAnswer(character, answer, level_monsters, level_items):
             screen.overlay()
             inventory(character)
             overlaid = True
+        elif answer == '~':
+            character.HP = 100000
+            character.cheats = True
         if type(levels) is types.MethodType:
             level_monsters = levels[0]
             level_items = levels[1] 
-#        if overlaid == False:
-#            monstersUpdate(character, level_monsters)
+        if overlaid == False and character.cheats == False:
+            monstersUpdate(character, level_monsters)
+            stats(character) 
+        elif overlaid == False:
+            stats(character) 
     elif character.state == 'inventory':
-        if answer in string.ascii_lowercase or answer in string.ascii_uppercase:
+        if answer in string.ascii_lowercase or answer in string.ascii_uppercase and answer not in character.alphanum:
             item = openDesc(character, answer)
-            character.state = item
+            if item:
+                character.state = item
         elif answer == '''
 ''':
             screen.interinit()
             character.state = 'game'
+        else:
+            pass
     else:
         if answer == 'd':
             putDown(character, character.state, level_items)
@@ -62,12 +70,15 @@ def checkAnswer(character, answer, level_monsters, level_items):
             equipItem(character, character.state)
         elif answer == 'u':
             unequipItem(character, character.state)
+        elif answer == 'w':
+            wearItem(character, character.state)
+        elif answer == 't':
+            takeOff(character, character.state)
         elif answer == '''
 ''':
             character.state = 'inventory'
             screen.overlay()
             inventory(character)
-    stats(character)
     return level_monsters, level_items
 
 def stats(character):

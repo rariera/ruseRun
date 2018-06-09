@@ -6,6 +6,7 @@ import sys
 from colours import Colour
 import curses
 from items import quipChar
+import string
 
 screen = Interface()
 rainbow = Colour()
@@ -51,18 +52,23 @@ def getName(stdscr, character):
     name = []
     while enter == False:
         input = stdscr.getkey()
-        if input != '''
+        if input == '''
 ''':
-            name.append(input)
-            screen.addChar(screen.wininvent, 6, cursor, input, rainbow.yellow)
-            screen.winRefresh(screen.wininvent)
-            cursor += 1
-        else:
             name = ''.join(name)
             character.name = name
             screen.winClear(screen.wininvent)
             screen.winRefresh(screen.wininvent)
             enter = True
+        elif input in string.printable:
+            name.append(input)
+            screen.addChar(screen.wininvent, 6, cursor, input, rainbow.yellow)
+            screen.winRefresh(screen.wininvent)
+            cursor += 1
+        else:
+            del name[-1]
+            cursor -= 1
+            screen.addChar(screen.wininvent, 6, cursor, ' ', rainbow.white)
+            screen.winRefresh(screen.wininvent)
 
 def getDifficulty(stdscr, character):
     weapon = character.equipment['weapon']
@@ -117,13 +123,13 @@ def getWeapon(stdscr, character):
        if input == '1':
            character.equipment['weapon'] = False
            enter = True
+       elif input == '3':
+           character.equipment['weapon'] = 3
+           quipChar(character)
+           enter = True
        elif input == '2':
            character.equipment['weapon'] = 2
            quipChar(character)
-           enter = True
-       elif input == '3':
-           character.equipment['weapon'] = 3
-           quipchar(character)
            enter = True
    screen.winClear(screen.wininvent)
    screen.winRefresh(screen.wininvent)
