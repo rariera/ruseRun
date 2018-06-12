@@ -58,6 +58,7 @@ def checkAnswer(character, answer, level_monsters, level_items):
 ''':
             screen.interinit()
             character.state = 'game'
+            stats(character)
         else:
             pass
     else:
@@ -68,12 +69,16 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
         elif answer == 'q':
             equipItem(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == 'u':
             unequipItem(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == 'w':
             wearItem(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == 't':
             takeOff(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == '''
 ''':
             character.state = 'inventory'
@@ -93,6 +98,8 @@ def stats(character):
     else:
         armour = armour.name
     screen.addString(screen.winstatus, 2, 2, character.name, rainbow.yellow)
+    screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
+    screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon, rainbow.white) 
     screen.addString(screen.winstatus, 7, 2, 'Armour: ' + armour, rainbow.white) 
     screen.winRefresh(screen.winstatus)

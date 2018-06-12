@@ -42,9 +42,22 @@ class Football(Weapon):
     def __init__(self, name = 'football', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 5):
         Weapon.__init__(self, name, tile, colour, type, letter, damage)
 
+class Textbook(Weapon):
+    def __init__(self, name = 'maths textbook', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 6):
+        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+
+class Hoe(Weapon):
+    def __init__(self, name = 'hoe', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 8):
+        Weapon.__init__ (self, name, tile, colour, type, letter, damage)
+
+#class Chisel(Weapon):
+#    def __init__(self, name, 
+
 class Blazer(Armour):
     def __init__(self, name = 'blazer', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 3):
         Armour.__init__(self, name, tile, colour, type, letter, hp)
+
+
 
 itemdict = {
         'food': [Orange()],
@@ -55,8 +68,10 @@ itemdict = {
 def quipChar(character):
     if character.equipment['weapon'] == 2:
         item = Branch()
+        itemdict['weapons'].pop(0)
     elif character.equipment['weapon'] == 3:
         item = Football()
+        itemdict['weapons'].pop(1)
     character.equipment['weapon'] = item
     character.inventory['weaponry'].append(item)
     character.equipment['weapon'].letter = character.alphanum[0]
@@ -66,7 +81,7 @@ def itemChoose(floorlist, charlvl):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
     for i in floorlist:
-        num = randint(0, 200)
+        num = randint(0, 400)
         if num == 0:
             itemplaces.append(i)
     for i in itemplaces:
