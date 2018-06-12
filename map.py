@@ -50,7 +50,7 @@ def mapChoose(character):
     elif character.level == 2:
         map = gameMap['lvl2']
         map = map[character.setting - 1]
-        lineNum = 320
+        lineNum = 332
     else:
         map = gameMap['lvl3']
         map = map[character.setting - 1]
@@ -70,25 +70,25 @@ def settingCheck(character, direction, level_monsters, level_items):
         if character.level == 2:
             character.level = 1
             lineNum = lineCount(character)
-            screen.location['lrow'] = lineNum - 1
+            screen.location['lrow'] = lineNum - 5
             screen.location['lcol'] += 20
         elif character.level == 3:
             character.level = 2
             lineNum = lineCount(character)
-            screen.location['lrow'] = lineNum - 1
-            screen.location['lcol'] += 105
+            screen.location['lrow'] = lineNum - 5
+            screen.location['lcol'] += 75
     elif direction == 'down' and screen.location['lrow'] + 6  >= lineNum:
         changing = True
         if character.level == 1:
             character.level = 2
-            screen.location['lrow'] = 1
+            screen.location['lrow'] = -6
             screen.location['lcol'] -= 20
             if character.cleared < 1:
                 character.cleared = 1
         elif character.level == 2:
             character.level = 3
-            screen.location['lrow'] = 1
-            screen.location['lcol'] -= 105
+            screen.location['lrow'] = -6
+            screen.location['lcol'] -= 75
             if character.cleared < 2:
                 character.cleared = 2
     if changing == True:

@@ -176,7 +176,7 @@ def monsterAttack(character, monsterlist):
         screen.addLine("The " + monster.name + " hit you.", rainbow.white)
         hits = monster.HP + randint(0, 2)
         character.HP = character.HP - hits
-        death = deathCheck(character, character.HP)
+        death = deathCheck(character, character.HP, True)
         if death == True:
             charDeath(character)
     

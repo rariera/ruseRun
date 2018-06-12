@@ -54,6 +54,7 @@ def playerAttack(character, direction, level_monsters):
         level = level_monsters.lvl1
     else:
         level = level_monsters.lvl2
+    monsterl = False
     for monsterlist in level:
         if monsterlist[0].y_coord == y and monsterlist[0].x_coord == x:
             monsterl = monsterlist
@@ -71,16 +72,16 @@ def playerAttack(character, direction, level_monsters):
                 damage = 3
             hits = damage + randint(0, 5)
             monster.HP = monster.HP - hits
-            death = deathCheck(monster, monster.HP)
+            death = deathCheck(monster, monster.HP, False)
             if death == True:
                 monsterDeath(character, monsterl, level_monsters)
 
-def deathCheck(being, health):
+def deathCheck(being, health, char):
     death = False
     if health <= 0:
         health = 0
         death = True
-    elif health <= 5:
+    elif health <= 5 and char == True:
         screen.addLine("* * *LOW HITPOINT WARNING* * *", rainbow.red)
     return death
 
