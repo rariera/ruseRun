@@ -34,6 +34,34 @@ class Orange(Food):
     def __init__(self, name='orange', tile='%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 6):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
+class Pizza(Food):
+    def __init__(self, name = 'slice of pizza', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 4):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
+class Ramen(Food):
+    def __init__(self, name = 'ramen', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 3):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
+class Sandwich(Food):
+    def __init__(self, name = 'sandwich', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 7):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
+class Oreos(Food):
+    def __init__(self, name = 'oreos', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 2):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
+class Spaghetti(Food):
+    def __init__(self, name = 'spaghetti bolognaise', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 8):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
+class Chocolate(Food):
+    def __init__(self, name = 'chocolate', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 5):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
+class ButterChicken(Food):
+    def __init__(self, name = 'butter chicken', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 5):
+        Food.__init__(self, name, tile, colour, type, letter, hunger)
+
 class Branch(Weapon):
     def __init__(self, name = 'branch', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 3):
         Weapon.__init__(self, name, tile, colour, type, letter, damage)
@@ -50,19 +78,47 @@ class Hoe(Weapon):
     def __init__(self, name = 'hoe', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 8):
         Weapon.__init__ (self, name, tile, colour, type, letter, damage)
 
-#class Chisel(Weapon):
-#    def __init__(self, name, 
+class Chisel(Weapon):
+    def __init__(self, name = 'chisel', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 7):
+        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+
+class Saw(Weapon):
+    def __init__(self, name = 'saw', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 6):
+        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+
+class Ruler(Weapon):
+    def __init__(self, name = 'ruler', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 5):
+        Weapon.__init__(self, name, tile, colour, type, letter, damage)
 
 class Blazer(Armour):
     def __init__(self, name = 'blazer', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 3):
         Armour.__init__(self, name, tile, colour, type, letter, hp)
 
+class Cardboard(Armour):
+    def __init__(self, name = 'cardboard box', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 4):
+        Armour.__init__(self, name, tile, colour, type, letter, hp)
+
+class SheetMetal(Armour):
+    def __init__(self, name = 'sheet metal', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 7):
+        Armour.__init__(self, name, tile, colour, type, letter, hp)
+
+class ShinPads(Armour):
+    def __init__(self, name = 'shin pads', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 6):
+        Armour.__init__(self, name, tile, colour, type, letter, hp)
+
+class Helmet(Armour):
+    def __init__(self, name = 'bike helmet', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 8):
+        Armour.__init__(self, name, tile, colour, type, letter, hp)
+
+class Jersey(Armour):
+    def __init__(self, name = 'senior jersey', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 9):
+        Armour.__init__(self, name, tile, colour, type, letter, hp)
 
 
 itemdict = {
-        'food': [Orange()],
-        'weapons': [Branch(), Football()],
-        'armour': [Blazer()]
+        'food': [Orange(), Pizza(), Ramen(), Sandwich(), Oreos(), Spaghetti(), ButterChicken(), Chocolate()],
+        'weapons': [Branch(), Football(), Textbook(), Hoe(), Chisel(), Saw(), Ruler()],
+        'armour': [Blazer(), Cardboard(), SheetMetal(), ShinPads(), Helmet(), Jersey()]
         }
 
 def quipChar(character):
