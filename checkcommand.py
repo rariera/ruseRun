@@ -86,7 +86,13 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
     return level_monsters, level_items
 
+
 def stats(character):
+    if character.HP < 50:
+        character.token += 1
+    if character.token >= 2:
+        character.HP += 1
+        character.token = 0
     weapon = character.equipment['weapon']
     if weapon == False:
         weapon = 'None'
@@ -99,7 +105,7 @@ def stats(character):
         armour = armour.name
     screen.addString(screen.winstatus, 1, 2, character.name, rainbow.yellow)
     screen.addString(screen.winstatus, 3, 2, 'HP: ' + '-------------------------', rainbow.white)
-    screen.addNstr(screen.winstatus, 3, 6, '==========================', int(character.HP / 2), rainbow.green)
+    screen.addNstr(screen.winstatus, 3, 6, '=========================', int(character.HP / 2), rainbow.green)
     screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
     screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon, rainbow.white) 
