@@ -4,7 +4,7 @@ import types
 import curses
 from movement import moveChar
 from interface import Interface
-from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem, wearItem, takeOff
+from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem, wearItem, takeOff, eatItem
 from monsters import monstersUpdate
 from colours import Colour
 import string
@@ -82,6 +82,11 @@ def checkAnswer(character, answer, level_monsters, level_items):
         elif answer == 't':
             takeOff(character, character.state)
             item = openDesc(character, character.state)
+        elif answer == 'e':
+            eatItem(character, character.state)
+            character.state = 'inventory'
+            screen.overlay()
+            inventory(character)
         elif answer == '''
 ''':
             character.state = 'inventory'

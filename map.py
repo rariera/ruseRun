@@ -66,7 +66,7 @@ def settingCheck(character, direction, level_monsters, level_items):
     lineNum = lineCount(character)
     changing = False
     levels = 'levels'
-    if direction == 'up' and screen.location['lrow'] + 6 <= 1:
+    if direction == 'up' and screen.location['lrow'] + 6 <= 0:
         changing = True
         if character.level == 2:
             character.level = 1
@@ -93,9 +93,7 @@ def settingCheck(character, direction, level_monsters, level_items):
         map = level[0]
         screen.pad.erase()
         screen.touchWin(screen.pad)
-        screen.addString(screen.pad, 0, 0, '         ', rainbow.white)
         screen.addString(screen.pad, 0, 0, map, rainbow.white)
-        screen.padRefresh()
         square = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14)
         character.pc = (square[0], square[1])
         lineNum = lineCount(character)
@@ -103,13 +101,13 @@ def settingCheck(character, direction, level_monsters, level_items):
     return levels, changing
 
 def beenCheck(character, level_monsters, level_items):
-    item = character.setting + (character.level / 10)
-    if item not in character.been:
-        levels = mapChange(character)
-    else:
+    item = character.level + (character.setting / 10)
+    if item in character.been:
         itemAdd(level_items, character.level, character.setting)
         monsterAdd(level_monsters, character.level, character.setting)
         levels = 'levels'
+    else:
+        levels = mapChange(character)
     screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
     return levels
 
@@ -135,7 +133,7 @@ def settingChange(character, direction):
     screen.padRefresh()
     directions = directFind(direction)
 
-def upDown(character, direction, lift):
+def upDown(character, direction, lift, level_monsters, level_items):
     compass(direction)
     if lift == 'up':
         character.setting += 1

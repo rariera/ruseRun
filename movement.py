@@ -40,9 +40,9 @@ def moveChar(character, direction, level_monsters, level_items):
     if item[0] == '+':
         inOut(character, direction, level_monsters, level_items) 
     elif item[0] == '>':
-        upDown(character, direction, 'down')
+        upDown(character, direction, 'down', level_monsters, level_items)
     elif item[0] == '<':
-        upDown(character, direction, 'up') 
+        upDown(character, direction, 'up', level_monsters, level_items) 
     elif item[0] == '*':
         end(character)
     if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':

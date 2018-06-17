@@ -115,6 +115,13 @@ def takeOff(character, item):
     if item.type == 'armour' and character.equipment['armour'] == item:
         character.equipment['armour'] = False
 
+def eatItem(character, item):
+    character.HP += item.hunger
+    if character.HP >= 50:
+        character.HP = 50
+    character.inventory[item.type].remove(item)
+   
+
 def openDesc(character, input):
     item = False
     for list in character.inventory:

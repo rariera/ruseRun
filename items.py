@@ -32,35 +32,35 @@ class Armour(Item):
         self.hp = hp
 
 class Orange(Food):
-    def __init__(self, name='orange', tile='%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 6):
+    def __init__(self, name='orange', tile='%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 11):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Pizza(Food):
-    def __init__(self, name = 'slice of pizza', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 4):
+    def __init__(self, name = 'slice of pizza', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 9):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Ramen(Food):
-    def __init__(self, name = 'ramen', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 3):
+    def __init__(self, name = 'ramen', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 8):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Sandwich(Food):
-    def __init__(self, name = 'sandwich', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 7):
+    def __init__(self, name = 'sandwich', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 13):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Oreos(Food):
-    def __init__(self, name = 'oreos', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 2):
+    def __init__(self, name = 'oreos', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 7):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Spaghetti(Food):
-    def __init__(self, name = 'spaghetti bolognaise', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 8):
+    def __init__(self, name = 'spaghetti bolognaise', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 14):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Chocolate(Food):
-    def __init__(self, name = 'chocolate', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 5):
+    def __init__(self, name = 'chocolate', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 10):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class ButterChicken(Food):
-    def __init__(self, name = 'butter chicken', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 5):
+    def __init__(self, name = 'butter chicken', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 10):
         Food.__init__(self, name, tile, colour, type, letter, hunger)
 
 class Branch(Weapon):
