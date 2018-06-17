@@ -9,14 +9,14 @@ from classes import Character
 import string
 
 global character
-character = Character(name = 'Steve', difficulty = 1, setting = 1, level = 1, cleared = 0, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = {
+character = Character(name = 'Steve', difficulty = 1, setting = 1, level = 1, pc = ('"', ord('"') & curses.A_COLOR), state = 'game', inventory = {
     'weaponry': [],
     'armour': [],
     'food': []
     }, alphanum = list(string.ascii_lowercase + string.ascii_uppercase), equipment = {
         'weapon': False, 
         'armour': False
-        }, HP = 50, cheats = False, token = 0)
+        }, HP = 50, cheats = False, token = 0, been = [1.1])
 
 
 def main(stdscr):

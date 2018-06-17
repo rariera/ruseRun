@@ -26,6 +26,35 @@ class Goblin(Monster):
     def __init__(self, y_coord, x_coord, name='goblin', tile='g', colour=rainbow.green, HP=5, map=2):
         Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
 
+class Cow(Monster):
+    def __init__(self, y_coord, x_coord, name='cow', tile='c', colour=rainbow.green, HP=7, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Rat(Monster):
+    def __init__(self, y_coord, x_coord, name='rat', tile='r', colour=rainbow.green, HP=9, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Kobold(Monster):
+    def __init__(self, y_coord, x_coord, name='kobold', tile='k', colour=rainbow.yellow, HP=10, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Bull(Monster):
+    def __init__(self, y_coord, x_coord, name='bull', tile='b', colour=rainbow.yellow, HP=13, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Adder(Monster):
+    def __init__(self, y_coord, x_coord, name='adder', tile='a', colour=rainbow.yellow, HP=14, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Chicken(Monster):
+    def __init__(self, y_coord, x_coord, name='giant chicken', tile='C', colour=rainbow.red, HP=30, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Ogre(Monster):
+    def __init__(self, y_coord, x_coord, name='ogre', tile='O', colour=rainbow.red, HP=20, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+
 zeroItems = []
 
 def moveChoose(monsterlist, closest_y, closest_x, character):
@@ -144,7 +173,14 @@ def monsterChoose(floorlist, charlvl, density=500):
         if num == 1:
              monsterplaces.append(i) 
     for x in monsterplaces:
-        monster = Goblin(y_coord=x[0], x_coord=x[1])
+        ranges = [[Goblin(y_coord = x[0], x_coord = x[1]), Cow(y_coord = x[0], x_coord = x[1]), Rat(y_coord = x[0], x_coord = x[1])], [Kobold(y_coord = x[0], x_coord = x[1]), Adder(y_coord = x[0], x_coord = x[1]), Bull(y_coord = x[0], x_coord = x[1])], [Chicken(y_coord = x[0], x_coord = x[1]), Ogre(y_coord = x[0], x_coord = x[1])]]
+        num = randint(0, 151)
+        if num in range(0, 100):
+            monster = choice(ranges[0])
+        elif num in range(100, 150):
+            monster = choice(ranges[1])
+        else:
+            monster = choice(ranges[2])
         monsterlist = [monster]
         level.append(monsterlist)
     return level_monsters

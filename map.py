@@ -100,14 +100,24 @@ def settingCheck(character, direction, level_monsters, level_items):
         square = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14)
         character.pc = (square[0], square[1])
         lineNum = lineCount(character)
-        if character.cleared < character.level:
-            levels = mapChange(character)
-        else:
-            itemAdd(level_items, character.level)
-            monsterAdd(level_monsters, character.level)
-            levels = 'levels'
-        screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
-        return levels
+    item = character.setting + (character.level / 10)
+    levels = beenCheck(item, character, level_monsters, level_items)
+    return levels
+
+def beenCheck(item, character, level_monsters, level_items):
+    if item not in character.been:
+        levels = mapChange(character)
+    else:
+        itemAdd(level_items, character.level)
+        monsterAdd(level_monsters, character.level)
+        levels = 'levels'
+    screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
+    return levels
+
+
+def beenAdd():
+    item = character.setting + (character.level / 10)
+    character.been.append(item)
 
 def mapChange(character):
     floorlist = floorList()
@@ -115,6 +125,7 @@ def mapChange(character):
     itemAdd(level_items, character.level)
     level_monsters = monsterChoose(floorlist, character.level)
     monsterAdd(level_monsters, character.level)
+    beenAdd()
     return level_monsters, level_items
 
 def settingChange(character, direction):
