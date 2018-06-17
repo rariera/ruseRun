@@ -6,11 +6,11 @@ from colours import Colour
 from random import randint, choice, sample
 from itemcmds import floorList
 import string
-from fighting import deathCheck, charDeath
+from fighting import deathCheck, charDeath, levelm
 
 rainbow = Colour()
 screen = Interface()
-level_monsters = LevelMonsters(lvl1 = [], lvl2 = [], lvl3 = [])
+level_monsters = LevelMonsters(lvl1_1 = [], lvl1_2 = [], lvl2_1 = [], lvl2_2 = [], lvl2_3 = [], lvl2_4 = [], lvl3_1 = [], lvl3_2 = [], lvl3_3 = [])
 
 class Monster(object):
     def __init__(self, y_coord, x_coord, name, tile, colour, HP, map):
@@ -126,12 +126,7 @@ def monsVerify(y_coord, x_coord):
 
 
 def monstersUpdate(character, level_monsters):
-    if character.level == 1:
-        level = level_monsters.lvl1
-    elif character.level == 2:
-        level = level_monsters.lvl2
-    else:
-        level = level_monsters.lvl3
+    level = levelm(character.level, character.setting, level_monsters) 
     floorlist = floorList()
     sampleSize = len(floorlist) / 100
     zeroItems = sample(floorlist, int(sampleSize))
@@ -147,27 +142,11 @@ def monstersUpdate(character, level_monsters):
                         closest_item = i
                 moveChoose(monsterlist, closest_item[0], closest_item[1], character)
 
-         
-        #make list of x-coords including items + character (character must be differentiated) 
 
-#make a list of all the '0' things (i.e. character, items, money, etc.)
-#pick character IF character less than 10 squares away in any direction
-#else, pick the closed 0 thing, and make way towards until can't any more
-#if item, then pickup. If character, then attack
-
-#moveMonster, monsPickup, attackPlayer, monsCreate
-
-
-
-def monsterChoose(floorlist, charlvl, density=500):
+def monsterChoose(floorlist, charlvl, charset, density=500):
     '''Chooses which monster will be placed in which spot'''
     monsterplaces = []
-    if charlvl == 1:
-        level = level_monsters.lvl1
-    elif charlvl == 2:
-        level = level_monsters.lvl2
-    else:
-        level = level_monsters.lvl3
+    level = levelm(charlvl, charset, level_monsters) 
     for i in floorlist:
         num = randint(0, density)
         if num == 1:
@@ -185,13 +164,8 @@ def monsterChoose(floorlist, charlvl, density=500):
         level.append(monsterlist)
     return level_monsters
 
-def monsterAdd(level_monsters, charlvl):
-    if charlvl == 1:
-        level = level_monsters.lvl1
-    elif charlvl == 2:
-        level = level_monsters.lvl2
-    else:
-        level = level_monsters.lvl3
+def monsterAdd(level_monsters, charlvl, charset):
+    level = levelm(charlvl, charset, level_monsters)
     x = 0
     for monsterlist in level:
         x += 1

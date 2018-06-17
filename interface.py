@@ -74,5 +74,8 @@ class Interface(object):
         maxyx = window.getmaxyx()
         return maxyx
 
+    def touchWin(cls, window):
+        window.touchwin()
+
     def winClear(cls, window):
         window.erase()

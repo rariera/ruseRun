@@ -3,9 +3,10 @@
 from random import randint, choice
 from colours import Colour
 from classes import LevelItems
+from fighting import leveli
 
 rainbow = Colour()
-level_items = LevelItems(lvl1 = {}, lvl2 = {}, lvl3 = {})
+level_items = LevelItems(lvl1_1 = {}, lvl1_2 = {}, lvl2_1 = {}, lvl2_2 = {}, lvl2_3 = {}, lvl2_4 = {}, lvl3_1 = {}, lvl3_2 = {}, lvl3_3 = {})
 
 class Item(object): 
     def __init__(self, name, tile, colour, type, letter):
@@ -133,7 +134,7 @@ def quipChar(character):
     character.equipment['weapon'].letter = character.alphanum[0]
     character.alphanum.remove(character.equipment['weapon'].letter)
 
-def itemChoose(floorlist, charlvl):
+def itemChoose(floorlist, charlvl, charset):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
     for i in floorlist:
@@ -148,11 +149,7 @@ def itemChoose(floorlist, charlvl):
             list = itemdict['weapons']
         elif listnum == 2:
             list = itemdict['armour']
-        if charlvl == 1:
-            level_items.lvl1[i] = [choice(list)]
-        elif charlvl == 2:
-            level_items.lvl2[i] = [choice(list)]
-        elif charlvl == 3:
-            level_items.lvl3[i] = [choice(list)]
+        level = leveli(charlvl, charset, level_items)
+        level[i] = [choice(list)]
     return level_items
 

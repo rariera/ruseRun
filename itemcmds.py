@@ -3,6 +3,7 @@
 from colours import Colour
 from interface import Interface
 from items import itemChoose
+from fighting import leveli
 
 rainbow = Colour()
 screen = Interface()
@@ -19,14 +20,9 @@ def floorList():
                 floorlist.append(loc)
     return floorlist
 
-def itemAdd(level_items, charlvl):
+def itemAdd(level_items, charlvl, charset):
     '''Adds the items on the current level to the pad'''
-    if charlvl == 1:
-        level = level_items.lvl1
-    elif charlvl == 2:
-        level = level_items.lvl2
-    else:
-        level = level_items.lvl3
+    level = leveli(charlvl, charset, level_items) 
     for key in level.keys():
         choicelist = level[key]
         item = choicelist[0]
@@ -38,12 +34,7 @@ def itemAdd(level_items, charlvl):
     screen.padRefresh()
 
 def pickUp(character, level_monsters, level_items):
-    if character.level == 1:
-        level = level_items.lvl1
-    elif character.level == 2:
-        level = level_items.lvl2
-    else:
-        level = level_items.lvl3
+    level = leveli(character.level, character.setting, level_items)
     item = 0
     coords = 0
     for i in level.keys():
@@ -68,16 +59,13 @@ def pickUp(character, level_monsters, level_items):
         return level_monsters, level_items
 
 def putDown(character, item, level_items):
-    if character.level == 1:
-        level = level_items.lvl1
-    elif chararacter.level == 2:
-        level = level_items.lvl2
-    else:
-        level = level_items.lvl3
+    level = leveli(character.level, character.setting, level_items)
     level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
     character.pc = (item.tile, item.colour)
     character.inventory[item.type].remove(item)
     screen.addString(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
+    if character.equipment['armour'] == item:
+        character.equipment['armour'] = False
     return level_items
 
 def inventory(character):

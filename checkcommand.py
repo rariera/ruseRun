@@ -39,8 +39,11 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
             overlaid = True
         elif answer == '~':
-            character.HP = 100000
-            character.cheats = True
+            if character.cheats == True:
+                character.cheats = False
+            else:
+                character.HP = 100000
+                character.cheats = True
         if type(levels) is types.MethodType:
             level_monsters = levels[0]
             level_items = levels[1] 
