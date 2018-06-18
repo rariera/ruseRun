@@ -108,7 +108,6 @@ def beenCheck(character, level_monsters, level_items):
         levels = 'levels'
     else:
         levels = mapChange(character)
-    screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
     return levels
 
 
@@ -125,11 +124,13 @@ def mapChange(character):
     beenAdd(character)
     return level_monsters, level_items
 
-def settingChange(character, direction):
+def settingChange(character, direction, level_monsters, level_items):
     level = mapChoose(character)
     map = level[0]
     screen.pad.erase()
     screen.addString(screen.pad, 0, 0, map, rainbow.white)
+    itemAdd(level_items, character.level, character.setting)
+    monsterAdd(level_monsters, character.level, character.setting)
     screen.padRefresh()
     directions = directFind(direction)
 
@@ -137,12 +138,12 @@ def upDown(character, direction, lift, level_monsters, level_items):
     compass(direction)
     if lift == 'up':
         character.setting += 1
+        settingChange(character, direction, level_monsters, level_items)
         beenCheck(character, level_monsters, level_items)
-        settingChange(character, direction)
         character.pc = ('!', rainbow.white)
     else:
         character.setting -= 1
-        settingChange(character, direction)
+        settingChange(character, direction, level_monsters, level_items)
         character.pc = ('?', rainbow.white)
 
 def inOut(character, direction, level_monsters, level_items): 
@@ -150,12 +151,12 @@ def inOut(character, direction, level_monsters, level_items):
     if character.setting == 1:
         #going inside
         character.setting = 2
+        settingChange(character, direction, level_monsters, level_items)
         beenCheck(character, level_monsters, level_items)
-        settingChange(character, direction)
     else:
         #going outside
         character.setting = 1
-        settingChange(character, direction)
+        settingChange(character, direction, level_monsters, level_items)
 
 
 def mapinit():
