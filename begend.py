@@ -7,6 +7,7 @@ from colours import Colour
 import curses
 from items import quipChar
 import string
+from tutorial import tutorial
 
 screen = Interface()
 rainbow = Colour()
@@ -134,10 +135,59 @@ def getWeapon(stdscr, character):
    screen.winClear(screen.wininvent)
    screen.winRefresh(screen.wininvent)
 
-def getTutorial(stdscr, character):
-    pass
+def menu(stdscr, character):
+    screen.addString(screen.wininvent, 2, 2, 'Welcome, ' + character.name + ".", rainbow.yellow)
+    choices = ["Begin Game", "Tutorial", 'Game Rules']
+    index = 4
+    enter = False
+    screen.addString(screen.wininvent, 4, 4, "Begin Game", rainbow.white_bg)
+    screen.addString(screen.wininvent, 5, 4, "Tutorial", rainbow.white)
+    screen.addString(screen.wininvent, 6, 4, "Game Rules", rainbow.white)
+    screen.addString(screen.wininvent, 4, 24, "Move using the arrow keys.", rainbow.yellow)
+    screen.addString(screen.wininvent, 5, 20, "Choose an option by pressing ENTER", rainbow.yellow)
+    screen.winRefresh(screen.wininvent)
+    while enter == False:
+        input = stdscr.getkey()
+        if input == 'KEY_DOWN' and index < 6:
+            index += 1
+            screen.addString(screen.wininvent, index, 4, choices[index - 4], rainbow.white_bg)
+            screen.addString(screen.wininvent, index - 1, 4, choices[index - 5], rainbow.white)
+        elif input == 'KEY_UP' and index > 4:
+            index -= 1
+            screen.addString(screen.wininvent, index, 4, choices[index - 4], rainbow.white_bg)
+            screen.addString(screen.wininvent, index + 1, 4, choices[index - 3], rainbow.white)
+        elif input == '''
+''':
+            if index == 4:
+                enter = True
+            elif index == 5:
+                enter = True
+                screen.winClear(screen.wininvent)
+                screen.winRefresh(screen.wininvent)
+                tutorial(stdscr, character)
+            else:
+                enter = True
+                screen.winClear(screen.wininvent)
+                screen.winRefresh(screen.wininvent)
+                gameRules(stdscr, character)
+        screen.winRefresh(screen.wininvent)
+
+def gameRules(stdscr, character):
+    screen.addString(screen.wininvent, 2, 2, "FILLER - need to do something here", rainbow.yellow_bg)
+    screen.addString(screen.wininvent, 3, 2, "Press ENTER to exit.", rainbow.white)
+    screen.winRefresh(screen.wininvent)
+    enter = False
+    while enter == False:
+        input = stdscr.getkey()
+        if input == """
+""":
+            enter = True
+    screen.winClear(screen.wininvent)
+    screen.winRefresh(screen.wininvent)
+    menu(stdscr, character)
 
 def initalisation(stdscr, character):
     getName(stdscr, character)
+    menu(stdscr, character)
     getWeapon(stdscr, character)
     getDifficulty(stdscr, character)
