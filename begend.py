@@ -112,9 +112,9 @@ def getDifficulty(stdscr, character):
 def getWeapon(stdscr, character):
    screen.addString(screen.wininvent, 2, 2, "Welcome, " + character.name + ". Please choose a weapon.", rainbow.yellow)
    screen.addString(screen.wininvent, 3, 4, "+-----------------+", rainbow.white)
-   screen.addString(screen.wininvent, 4, 4, "+ 1 - unarmed     +", rainbow.white)
-   screen.addString(screen.wininvent, 5, 4, "+ 2 - branch      +", rainbow.white)
-   screen.addString(screen.wininvent, 6, 4, "+ 3 - soccer ball +", rainbow.white)
+   screen.addString(screen.wininvent, 4, 4, "| 1 - unarmed     |", rainbow.white)
+   screen.addString(screen.wininvent, 5, 4, "| 2 - branch      |", rainbow.white)
+   screen.addString(screen.wininvent, 6, 4, "| 3 - soccer ball |", rainbow.white)
    screen.addString(screen.wininvent, 7, 4, "+-----------------+", rainbow.white)
    screen.winRefresh(screen.wininvent)
    enter = False
@@ -133,6 +133,9 @@ def getWeapon(stdscr, character):
            enter = True
    screen.winClear(screen.wininvent)
    screen.winRefresh(screen.wininvent)
+
+def getTutorial(stdscr, character):
+    pass
 
 def initalisation(stdscr, character):
     getName(stdscr, character)
