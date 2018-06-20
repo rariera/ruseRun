@@ -4,7 +4,7 @@ import curses
 
 curses.initscr()
 pad1 = curses.newpad(340, 430)
-window1 = curses.newwin(28, 30, 2, 40)
+window1 = curses.newwin(28, 39, 2, 68)
 window2 = curses.newwin(15, 50, 31, 2)
 window3 = curses.newwin(48, 124, 2, 2)
 window4 = curses.newwin(45, 100, 2, 75)
@@ -13,10 +13,10 @@ class Interface(object):
     location = {
     'lrow': 60,
     'lcol': 2,
-    'pminrow': 5,
+    'pminrow': 3,
     'pmincol': 5,
     'pmaxrow': 30,
-    'pmaxcol': 30
+    'pmaxcol': 58
     }
     pad = pad1
     winstatus = window1
@@ -52,13 +52,17 @@ class Interface(object):
         cls.windialogue.scroll(1)
         cls.windialogue.refresh()
 
+    def addNstr(cls, window, y, x, line, n, colour):
+        window.addnstr(y, x, line, n, colour)
+        window.refresh()
+
     def interinit(cls):
         cls.wininvent.erase()
         cls.wininvent.refresh()
         cls.winstatus.box()
         cls.winstatus.refresh()
         cls.windialogue.refresh()
-        cls.wintest.refresh()
+#        cls.wintest.refresh()
         cls.padRefresh()
 
     def overlay(cls):
@@ -69,6 +73,9 @@ class Interface(object):
     def getMax(cls, window):
         maxyx = window.getmaxyx()
         return maxyx
+
+    def touchWin(cls, window):
+        window.touchwin()
 
     def winClear(cls, window):
         window.erase()

@@ -23,6 +23,54 @@ def directFind(direction):
         x = screen.location['lcol'] + 13
     return y, x
 
+def levelm(character_level, character_setting, level_monsters):
+    if character_level == 1:
+        if character_setting == 1:
+            level = level_monsters.lvl1_1
+        else:
+            level = level_monsters.lvl1_2
+    elif character_level == 2:
+        if character_setting == 1:
+            level = level_monsters.lvl2_1
+        elif character_setting == 2:
+            level = level_monsters.lvl2_2
+        elif character_setting == 3:
+            level = level_monsters.lvl2_3
+        else:
+            level = level_monsters.lvl2_4
+    elif character_level == 3:
+        if character_setting == 1:
+            level = level_monsters.lvl3_1
+        elif character_setting == 2:
+            level = level_monsters.lvl3_2
+        else:
+            level = level_monsters.lvl3_3
+    return level
+
+def leveli(character_level, character_setting, level_items):
+    if character_level == 1:
+        if character_setting == 1:
+            level = level_items.lvl1_1
+        else:
+            level = level_items.lvl1_2
+    elif character_level == 2:
+        if character_setting == 1:
+            level = level_items.lvl2_1
+        elif character_setting == 2:
+            level = level_items.lvl2_2
+        elif character_setting == 3:
+            level = level_items.lvl2_3
+        else:
+            level = level_items.lvl2_4
+    else:
+        if character_setting == 1:
+            level = level_items.lvl3_1
+        elif character_setting == 2:
+            level = level_items.lvl3_2
+        else:
+            level = level_items.lvl3_3
+    return level
+
 def compass(direction):
     if direction == 'up':
         screen.location['lrow'] -= 1
@@ -50,10 +98,7 @@ def playerAttack(character, direction, level_monsters):
     y = xy[0]
     x = xy[1]
     monster = False
-    if character.level == 1:
-        level = level_monsters.lvl1
-    else:
-        level = level_monsters.lvl2
+    level = levelm(character.level, character.setting, level_monsters)
     monsterl = False
     for monsterlist in level:
         if monsterlist[0].y_coord == y and monsterlist[0].x_coord == x:
@@ -90,10 +135,7 @@ def monsterDeath(character, monsterlist, level_monsters):
     prev = monsterlist[1]
     screen.addLine("You kill the " + monster.name, rainbow.red)
     screen.addChar(screen.pad, monster.y_coord, monster.x_coord, prev[0], prev[1])
-    if character.level == 1:
-        level = level_monsters.lvl1
-    else:
-        level = level_monsters.lvl2
+    level = levelm(character.level, character.setting, level_monsters)
     level.remove(monsterlist)
     #print that monster is dead
 

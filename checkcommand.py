@@ -4,7 +4,7 @@ import types
 import curses
 from movement import moveChar
 from interface import Interface
-from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem, wearItem, takeOff
+from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem, wearItem, takeOff, eatItem
 from monsters import monstersUpdate
 from colours import Colour
 import string
@@ -39,8 +39,11 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
             overlaid = True
         elif answer == '~':
-            character.HP = 100000
-            character.cheats = True
+            if character.cheats == True:
+                character.cheats = False
+            else:
+                character.HP = 100000
+                character.cheats = True
         if type(levels) is types.MethodType:
             level_monsters = levels[0]
             level_items = levels[1] 
@@ -58,6 +61,7 @@ def checkAnswer(character, answer, level_monsters, level_items):
 ''':
             screen.interinit()
             character.state = 'game'
+            stats(character)
         else:
             pass
     else:
@@ -68,12 +72,21 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
         elif answer == 'q':
             equipItem(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == 'u':
             unequipItem(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == 'w':
             wearItem(character, character.state)
+            item = openDesc(character, character.state)
         elif answer == 't':
             takeOff(character, character.state)
+            item = openDesc(character, character.state)
+        elif answer == 'e':
+            eatItem(character, character.state)
+            character.state = 'inventory'
+            screen.overlay()
+            inventory(character)
         elif answer == '''
 ''':
             character.state = 'inventory'
@@ -81,7 +94,13 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
     return level_monsters, level_items
 
+
 def stats(character):
+    if character.HP < 50:
+        character.token += 1
+    if character.token >= 2:
+        character.HP += 1
+        character.token = 0
     weapon = character.equipment['weapon']
     if weapon == False:
         weapon = 'None'
@@ -92,7 +111,16 @@ def stats(character):
         armour = 'None'
     else:
         armour = armour.name
-    screen.addString(screen.winstatus, 2, 2, character.name, rainbow.yellow)
+    if character.setting == 1:
+        floor = '| Floor: 1 OUT'
+    else:
+        floor = '| Floor: ' + str(character.setting - 1) + ' IN  '
+    screen.addString(screen.winstatus, 1, 2, character.name, rainbow.yellow)
+    screen.addString(screen.winstatus, 3, 2, 'HP: ' + '-------------------------', rainbow.white)
+    screen.addNstr(screen.winstatus, 3, 6, '=========================', int(character.HP / 2), rainbow.green)
+    screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
+    screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
+    screen.addString(screen.winstatus, 4, 11, floor, rainbow.white)
     screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon, rainbow.white) 
     screen.addString(screen.winstatus, 7, 2, 'Armour: ' + armour, rainbow.white) 
     screen.winRefresh(screen.winstatus)

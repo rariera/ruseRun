@@ -65,7 +65,8 @@ def lineCount(character):
 def settingCheck(character, direction, level_monsters, level_items):
     lineNum = lineCount(character)
     changing = False
-    if direction == 'up' and screen.location['lrow'] + 6 <= 1:
+    levels = 'levels'
+    if direction == 'up' and screen.location['lrow'] + 6 <= 0:
         changing = True
         if character.level == 2:
             character.level = 1
@@ -83,57 +84,66 @@ def settingCheck(character, direction, level_monsters, level_items):
             character.level = 2
             screen.location['lrow'] = -6
             screen.location['lcol'] -= 20
-            if character.cleared < 1:
-                character.cleared = 1
         elif character.level == 2:
             character.level = 3
             screen.location['lrow'] = -6
             screen.location['lcol'] -= 75
-            if character.cleared < 2:
-                character.cleared = 2
     if changing == True:
         level = mapChoose(character)
         map = level[0]
         screen.pad.erase()
+        screen.touchWin(screen.pad)
         screen.addString(screen.pad, 0, 0, map, rainbow.white)
-        screen.padRefresh()
         square = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14)
         character.pc = (square[0], square[1])
         lineNum = lineCount(character)
-        if character.cleared < character.level:
-            levels = mapChange(character)
-        else:
-            itemAdd(level_items, character.level)
-            monsterAdd(level_monsters, character.level)
-            levels = 'levels'
-        screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
-        return levels
+        levels = beenCheck(character, level_monsters, level_items)
+    return levels, changing
+
+def beenCheck(character, level_monsters, level_items):
+    item = character.level + (character.setting / 10)
+    if item in character.been:
+        itemAdd(level_items, character.level, character.setting)
+        monsterAdd(level_monsters, character.level, character.setting)
+        levels = 'levels'
+    else:
+        levels = mapChange(character)
+    return levels
+
+
+def beenAdd(character):
+    item = character.setting + (character.level / 10)
+    character.been.append(item)
 
 def mapChange(character):
     floorlist = floorList()
-    level_items = itemChoose(floorlist, character.level)
-    itemAdd(level_items, character.level)
-    level_monsters = monsterChoose(floorlist, character.level)
-    monsterAdd(level_monsters, character.level)
+    level_items = itemChoose(floorlist, character.level, character.setting)
+    itemAdd(level_items, character.level, character.setting)
+    level_monsters = monsterChoose(floorlist, character.level, character.setting)
+    monsterAdd(level_monsters, character.level, character.setting)
+    beenAdd(character)
     return level_monsters, level_items
 
-def settingChange(character, direction):
+def settingChange(character, direction, level_monsters, level_items):
     level = mapChoose(character)
     map = level[0]
     screen.pad.erase()
     screen.addString(screen.pad, 0, 0, map, rainbow.white)
+    itemAdd(level_items, character.level, character.setting)
+    monsterAdd(level_monsters, character.level, character.setting)
     screen.padRefresh()
     directions = directFind(direction)
 
-def upDown(character, direction, lift):
+def upDown(character, direction, lift, level_monsters, level_items):
     compass(direction)
     if lift == 'up':
         character.setting += 1
-        settingChange(character, direction)
+        settingChange(character, direction, level_monsters, level_items)
+        beenCheck(character, level_monsters, level_items)
         character.pc = ('!', rainbow.white)
     else:
         character.setting -= 1
-        settingChange(character, direction)
+        settingChange(character, direction, level_monsters, level_items)
         character.pc = ('?', rainbow.white)
 
 def inOut(character, direction, level_monsters, level_items): 
@@ -141,11 +151,12 @@ def inOut(character, direction, level_monsters, level_items):
     if character.setting == 1:
         #going inside
         character.setting = 2
-        settingChange(character, direction)
+        settingChange(character, direction, level_monsters, level_items)
+        beenCheck(character, level_monsters, level_items)
     else:
         #going outside
         character.setting = 1
-        settingChange(character, direction)
+        settingChange(character, direction, level_monsters, level_items)
 
 
 def mapinit():
@@ -154,10 +165,10 @@ def mapinit():
     screen.addString(screen.pad, 0, 0, farm1, rainbow.white)
     screen.padRefresh()
     floorlist = floorList()
-    level_items = itemChoose(floorlist, 1)
-    itemAdd(level_items, 1)
-    level_monsters = monsterChoose(floorlist, 1)
-    monsterAdd(level_monsters, 1)
+    level_items = itemChoose(floorlist, 1, 1)
+    itemAdd(level_items, 1, 1)
+    level_monsters = monsterChoose(floorlist, 1, 1)
+    monsterAdd(level_monsters, 1, 1)
     screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
     screen.padRefresh()
     return level_monsters, level_items

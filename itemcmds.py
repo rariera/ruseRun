@@ -3,6 +3,7 @@
 from colours import Colour
 from interface import Interface
 from items import itemChoose
+from fighting import leveli
 
 rainbow = Colour()
 screen = Interface()
@@ -19,14 +20,9 @@ def floorList():
                 floorlist.append(loc)
     return floorlist
 
-def itemAdd(level_items, charlvl):
+def itemAdd(level_items, charlvl, charset):
     '''Adds the items on the current level to the pad'''
-    if charlvl == 1:
-        level = level_items.lvl1
-    elif charlvl == 2:
-        level = level_items.lvl2
-    else:
-        level = level_items.lvl3
+    level = leveli(charlvl, charset, level_items) 
     for key in level.keys():
         choicelist = level[key]
         item = choicelist[0]
@@ -38,12 +34,7 @@ def itemAdd(level_items, charlvl):
     screen.padRefresh()
 
 def pickUp(character, level_monsters, level_items):
-    if character.level == 1:
-        level = level_items.lvl1
-    elif character.level == 2:
-        level = level_items.lvl2
-    else:
-        level = level_items.lvl3
+    level = leveli(character.level, character.setting, level_items)
     item = 0
     coords = 0
     for i in level.keys():
@@ -68,22 +59,21 @@ def pickUp(character, level_monsters, level_items):
         return level_monsters, level_items
 
 def putDown(character, item, level_items):
-    if character.level == 1:
-        level = level_items.lvl1
-    elif chararacter.level == 2:
-        level = level_items.lvl2
-    else:
-        level = level_items.lvl3
+    level = leveli(character.level, character.setting, level_items)
     level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
     character.pc = (item.tile, item.colour)
     character.inventory[item.type].remove(item)
     screen.addString(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg)
+    if character.equipment['armour'] == item:
+        character.equipment['armour'] = False
     return level_items
 
 def inventory(character):
     screen.addString(screen.wininvent, 0, 0, 'Inventory:', rainbow.blue)
     character.state = 'inventory'
     line = 2
+    screen.addString(screen.wintest, 0, 0, str(character.inventory), rainbow.green)
+    screen.winRefresh(screen.wintest)
     for i in character.inventory.keys():
         if i == 'food':
             if len(character.inventory[i]) > 0:
@@ -104,9 +94,9 @@ def inventory(character):
                 numbers = []
                 for n in character.inventory[i]:
                     numbers.append(n)
-                    for i in numbers:
-                        screen.addString(screen.wininvent, line, 0, i.letter + ' - ' + i.name, rainbow.white) 
-                        line += 1
+                for i in numbers:
+                    screen.addString(screen.wininvent, line, 0, i.letter + ' - ' + i.name, rainbow.white) 
+                    line += 1
     screen.winRefresh(screen.wininvent)
 
 def equipItem(character, item):
@@ -118,12 +108,19 @@ def unequipItem(character, item):
         character.equipment['weapon'] = False
 
 def wearItem(character, item):
-    if item.type == 'armour' and character.equipment['armour'] != item:
+    if item.type == 'armour':
         character.equipment['armour'] = item
 
 def takeOff(character, item):
     if item.type == 'armour' and character.equipment['armour'] == item:
         character.equipment['armour'] = False
+
+def eatItem(character, item):
+    character.HP += item.hunger
+    if character.HP >= 50:
+        character.HP = 50
+    character.inventory[item.type].remove(item)
+   
 
 def openDesc(character, input):
     item = False
@@ -132,24 +129,49 @@ def openDesc(character, input):
             if i.letter == input:
                 item = i
                 continue
-    if item:
-        screen.winClear(screen.wininvent)
-        screen.addString(screen.wininvent, 0, 0, item.name.upper(), rainbow.blue)
-        maxyx = screen.getMax(screen.wininvent)
-        if item.type == 'food':
-            string = '(e)at'
-        elif item.type == 'weaponry':
-            if character.equipment['weapon'] == item:
-                string = '(u)nequip'
-            else:
-                string = 'e(q)uip'
-        elif item.type == 'armour':
-            if character.equipment['armour'] == item:
-                string = '(t)ake off'
-            else:
-                string = '(w)ear'
-        screen.addString(screen.wininvent, maxyx[0] - 2, 2, 'You can ' + string + ' or (d)rop this item.', rainbow.white)
-        screen.winRefresh(screen.wininvent)
+    if item == False:
+        item = input
+    screen.winClear(screen.wininvent)
+    screen.addString(screen.wininvent, 2, 1, item.name.upper(), rainbow.blue) 
+    screen.addString(screen.wininvent, 2, len(item.name) + 4, item.tile, item.colour)
+    screen.addString(screen.wininvent, 4, 1, 'Type: ' + item.type.capitalize(), rainbow.white)
+    if item.type == 'food':
+        screen.addString(screen.wininvent, 5, 1, 'HP: ' + str(item.hunger), rainbow.white)
+    elif item.type == 'armour':
+        screen.addString(screen.wininvent, 5, 1, 'Defence: ' + str(item.hp), rainbow.white)
+    else:
+        screen.addString(screen.wininvent, 5, 1, 'ATK: ' + str(item.damage), rainbow.white)
+    maxyx = screen.getMax(screen.wininvent)
+    if item.type == 'food':
+        line = '(e)at'
+    elif item.type == 'weaponry':
+        if character.equipment['weapon'] == item:
+            line = '(u)nequip'
+        else:
+            line = 'e(q)uip'
+    elif item.type == 'armour':
+        if character.equipment['armour'] == item:
+            line = '(t)ake off'
+        else:
+            line = '(w)ear'
+    screen.addString(screen.wininvent, maxyx[0] - 2, 2, 'You can ' + line + ' or (d)rop this item.', rainbow.white)
+    screen.winRefresh(screen.wininvent)
+#    elif str(input) != input:
+#        screen.winClear(screen.wininvent)
+#        screen.addString(screen.wininvent, 0, 0, input.name.upper(), rainbow.blue)
+#        maxyx = screen.getMax(screen.wininvent)
+#        if input.type == 'food':
+#            line = '(e)at'
+#        elif input.type == 'weaponry':
+#            if character.equipment['weapon'] == input:
+#                line = '(u)nequip'
+#            else:
+#                line = 'e(q)uip'
+#        elif input.type == 'armour':
+#            if character.equipment['armour'] == input:
+#                line = '(t)ake off'
+##            else:
+#                line = '(w)ear'
+#        screen.addString(screen.wininvent, maxyx[0] - 2, 2, 'You can ' + line + ' or (d)rop this item.', rainbow.white)
+#        screen.winRefresh(screen.wininvent)       
     return item
-
-

@@ -6,11 +6,11 @@ from colours import Colour
 from random import randint, choice, sample
 from itemcmds import floorList
 import string
-from fighting import deathCheck, charDeath
+from fighting import deathCheck, charDeath, levelm
 
 rainbow = Colour()
 screen = Interface()
-level_monsters = LevelMonsters(lvl1 = [], lvl2 = [], lvl3 = [])
+level_monsters = LevelMonsters(lvl1_1 = [], lvl1_2 = [], lvl2_1 = [], lvl2_2 = [], lvl2_3 = [], lvl2_4 = [], lvl3_1 = [], lvl3_2 = [], lvl3_3 = [])
 
 class Monster(object):
     def __init__(self, y_coord, x_coord, name, tile, colour, HP, map):
@@ -25,6 +25,35 @@ class Monster(object):
 class Goblin(Monster):
     def __init__(self, y_coord, x_coord, name='goblin', tile='g', colour=rainbow.green, HP=5, map=2):
         Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Cow(Monster):
+    def __init__(self, y_coord, x_coord, name='cow', tile='c', colour=rainbow.green, HP=7, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Rat(Monster):
+    def __init__(self, y_coord, x_coord, name='rat', tile='r', colour=rainbow.green, HP=9, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Kobold(Monster):
+    def __init__(self, y_coord, x_coord, name='kobold', tile='k', colour=rainbow.yellow, HP=10, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Bull(Monster):
+    def __init__(self, y_coord, x_coord, name='bull', tile='b', colour=rainbow.yellow, HP=13, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Adder(Monster):
+    def __init__(self, y_coord, x_coord, name='adder', tile='a', colour=rainbow.yellow, HP=14, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Chicken(Monster):
+    def __init__(self, y_coord, x_coord, name='giant chicken', tile='C', colour=rainbow.red, HP=30, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
+class Ogre(Monster):
+    def __init__(self, y_coord, x_coord, name='ogre', tile='O', colour=rainbow.red, HP=20, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+
 
 zeroItems = []
 
@@ -97,12 +126,7 @@ def monsVerify(y_coord, x_coord):
 
 
 def monstersUpdate(character, level_monsters):
-    if character.level == 1:
-        level = level_monsters.lvl1
-    elif character.level == 2:
-        level = level_monsters.lvl2
-    else:
-        level = level_monsters.lvl3
+    level = levelm(character.level, character.setting, level_monsters) 
     floorlist = floorList()
     sampleSize = len(floorlist) / 100
     zeroItems = sample(floorlist, int(sampleSize))
@@ -118,44 +142,30 @@ def monstersUpdate(character, level_monsters):
                         closest_item = i
                 moveChoose(monsterlist, closest_item[0], closest_item[1], character)
 
-         
-        #make list of x-coords including items + character (character must be differentiated) 
 
-#make a list of all the '0' things (i.e. character, items, money, etc.)
-#pick character IF character less than 10 squares away in any direction
-#else, pick the closed 0 thing, and make way towards until can't any more
-#if item, then pickup. If character, then attack
-
-#moveMonster, monsPickup, attackPlayer, monsCreate
-
-
-
-def monsterChoose(floorlist, charlvl, density=500):
+def monsterChoose(floorlist, charlvl, charset, density=500):
     '''Chooses which monster will be placed in which spot'''
     monsterplaces = []
-    if charlvl == 1:
-        level = level_monsters.lvl1
-    elif charlvl == 2:
-        level = level_monsters.lvl2
-    else:
-        level = level_monsters.lvl3
+    level = levelm(charlvl, charset, level_monsters) 
     for i in floorlist:
         num = randint(0, density)
         if num == 1:
              monsterplaces.append(i) 
     for x in monsterplaces:
-        monster = Goblin(y_coord=x[0], x_coord=x[1])
+        ranges = [[Goblin(y_coord = x[0], x_coord = x[1]), Cow(y_coord = x[0], x_coord = x[1]), Rat(y_coord = x[0], x_coord = x[1])], [Kobold(y_coord = x[0], x_coord = x[1]), Adder(y_coord = x[0], x_coord = x[1]), Bull(y_coord = x[0], x_coord = x[1])], [Chicken(y_coord = x[0], x_coord = x[1]), Ogre(y_coord = x[0], x_coord = x[1])]]
+        num = randint(0, 151)
+        if num in range(0, 100):
+            monster = choice(ranges[0])
+        elif num in range(100, 150):
+            monster = choice(ranges[1])
+        else:
+            monster = choice(ranges[2])
         monsterlist = [monster]
         level.append(monsterlist)
     return level_monsters
 
-def monsterAdd(level_monsters, charlvl):
-    if charlvl == 1:
-        level = level_monsters.lvl1
-    elif charlvl == 2:
-        level = level_monsters.lvl2
-    else:
-        level = level_monsters.lvl3
+def monsterAdd(level_monsters, charlvl, charset):
+    level = levelm(charlvl, charset, level_monsters)
     x = 0
     for monsterlist in level:
         x += 1

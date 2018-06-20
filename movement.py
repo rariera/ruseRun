@@ -40,9 +40,9 @@ def moveChar(character, direction, level_monsters, level_items):
     if item[0] == '+':
         inOut(character, direction, level_monsters, level_items) 
     elif item[0] == '>':
-        upDown(character, direction, 'down')
+        upDown(character, direction, 'down', level_monsters, level_items)
     elif item[0] == '<':
-        upDown(character, direction, 'up') 
+        upDown(character, direction, 'up', level_monsters, level_items) 
     elif item[0] == '*':
         end(character)
     if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
@@ -61,8 +61,6 @@ def moveChar(character, direction, level_monsters, level_items):
         character.pc = item
     elif item[0] in string.ascii_letters:
         playerAttack(character, direction, level_monsters)
-    screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
-    screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.padRefresh()
     screen.winRefresh(screen.winstatus)
     return levels
