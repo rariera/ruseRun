@@ -156,22 +156,4 @@ def openDesc(character, input):
             line = '(w)ear'
     screen.addString(screen.wininvent, maxyx[0] - 2, 2, 'You can ' + line + ' or (d)rop this item.', rainbow.white)
     screen.winRefresh(screen.wininvent)
-#    elif str(input) != input:
-#        screen.winClear(screen.wininvent)
-#        screen.addString(screen.wininvent, 0, 0, input.name.upper(), rainbow.blue)
-#        maxyx = screen.getMax(screen.wininvent)
-#        if input.type == 'food':
-#            line = '(e)at'
-#        elif input.type == 'weaponry':
-#            if character.equipment['weapon'] == input:
-#                line = '(u)nequip'
-#            else:
-#                line = 'e(q)uip'
-#        elif input.type == 'armour':
-#            if character.equipment['armour'] == input:
-#                line = '(t)ake off'
-##            else:
-#                line = '(w)ear'
-#        screen.addString(screen.wininvent, maxyx[0] - 2, 2, 'You can ' + line + ' or (d)rop this item.', rainbow.white)
-#        screen.winRefresh(screen.wininvent)       
     return item

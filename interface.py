@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 import curses
+import textwrap
 
 curses.initscr()
 pad1 = curses.newpad(340, 430)
 window1 = curses.newwin(28, 39, 2, 68)
-window2 = curses.newwin(15, 50, 31, 2)
+window2 = curses.newwin(15, 70, 31, 2)
 window3 = curses.newwin(48, 124, 2, 2)
 window4 = curses.newwin(45, 100, 2, 75)
 
@@ -48,8 +49,15 @@ class Interface(object):
     
     def addLine(cls, line, colour):
         cls.windialogue.scrollok(True)
-        cls.windialogue.addstr(12, 2, line, colour)
-        cls.windialogue.scroll(1)
+        textwrap.wrap(line, 69)
+        cls.windialogue.addstr(12, 0, line, colour)
+        empty = False
+        while empty == False:
+            ch = cls.getChar(cls.windialogue, 12, 2)
+            if ch[0] == ' ':
+                empty = True
+            else:
+                cls.windialogue.scroll(1)
         cls.windialogue.refresh()
 
     def addNstr(cls, window, y, x, line, n, colour):
@@ -62,7 +70,6 @@ class Interface(object):
         cls.winstatus.box()
         cls.winstatus.refresh()
         cls.windialogue.refresh()
-#        cls.wintest.refresh()
         cls.padRefresh()
 
     def overlay(cls):

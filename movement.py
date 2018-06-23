@@ -6,7 +6,6 @@ from colours import Colour
 from map import settingCheck, inOut, upDown 
 import string
 from fighting import directFind, playerAttack, compass, reverseDirect
-from begend import end
 
 
 rainbow = Colour()
@@ -32,7 +31,7 @@ def verify(character, direction, level_monsters, level_items):
     attrs = screen.getChar(screen.pad, y, x)
     return (attrs, levels)
         
-def moveChar(character, direction, level_monsters, level_items):
+def moveChar(character, direction, level_monsters = False, level_items = False):
     '''Moves the character symbol in accordance with the direction.'''
     attrs = verify(character, direction, level_monsters, level_items)
     item = attrs[0]
@@ -44,7 +43,7 @@ def moveChar(character, direction, level_monsters, level_items):
     elif item[0] == '<':
         upDown(character, direction, 'up', level_monsters, level_items) 
     elif item[0] == '*':
-        end(character)
+        character.state = 'end'
     if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
         compass(direction)
         if item[0] not in ['>', '<', '+']:

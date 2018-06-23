@@ -134,7 +134,7 @@ def settingChange(character, direction, level_monsters, level_items):
     screen.padRefresh()
     directions = directFind(direction)
 
-def upDown(character, direction, lift, level_monsters, level_items):
+def upDown(character, direction, lift, level_monsters = False, level_items = False):
     compass(direction)
     if lift == 'up':
         character.setting += 1
@@ -157,6 +157,7 @@ def inOut(character, direction, level_monsters, level_items):
         #going outside
         character.setting = 1
         settingChange(character, direction, level_monsters, level_items)
+
 
 
 def mapinit():

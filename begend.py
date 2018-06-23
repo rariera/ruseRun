@@ -142,9 +142,10 @@ def menu(stdscr, character):
     enter = False
     screen.addString(screen.wininvent, 4, 4, "Begin Game", rainbow.white_bg)
     screen.addString(screen.wininvent, 5, 4, "Tutorial", rainbow.white)
+    screen.addString(screen.wininvent, 5, 14, "[CAUTION]", rainbow.yellow)
     screen.addString(screen.wininvent, 6, 4, "Game Rules", rainbow.white)
-    screen.addString(screen.wininvent, 4, 24, "Move using the arrow keys.", rainbow.yellow)
-    screen.addString(screen.wininvent, 5, 20, "Choose an option by pressing ENTER", rainbow.yellow)
+    screen.addString(screen.wininvent, 7, 24, "Move using the arrow keys.", rainbow.yellow)
+    screen.addString(screen.wininvent, 8, 20, "Choose an option by pressing ENTER", rainbow.yellow)
     screen.winRefresh(screen.wininvent)
     while enter == False:
         input = stdscr.getkey()
@@ -159,12 +160,17 @@ def menu(stdscr, character):
         elif input == '''
 ''':
             if index == 4:
+                screen.winClear(screen.wininvent)
+                getWeapon(stdscr, character)
+                getDifficulty(stdscr, character)
                 enter = True
             elif index == 5:
                 enter = True
                 screen.winClear(screen.wininvent)
                 screen.winRefresh(screen.wininvent)
                 tutorial(stdscr, character)
+                screen.winClear(screen.wininvent)
+                menu(stdscr, character)
             else:
                 enter = True
                 screen.winClear(screen.wininvent)
@@ -189,5 +195,4 @@ def gameRules(stdscr, character):
 def initalisation(stdscr, character):
     getName(stdscr, character)
     menu(stdscr, character)
-    getWeapon(stdscr, character)
-    getDifficulty(stdscr, character)
+
