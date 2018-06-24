@@ -14,6 +14,7 @@ class Colour(object):
         curses.init_pair(6, curses.COLOR_CYAN, curses.COLOR_BLACK)
         curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLACK)
         curses.init_pair(8, curses.COLOR_BLACK, curses.COLOR_YELLOW)
+        curses.init_pair(9, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
         self.red = curses.color_pair(1)
         self.green = curses.color_pair(2)
@@ -23,4 +24,5 @@ class Colour(object):
         self.cyan = curses.color_pair(6)
         self.white = curses.color_pair(7)
         self.yellow_bg = curses.color_pair(8)
+        self.white_bg = curses.color_pair(9)
  

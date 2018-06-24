@@ -63,7 +63,7 @@ def checkAnswer(character, answer, level_monsters, level_items):
             character.state = 'game'
             stats(character)
         else:
-            pass
+            pass 
     else:
         if answer == 'd':
             putDown(character, character.state, level_items)
