@@ -136,6 +136,7 @@ def settingChange(character, direction, level_monsters, level_items):
 
 def upDown(character, direction, lift, level_monsters = False, level_items = False):
     compass(direction)
+    compass(direction)
     if lift == 'up':
         character.setting += 1
         settingChange(character, direction, level_monsters, level_items)
@@ -147,6 +148,7 @@ def upDown(character, direction, lift, level_monsters = False, level_items = Fal
         character.pc = ('?', rainbow.white)
 
 def inOut(character, direction, level_monsters, level_items): 
+    compass(direction)
     character.pc = ('+', rainbow.white)
     if character.setting == 1:
         #going inside

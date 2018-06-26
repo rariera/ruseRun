@@ -52,10 +52,8 @@ def moveChar(character, direction, level_monsters = False, level_items = False):
             x = yx[1]
             screen.addChar(screen.pad, y, x, character.pc[0], character.pc[1])
         else:
-            if item[0] == '<':
-                item = ('>', rainbow.white)
-            elif item[0] == '>':
-                item = ('<', rainbow.white)
+            screen.padRefresh()
+            item = screen.getChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14)
         screen.addChar(screen.pad, screen.location['lrow'] + 6, screen.location['lcol'] + 14, '@', rainbow.yellow_bg) 
         character.pc = item
     elif item[0] in string.ascii_letters:
