@@ -3,7 +3,7 @@
 
 
 class Character(object):
-    def __init__(self, name, difficulty, setting, level, pc, state, inventory, alphanum, equipment, HP, cheats, token, been):
+    def __init__(self, name, difficulty, setting, level, pc, state, inventory, alphanum, equipment, HP, cheats, token, been, turns):
         self.name = name
         self.difficulty = difficulty
         self.setting = setting
@@ -17,6 +17,7 @@ class Character(object):
         self.cheats = cheats
         self.token = token
         self.been = been
+        self.turns = turns
 
 class LevelItems(object):
     def __init__(self, lvl1_1, lvl1_2, lvl2_1, lvl2_2, lvl2_3, lvl2_4, lvl3_1, lvl3_2, lvl3_3):

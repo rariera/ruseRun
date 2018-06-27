@@ -49,9 +49,11 @@ def checkAnswer(character, answer, level_monsters, level_items):
             level_items = levels[1] 
         if overlaid == False and character.cheats == False:
             monstersUpdate(character, level_monsters)
-            stats(character) 
+            stats(character)
+            turnCount(character)
         elif overlaid == False:
             stats(character) 
+            turnCount(character)
     elif character.state == 'inventory':
         if answer in string.ascii_lowercase or answer in string.ascii_uppercase and answer not in character.alphanum:
             item = openDesc(character, answer)
@@ -94,6 +96,11 @@ def checkAnswer(character, answer, level_monsters, level_items):
             inventory(character)
     return level_monsters, level_items
 
+def turnCount(character):
+    character.turns += 1
+    if character.turns >= 1800:
+        #screen.addLine('END!!!!!!! (>1000 turns)', rainbow.red)
+        pass
 
 def stats(character):
     if character.HP < 50:

@@ -112,7 +112,7 @@ def beenCheck(character, level_monsters, level_items):
 
 
 def beenAdd(character):
-    item = character.setting + (character.level / 10)
+    item = character.level + (character.setting / 10)
     character.been.append(item)
 
 def mapChange(character):

@@ -16,7 +16,7 @@ character = Character(name = 'Steve', difficulty = 1, setting = 1, level = 1, pc
     }, alphanum = list(string.ascii_lowercase + string.ascii_uppercase), equipment = {
         'weapon': False, 
         'armour': False
-        }, HP = 50, cheats = False, token = 0, been = [1.1])
+        }, HP = 50, cheats = False, token = 0, been = [1.1], turns = 0)
 
 
 def main(stdscr):
