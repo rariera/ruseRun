@@ -30,6 +30,7 @@ All you know is you must get out - before the janitor locks the front gates!'''
 
 def main(stdscr):
     '''The main function which will run throughout the game.'''
+    character.alphanum.remove('i')
     curses.curs_set(0)
     curses.initscr()
     curses.start_color()

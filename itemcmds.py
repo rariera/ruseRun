@@ -72,8 +72,6 @@ def inventory(character):
     screen.addString(screen.wininvent, 0, 0, 'Inventory:', rainbow.blue)
     character.state = 'inventory'
     line = 2
-    screen.addString(screen.wintest, 0, 0, str(character.inventory), rainbow.green)
-    screen.winRefresh(screen.wintest)
     for i in character.inventory.keys():
         if i == 'food':
             if len(character.inventory[i]) > 0:

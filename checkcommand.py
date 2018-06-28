@@ -98,12 +98,12 @@ def checkAnswer(character, answer, level_monsters, level_items):
 
 def turnCount(character):
     character.turns += 1
-    if character.turns >= 1800:
+    if character.turns >= 2000:
         #screen.addLine('END!!!!!!! (>1000 turns)', rainbow.red)
         pass
 
 def stats(character):
-    if character.HP < 50:
+    if character.HP < 100:
         character.token += 1
     if character.token >= 2:
         character.HP += 1
