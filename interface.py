@@ -5,8 +5,8 @@ import textwrap
 
 curses.initscr()
 pad1 = curses.newpad(340, 430)
-window1 = curses.newwin(28, 39, 2, 68)
-window2 = curses.newwin(15, 70, 31, 2)
+window1 = curses.newwin(28, 45, 2, 68)
+window2 = curses.newwin(14, 70, 33, 2)
 window3 = curses.newwin(48, 124, 2, 2)
 window4 = curses.newwin(45, 100, 2, 75)
 
@@ -49,11 +49,11 @@ class Interface(object):
     
     def addLine(cls, line, colour):
         cls.windialogue.scrollok(True)
-        textwrap.wrap(line, 69)
-        cls.windialogue.addstr(12, 0, line, colour)
+        textwrap.wrap(line, 67)
+        cls.windialogue.addstr(11, 1, line, colour)
         empty = False
         while empty == False:
-            ch = cls.getChar(cls.windialogue, 12, 2)
+            ch = cls.getChar(cls.windialogue, 11, 1)
             if ch[0] == ' ':
                 empty = True
             else:
@@ -67,7 +67,7 @@ class Interface(object):
     def interinit(cls):
         cls.wininvent.erase()
         cls.wininvent.refresh()
-        cls.winstatus.box()
+        cls.winstatus.border('|', '|', '-', '-', '+', '+', '+', '+')
         cls.winstatus.refresh()
         cls.windialogue.refresh()
         cls.padRefresh()

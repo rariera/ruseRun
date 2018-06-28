@@ -3,7 +3,7 @@
 from interface import Interface
 from classes import LevelMonsters
 from colours import Colour
-from random import randint, choice, sample
+from random import randint, choice, sample, uniform
 from itemcmds import floorList
 import string
 from fighting import deathCheck, charDeath, levelm
@@ -13,46 +13,47 @@ screen = Interface()
 level_monsters = LevelMonsters(lvl1_1 = [], lvl1_2 = [], lvl2_1 = [], lvl2_2 = [], lvl2_3 = [], lvl2_4 = [], lvl3_1 = [], lvl3_2 = [], lvl3_3 = [])
 
 class Monster(object):
-    def __init__(self, y_coord, x_coord, name, tile, colour, HP, map):
+    def __init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map):
         self.y_coord = y_coord
         self.x_coord = x_coord
         self.name = name
         self.tile = tile
         self.colour = colour
         self.HP = HP
+        self.attack = attack
         self.map = map
 
 class Goblin(Monster):
-    def __init__(self, y_coord, x_coord, name='goblin', tile='g', colour=rainbow.green, HP=5, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='goblin', tile='g', colour=rainbow.green, HP=5, attack = 6, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Cow(Monster):
-    def __init__(self, y_coord, x_coord, name='cow', tile='c', colour=rainbow.green, HP=7, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='cow', tile='c', colour=rainbow.green, HP=20, attack = 2, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Rat(Monster):
-    def __init__(self, y_coord, x_coord, name='rat', tile='r', colour=rainbow.green, HP=9, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='rat', tile='r', colour=rainbow.green, HP=9, attack = 8, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Kobold(Monster):
-    def __init__(self, y_coord, x_coord, name='kobold', tile='k', colour=rainbow.yellow, HP=10, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='kobold', tile='k', colour=rainbow.yellow, HP=10, attack = 5, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Bull(Monster):
-    def __init__(self, y_coord, x_coord, name='bull', tile='b', colour=rainbow.yellow, HP=13, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='bull', tile='b', colour=rainbow.yellow, HP=13, attack = 10,  map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Adder(Monster):
-    def __init__(self, y_coord, x_coord, name='adder', tile='a', colour=rainbow.yellow, HP=14, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='adder', tile='a', colour=rainbow.yellow, HP=14, attack = 12, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Chicken(Monster):
-    def __init__(self, y_coord, x_coord, name='giant chicken', tile='C', colour=rainbow.red, HP=30, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='giant chicken', tile='C', colour=rainbow.red, HP=30, attack = 10, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 class Ogre(Monster):
-    def __init__(self, y_coord, x_coord, name='ogre', tile='O', colour=rainbow.red, HP=20, map=2):
-        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, map)
+    def __init__(self, y_coord, x_coord, name='ogre', tile='O', colour=rainbow.red, HP=20, attack = 19, map=2):
+        Monster.__init__(self, y_coord, x_coord, name, tile, colour, HP, attack, map)
 
 
 zeroItems = []
@@ -177,14 +178,22 @@ def monsterAdd(level_monsters, charlvl, charset):
 
 def monsterAttack(character, monsterlist):
     monster = monsterlist[0]
-    num = randint(0, 3)
-    if num == 0:
+    num = randint(0, 10)
+    if num in [0, 1]:
         screen.addLine("The " + monster.name + " missed you.", rainbow.white)
-    elif num == 1: 
+    elif num in [2, 5]: 
         screen.addLine("The " + monster.name + " hit you but did no damage", rainbow.white)
     else:
         screen.addLine("The " + monster.name + " hit you.", rainbow.white)
-        hits = monster.HP + randint(0, 2)
+        hits = monster.attack + randint(-2, 2)
+        if character.difficulty == 1:
+            num = 0.8
+        elif character.difficulty == 2:
+            num = 1
+        elif character.difficulty == 3:
+            num = 1.2
+        else:
+            num = uniform(0, 1.5)
         character.HP = character.HP - hits
         death = deathCheck(character, character.HP, True)
         if death == True:

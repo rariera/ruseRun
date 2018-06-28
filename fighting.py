@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from random import randint
+from random import randint, uniform
 from interface import Interface
 from colours import Colour
 import sys
@@ -114,8 +114,17 @@ def playerAttack(character, direction, level_monsters):
             if character.equipment['weapon']:
                 damage = character.equipment['weapon'].damage
             else:
-                damage = 3
-            hits = damage + randint(0, 5)
+                damage = 0
+            hits = damage + randint(0, 6)
+            if character.difficulty == 1:
+                num = 1.2
+            elif character.difficulty == 2:
+                num = 1
+            elif character.difficulty == 3:
+                num = 0.8
+            else:
+                num = uniform(0, 1.5)
+            hits = int(hits * num)
             monster.HP = monster.HP - hits
             death = deathCheck(monster, monster.HP, False)
             if death == True:

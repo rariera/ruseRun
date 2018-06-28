@@ -123,8 +123,10 @@ def stats(character):
     else:
         floor = '| Floor: ' + str(character.setting - 1) + ' IN  '
     screen.addString(screen.winstatus, 1, 2, character.name, rainbow.yellow)
-    screen.addString(screen.winstatus, 3, 2, 'HP: ' + '-------------------------', rainbow.white)
-    screen.addNstr(screen.winstatus, 3, 6, '=========================', int(character.HP / 2), rainbow.green)
+    screen.addString(screen.winstatus, 3, 2, 'HP: ' , rainbow.white)
+    screen.addString(screen.winstatus, 3, 14, '-------------------------', rainbow.white)
+    screen.addString(screen.winstatus, 3, 6, str(character.HP) + '/100', rainbow.white)
+    screen.addNstr(screen.winstatus, 3, 14, '=========================', int(character.HP / 4), rainbow.green)
     screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
     screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.addString(screen.winstatus, 4, 11, floor, rainbow.white)
