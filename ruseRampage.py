@@ -2,7 +2,7 @@
 
 from curses import wrapper, ascii
 import curses
-from checkcommand import checkAnswer, inputCheck, stats
+from checkcommand import checkAnswer, stats
 from map import mapinit
 from begend import beginning, initalisation, end
 from classes import Character
@@ -44,7 +44,7 @@ def main(stdscr):
     screen.addLine(string, rainbow.yellow)
     while loop == True:
         if character.state == 'end':
-            end(character, True)
+            end(character)
         answer = stdscr.getkey()    #input a key
         levels = checkAnswer(character, answer, level_monsters, level_items)
         level_monsters = levels[0]

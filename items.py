@@ -3,7 +3,6 @@
 from random import randint, choice
 from colours import Colour
 from classes import LevelItems
-from fighting import leveli
 
 rainbow = Colour()
 level_items = LevelItems(lvl1_1 = {}, lvl1_2 = {}, lvl2_1 = {}, lvl2_2 = {}, lvl2_3 = {}, lvl2_4 = {}, lvl3_1 = {}, lvl3_2 = {}, lvl3_3 = {})
@@ -133,6 +132,30 @@ def quipChar(character):
     character.inventory['weaponry'].append(item)
     character.equipment['weapon'].letter = character.alphanum[0]
     character.alphanum.remove(character.equipment['weapon'].letter)
+
+def leveli(character_level, character_setting, level_items):
+    if character_level == 1:
+        if character_setting == 1:
+            level = level_items.lvl1_1
+        else:
+            level = level_items.lvl1_2
+    elif character_level == 2:
+        if character_setting == 1:
+            level = level_items.lvl2_1
+        elif character_setting == 2:
+            level = level_items.lvl2_2
+        elif character_setting == 3:
+            level = level_items.lvl2_3
+        else:
+            level = level_items.lvl2_4
+    else:
+        if character_setting == 1:
+            level = level_items.lvl3_1
+        elif character_setting == 2:
+            level = level_items.lvl3_2
+        else:
+            level = level_items.lvl3_3
+    return level
 
 def itemChoose(floorlist, charlvl, charset):
     '''Chooses which item will be placed in which spot'''

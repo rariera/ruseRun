@@ -4,7 +4,7 @@ from interface import Interface
 from itemcmds import floorList, itemChoose, itemAdd
 from monsters import monsterChoose, monsterAdd
 from colours import Colour
-from fighting import compass, directFind
+from finder import directFind, compass
 
 screen = Interface()
 rainbow = Colour()
@@ -134,6 +134,21 @@ def settingChange(character, direction, level_monsters, level_items):
     screen.padRefresh()
     directions = directFind(direction)
 
+def teleport(character, direction, level_monsters, level_items):
+    if character.level == 2:
+        #going into quad (level = 3, set = 2)
+        character.level = 3
+        character.setting = 2
+        settingChange(character, direction, level_monsters, level_items)  
+        beenCheck(character, level_monsters, level_items)
+        screen.location['lrow'] = -6
+        num = screen.location['lcol'] - 350
+        screen.location['lcol'] = 224 + num         
+    else:
+        #going into oval, (lvl = 2, set = 4)
+        character.level = 2
+        character.setting = 4
+
 def upDown(character, direction, lift, level_monsters = False, level_items = False):
     compass(direction)
     compass(direction)
@@ -159,8 +174,6 @@ def inOut(character, direction, level_monsters, level_items):
         #going outside
         character.setting = 1
         settingChange(character, direction, level_monsters, level_items)
-
-
 
 def mapinit():
     '''Initialises the map and interface'''

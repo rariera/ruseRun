@@ -3,9 +3,8 @@
 from interface import Interface
 from colours import Colour
 from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipItem, wearItem, takeOff, eatItem
-from monsters import monstersUpdate
 from movement import moveChar
-from fighting import reverseDirect, directFind, compass
+from finder import reverseDirect, directFind, compass
 from items import Spaghetti, Helmet, Saw
 import string
 
