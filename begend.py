@@ -30,7 +30,7 @@ def end(character, outcome):
 
 def beginning(stdscr):
     screen.overlay()
-    logo = open('ruseRun2.txt', 'r')
+    logo = open('ruseRampage2.txt', 'r')
     logo = logo.read()
     screen.addString(screen.wininvent, 1, 2, logo, rainbow.white)
     maxyx = screen.getMax(screen.wininvent)
