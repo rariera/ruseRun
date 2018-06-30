@@ -46,7 +46,7 @@ def moveChar(character, direction, level_monsters = False, level_items = False):
     elif item[0] == '*':
         character.state = 'end'
     elif item[0] == ',':
-        teleport(character, level_monsters, level_items)
+        teleport(character, direction, level_monsters, level_items)
     if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
         compass(direction)
         if item[0] not in ['>', '<', '+']:

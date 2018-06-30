@@ -180,10 +180,10 @@ def menu(stdscr, character):
                 enter = True
                 screen.winClear(screen.wininvent)
                 screen.winRefresh(screen.wininvent)
-                gameRules(stdscr, character)
+                gameRules(character, stdscr)
         screen.winRefresh(screen.wininvent)
 
-def gameRules(stdscr, character):
+def gameRules(character, stdscr=False):
     rules = open('rules.txt', 'r')
     rules = rules.read()
     screen.addString(screen.wininvent, 0, 0, rules, rainbow.white)
@@ -192,15 +192,16 @@ def gameRules(stdscr, character):
     screen.addString(screen.wininvent, 10, 13, '(', rainbow.blue)
     screen.addString(screen.wininvent, 26, 2, "Press ENTER to exit.", rainbow.white)
     screen.winRefresh(screen.wininvent)
-    enter = False
-    while enter == False:
-        input = stdscr.getkey()
-        if input == """
+    if stdscr:
+        enter = False
+        while enter == False:
+            input = stdscr.getkey()
+            if input == """
 """:
-            enter = True
-    screen.winClear(screen.wininvent)
-    screen.winRefresh(screen.wininvent)
-    menu(stdscr, character)
+                enter = True
+        screen.winClear(screen.wininvent)
+        screen.winRefresh(screen.wininvent)
+        menu(stdscr, character)
 
 def initalisation(stdscr, character):
     getName(stdscr, character)
