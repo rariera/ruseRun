@@ -194,7 +194,7 @@ def monsterAttack(character, monsterlist):
             num = uniform(0, 1.5)
         hits = int(hits * num)
         character.HP = character.HP - hits
-        death = deathCheck(character, character.HP, True)
+        death = deathCheck(character.HP, True)
         if death == True:
             charDeath(character)
     

@@ -126,11 +126,11 @@ def playerAttack(character, direction, level_monsters):
                 num = uniform(0, 1.5)
             hits = int(hits * num)
             monster.HP = monster.HP - hits
-            death = deathCheck(monster, monster.HP, False)
+            death = deathCheck(monster.HP, False)
             if death == True:
                 monsterDeath(character, monsterl, level_monsters)
 
-def deathCheck(being, health, char):
+def deathCheck(health, char):
     death = False
     if health <= 0:
         health = 0
