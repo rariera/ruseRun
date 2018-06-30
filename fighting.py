@@ -150,7 +150,7 @@ def monsterDeath(character, monsterlist, level_monsters):
 
 def charDeath(character):
     screen.addLine("You die...", rainbow.white)
-    sys.exit("You died. Better luck next time!")
+    end(character, False) 
     #Maybe print inventory now?
 
 

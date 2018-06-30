@@ -44,7 +44,7 @@ def main(stdscr):
     screen.addLine(string, rainbow.yellow)
     while loop == True:
         if character.state == 'end':
-            end(character)
+            end(character, True)
         answer = stdscr.getkey()    #input a key
         levels = checkAnswer(character, answer, level_monsters, level_items)
         level_monsters = levels[0]

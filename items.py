@@ -138,7 +138,7 @@ def itemChoose(floorlist, charlvl, charset):
     '''Chooses which item will be placed in which spot'''
     itemplaces = []
     for i in floorlist:
-        num = randint(0, 400)
+        num = randint(0, 450)
         if num == 0:
             itemplaces.append(i)
     for i in itemplaces:

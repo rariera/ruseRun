@@ -12,15 +12,21 @@ from tutorial import tutorial
 screen = Interface()
 rainbow = Colour()
 
-def end(character):
+def end(character, outcome):
     screen.overlay()
     maxyx = screen.getMax(screen.wininvent)
     y = maxyx[0]
-    screen.addString(screen.wininvent, int(y / 2), 2, 'Congratulations! you win!!', rainbow.yellow)
-    screen.addString(screen.wininvent, int(y / 2) + 1, 2, 'Turns: ' + str(character.turns), rainbow.yellow)
+    if outcome == True:
+        screen.addString(screen.wininvent, int(y / 2), 2, 'Congratulations! you win!!', rainbow.yellow)
+    else:
+        if character.turns > 1:
+            screen.addString(screen.wininvent, int(y / 2), 2, 'Sorry, you ran out of time!', rainbow.red)
+        else:
+            screen.addString(screen.wininvent, int(y / 2), 2, 'Ouch! You were savagely murdered...', rainbow.red)
+    screen.addString(screen.wininvent, int(y / 2) + 1, 2, 'Turns: ' + str(character.turns), rainbow.white)
     screen.winRefresh(screen.wininvent)
     time.sleep(10) 
-    sys.exit("Yay! You win!")
+    sys.exit("Thanks for Playing!")
 
 def beginning(stdscr):
     screen.overlay()
@@ -179,8 +185,13 @@ def menu(stdscr, character):
         screen.winRefresh(screen.wininvent)
 
 def gameRules(stdscr, character):
-    screen.addString(screen.wininvent, 2, 2, "FILLER - need to do something here", rainbow.yellow_bg)
-    screen.addString(screen.wininvent, 3, 2, "Press ENTER to exit.", rainbow.white)
+    rules = open('rules.txt', 'r')
+    rules = rules.read()
+    screen.addString(screen.wininvent, 0, 0, rules, rainbow.white)
+    screen.addString(screen.wininvent, 8, 13, '%', rainbow.yellow)
+    screen.addString(screen.wininvent, 9, 13, ')', rainbow.red)
+    screen.addString(screen.wininvent, 10, 13, '(', rainbow.blue)
+    screen.addString(screen.wininvent, 26, 2, "Press ENTER to exit.", rainbow.white)
     screen.winRefresh(screen.wininvent)
     enter = False
     while enter == False:
