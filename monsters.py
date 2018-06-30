@@ -6,7 +6,8 @@ from colours import Colour
 from random import randint, choice, sample, uniform
 from itemcmds import floorList
 import string
-from fighting import deathCheck, charDeath, levelm
+from fighting import deathCheck, charDeath
+from finder import levelm
 
 rainbow = Colour()
 screen = Interface()
@@ -74,7 +75,7 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
                 moveMonster(monsterlist, 'right')
             elif monster.x_coord - closest_x > 0:
                 moveMonster(monsterlist, 'left')
-    elif monstery == 1 and monsterx == 1:
+    elif monstery <= 1 and monsterx <= 1:
         if closest_y == screen.location['lrow'] + 6:
             monsterAttack(character, monsterlist)
 

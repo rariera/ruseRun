@@ -3,9 +3,10 @@
 from interface import Interface
 import curses
 from colours import Colour
-from map import settingCheck, inOut, upDown 
+from map import settingCheck, inOut, upDown, teleport 
 import string
-from fighting import directFind, playerAttack, compass, reverseDirect
+from fighting import playerAttack
+from finder import directFind, compass, reverseDirect
 
 
 rainbow = Colour()
@@ -44,6 +45,8 @@ def moveChar(character, direction, level_monsters = False, level_items = False):
         upDown(character, direction, 'up', level_monsters, level_items) 
     elif item[0] == '*':
         character.state = 'end'
+    elif item[0] == ',':
+        teleport(character, level_monsters, level_items)
     if item[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or item[0] not in string.ascii_letters and item[0] != '#':
         compass(direction)
         if item[0] not in ['>', '<', '+']:

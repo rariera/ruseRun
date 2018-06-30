@@ -12,18 +12,17 @@ from tutorial import tutorial
 screen = Interface()
 rainbow = Colour()
 
-def end(character, outcome):
+def end(character):
     screen.overlay()
     maxyx = screen.getMax(screen.wininvent)
     y = maxyx[0]
-    if outcome == True:
-        screen.addString(screen.wininvent, int(y / 2), 2, 'Congratulations! you win!!', rainbow.yellow)
+    if character.HP <= 0:
+        screen.addString(screen.wininvent, int(y / 2), 2, 'Ouch! You were savagely murdered...', rainbow.red)
+    elif character.turns > 1:
+        screen.addString(screen.wininvent, int(y / 2), 2, 'Sorry, you ran out of time!', rainbow.red)
     else:
-        if character.turns > 1:
-            screen.addString(screen.wininvent, int(y / 2), 2, 'Sorry, you ran out of time!', rainbow.red)
-        else:
-            screen.addString(screen.wininvent, int(y / 2), 2, 'Ouch! You were savagely murdered...', rainbow.red)
-    screen.addString(screen.wininvent, int(y / 2) + 1, 2, 'Turns: ' + str(character.turns), rainbow.white)
+        screen.addString(screen.wininvent, int(y / 2), 2, 'Congratulations! you win!!', rainbow.yellow)
+    screen.addString(screen.wininvent, int(y / 2) + 1, 2, 'Turns: ' + str(character.turns) + '/5000', rainbow.white)
     screen.winRefresh(screen.wininvent)
     time.sleep(10) 
     sys.exit("Thanks for Playing!")

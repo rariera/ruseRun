@@ -2,8 +2,7 @@
 
 from colours import Colour
 from interface import Interface
-from items import itemChoose
-from fighting import leveli
+from items import itemChoose, leveli
 
 rainbow = Colour()
 screen = Interface()

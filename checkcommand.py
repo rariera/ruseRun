@@ -54,7 +54,7 @@ def checkAnswer(character, answer, level_monsters, level_items):
             if item:
                 character.state = item
         elif answer == '''
-''':
+''' or answer == 'i':
             screen.interinit()
             character.state = 'game'
             stats(character)
@@ -92,8 +92,8 @@ def checkAnswer(character, answer, level_monsters, level_items):
 
 def turnCount(character):
     character.turns += 1
-    if character.turns >= 3000:
-        end(character, False)
+    if character.turns >= 5000:
+        end(character)
 
 def stats(character):
     if character.HP < 100:
@@ -125,5 +125,6 @@ def stats(character):
     screen.addString(screen.winstatus, 4, 11, floor, rainbow.white)
     screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon, rainbow.white) 
     screen.addString(screen.winstatus, 7, 2, 'Armour: ' + armour, rainbow.white) 
-    screen.addString(screen.winstatus, 8, 2, 'Turns Remaining: ' + str(3000 - character.turns), rainbow.white)
+    screen.addString(screen.winstatus, 8, 2, 'Turns Remaining: ' + str(5000 - character.turns), rainbow.white)
     screen.winRefresh(screen.winstatus)
+
