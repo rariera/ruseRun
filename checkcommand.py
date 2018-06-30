@@ -55,7 +55,7 @@ def checkAnswer(character, answer, level_monsters, level_items):
             stats(character) 
             turnCount(character)
     elif character.state == 'inventory':
-        if answer in string.ascii_lowercase or answer in string.ascii_uppercase and answer not in character.alphanum:
+        if answer in string.ascii_lowercase and answer != 'i':
             item = openDesc(character, answer)
             if item:
                 character.state = item

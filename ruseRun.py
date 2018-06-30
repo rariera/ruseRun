@@ -50,12 +50,4 @@ def main(stdscr):
         level_monsters = levels[0]
         level_items = levels[1]
 
-
-
- 
- 
-
-        
-
-    
 wrapper(main)

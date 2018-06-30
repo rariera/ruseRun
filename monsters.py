@@ -77,8 +77,6 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
     elif monstery == 1 and monsterx == 1:
         if closest_y == screen.location['lrow'] + 6:
             monsterAttack(character, monsterlist)
-        #else:
-        #    monsPickup(monster, lvls.lvl1((y, x)))
 
 def moveMonster(monsterlist, direction):
     monster = monsterlist[0]
@@ -133,7 +131,7 @@ def monstersUpdate(character, level_monsters):
     zeroItems = sample(floorlist, int(sampleSize))
     for monsterlist in level:
         monster = monsterlist[0]
-        if screen.location['lrow'] + 6 in range(monster.y_coord - 20, monster.y_coord + 20) and screen.location['lcol'] + 14 in range(monster.x_coord - 20, monster.x_coord + 20):
+        if screen.location['lrow'] + 6 in range(monster.y_coord - 30, monster.y_coord + 30) and screen.location['lcol'] + 14 in range(monster.x_coord - 30, monster.x_coord + 30):
             if screen.location['lrow'] + 6 in range(monster.y_coord - 10, monster.y_coord + 10) or screen.location['lcol'] + 14 in range(monster.x_coord - 10, monster.x_coord + 10):
                 moveChoose(monsterlist, screen.location['lrow'] + 6, screen.location['lcol'] + 14, character)
             else: 
@@ -181,7 +179,7 @@ def monsterAttack(character, monsterlist):
     num = randint(0, 10)
     if num in [0, 1]:
         screen.addLine("The " + monster.name + " missed you.", rainbow.white)
-    elif num in [2, 5]: 
+    elif num in [2, 3]: 
         screen.addLine("The " + monster.name + " hit you but did no damage", rainbow.white)
     else:
         screen.addLine("The " + monster.name + " hit you.", rainbow.white)
@@ -194,6 +192,7 @@ def monsterAttack(character, monsterlist):
             num = 1.2
         else:
             num = uniform(0, 1.5)
+        hits = int(hits * num)
         character.HP = character.HP - hits
         death = deathCheck(character, character.HP, True)
         if death == True:

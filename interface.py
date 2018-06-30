@@ -68,7 +68,8 @@ class Interface(object):
         cls.wininvent.erase()
         cls.wininvent.refresh()
         cls.winstatus.border('|', '|', '-', '-', '+', '+', '+', '+')
-        cls.winstatus.refresh()
+        cls.winstatus.refresh() 
+        cls.windialogue.touchwin()
         cls.windialogue.refresh()
         cls.padRefresh()
 
