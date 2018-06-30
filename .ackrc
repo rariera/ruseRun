@@ -1,0 +1,5 @@
+--ignore-dir=.cache
+--ignore-file=match:\.odt$
+--ignore-file=match:\.pdf$
+--ignore-file=match:\.PNG$
+--ignore-file=match:\.pub$
