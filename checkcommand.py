@@ -12,12 +12,6 @@ import string
 screen = Interface()
 rainbow = Colour()
 
-def inputCheck(input):
-    if input == 'KEY_UP':
-        pass
-        #key up
-        #need arrows, some letters, enter
-
 def checkAnswer(character, answer, level_monsters, level_items):
     '''decides what to do with the input'''
     item = False
