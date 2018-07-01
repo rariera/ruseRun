@@ -135,8 +135,8 @@ def stats(character):
     screen.addString(screen.winstatus, 4, 2, 'Level: ' + str(character.level), rainbow.white)
     screen.addString(screen.winstatus, 5, 2, '(' + str(screen.location['lrow'] + 6) + ', ' + str(screen.location['lcol'] + 14) + ')', rainbow.white)
     screen.addString(screen.winstatus, 4, 11, floor, rainbow.white)
-    screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon, rainbow.white) 
-    screen.addString(screen.winstatus, 7, 2, 'Armour: ' + armour, rainbow.white) 
+    screen.addString(screen.winstatus, 6, 2, 'Weapon: ' + weapon + (20-len(weapon)) * ' ', rainbow.white)
+    screen.addString(screen.winstatus, 7, 2, 'Armour: ' + armour + (20-len(armour)) * ' ', rainbow.white)
     screen.addString(screen.winstatus, 8, 2, 'Turns Remaining: ' + str(5000 - character.turns), rainbow.white)
     screen.winRefresh(screen.winstatus)
 

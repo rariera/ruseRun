@@ -61,7 +61,7 @@ def pickUp(character, level_monsters, level_items):
             article = 'some'
         elif re.search('^[aeiou]', invent.name):
             article = 'an'
-        screen.addLine("You picked up " + article + ' ' + invent.name + '.', rainbow.white)
+        screen.addLine("You picked up " + article + ' ' + invent.name + '.', rainbow.green)
         return level_monsters, level_items
 
 def putDown(character, item, level_items):
