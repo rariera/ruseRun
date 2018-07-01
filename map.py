@@ -132,7 +132,6 @@ def settingChange(character, direction, level_monsters, level_items):
     itemAdd(level_items, character.level, character.setting)
     monsterAdd(level_monsters, character.level, character.setting)
     screen.padRefresh()
-    directions = directFind(direction)
 
 def teleport(character, direction, level_monsters, level_items):
     if character.level == 2:
@@ -148,6 +147,11 @@ def teleport(character, direction, level_monsters, level_items):
         #going into oval, (lvl = 2, set = 4)
         character.level = 2
         character.setting = 4
+        settingChange(character, direction, level_monsters, level_items)
+        beenCheck(character, level_monsters, level_items)
+        screen.location['lrow'] = 272
+        num = screen.location['lcol'] - 224
+        screen.location['lcol'] = 350 + num
 
 def upDown(character, direction, lift, level_monsters = False, level_items = False):
     compass(direction)
@@ -168,6 +172,8 @@ def inOut(character, direction, level_monsters, level_items):
     if character.setting == 1:
         #going inside
         character.setting = 2
+        if character.level == 2 and screen.location['lrow'] in range(270, 280):
+            character.setting = 3
         settingChange(character, direction, level_monsters, level_items)
         beenCheck(character, level_monsters, level_items)
     else:
