@@ -8,111 +8,112 @@ rainbow = Colour()
 level_items = LevelItems(lvl1_1 = {}, lvl1_2 = {}, lvl2_1 = {}, lvl2_2 = {}, lvl2_3 = {}, lvl2_4 = {}, lvl3_1 = {}, lvl3_2 = {}, lvl3_3 = {})
 
 class Item(object): 
-    def __init__(self, name, tile, colour, type, letter):
+    def __init__(self, name, tile, colour, type, letter, countable):
         self.name = name
         self.tile = tile
         self.colour = colour
         self.type = type
         self.letter = letter
+        self.countable = countable
 
 class Food(Item):
-    def __init__(self, name, tile, colour, type, letter,  hunger):
-        Item.__init__(self, name, tile, colour, type, letter)
+    def __init__(self, name, tile, colour, type, letter, countable, hunger):
+        Item.__init__(self, name, tile, colour, type, letter, countable)
         self.hunger = hunger
 
 class Weapon(Item):
-    def __init__(self, name, tile, colour, type, letter, damage):
-        Item.__init__(self, name, tile, colour, type, letter)
+    def __init__(self, name, tile, colour, type, letter, countable, damage):
+        Item.__init__(self, name, tile, colour, type, letter, countable)
         self.damage = damage
 
 class Armour(Item):
-    def __init__(self, name, tile, colour, type, letter, hp):
-        Item.__init__(self, name, tile, colour, type, letter)
+    def __init__(self, name, tile, colour, type, letter, countable, hp):
+        Item.__init__(self, name, tile, colour, type, letter, countable)
         self.hp = hp
 
 class Orange(Food):
-    def __init__(self, name='orange', tile='%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 11):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='orange', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=True, hunger=11):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Pizza(Food):
-    def __init__(self, name = 'slice of pizza', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 9):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='slice of pizza', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=True, hunger=9):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Ramen(Food):
-    def __init__(self, name = 'ramen', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 8):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='ramen', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=False, hunger=8):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Sandwich(Food):
-    def __init__(self, name = 'sandwich', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 13):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='sandwich', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=True, hunger=13):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Oreos(Food):
-    def __init__(self, name = 'oreos', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 7):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='oreos', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=True, hunger=7):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Spaghetti(Food):
-    def __init__(self, name = 'spaghetti bolognaise', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 14):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='spaghetti bolognaise', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=False, hunger=14):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Chocolate(Food):
-    def __init__(self, name = 'chocolate', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 10):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='chocolate', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=False, hunger=10):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class ButterChicken(Food):
-    def __init__(self, name = 'butter chicken', tile = '%', colour = rainbow.yellow, type = 'food', letter = '!', hunger = 10):
-        Food.__init__(self, name, tile, colour, type, letter, hunger)
+    def __init__(self, name='butter chicken', tile='%', colour=rainbow.yellow, type='food', letter='!', countable=False, hunger=10):
+        Food.__init__(self, name, tile, colour, type, letter, countable, hunger)
 
 class Branch(Weapon):
-    def __init__(self, name = 'branch', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 3):
-        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='branch', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=3):
+        Weapon.__init__(self, name, tile, colour, type, letter, countable, damage)
 
 class Football(Weapon):
-    def __init__(self, name = 'football', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 5):
-        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='football', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=5):
+        Weapon.__init__(self, name, tile, colour, type, letter, countable, damage)
 
 class Textbook(Weapon):
-    def __init__(self, name = 'maths textbook', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 6):
-        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='maths textbook', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=6):
+        Weapon.__init__(self, name, tile, colour, type, letter, countable, damage)
 
 class Hoe(Weapon):
-    def __init__(self, name = 'hoe', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 8):
-        Weapon.__init__ (self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='hoe', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=8):
+        Weapon.__init__ (self, name, tile, colour, type, letter, countable, damage)
 
 class Chisel(Weapon):
-    def __init__(self, name = 'chisel', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 7):
-        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='chisel', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=7):
+        Weapon.__init__(self, name, tile, colour, type, letter, countable, damage)
 
 class Saw(Weapon):
-    def __init__(self, name = 'saw', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 6):
-        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='saw', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=6):
+        Weapon.__init__(self, name, tile, colour, type, letter, countable, damage)
 
 class Ruler(Weapon):
-    def __init__(self, name = 'ruler', tile = ')', colour = rainbow.red, type = 'weaponry', letter = '!', damage = 5):
-        Weapon.__init__(self, name, tile, colour, type, letter, damage)
+    def __init__(self, name='ruler', tile=')', colour=rainbow.red, type='weaponry', letter='!', countable=True, damage=5):
+        Weapon.__init__(self, name, tile, colour, type, letter, countable, damage)
 
 class Blazer(Armour):
-    def __init__(self, name = 'blazer', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 3):
-        Armour.__init__(self, name, tile, colour, type, letter, hp)
+    def __init__(self, name='blazer', tile='(', colour=rainbow.blue, type='armour', letter='!', countable=True, hp=3):
+        Armour.__init__(self, name, tile, colour, type, letter, countable, hp)
 
 class Cardboard(Armour):
-    def __init__(self, name = 'cardboard box', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 4):
-        Armour.__init__(self, name, tile, colour, type, letter, hp)
+    def __init__(self, name='cardboard box', tile='(', colour=rainbow.blue, type='armour', letter='!', countable=True, hp=4):
+        Armour.__init__(self, name, tile, colour, type, letter, countable, hp)
 
 class SheetMetal(Armour):
-    def __init__(self, name = 'sheet metal', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 7):
-        Armour.__init__(self, name, tile, colour, type, letter, hp)
+    def __init__(self, name='sheet metal', tile='(', colour=rainbow.blue, type='armour', letter='!', countable=False, hp=7):
+        Armour.__init__(self, name, tile, colour, type, letter, countable, hp)
 
 class ShinPads(Armour):
-    def __init__(self, name = 'shin pads', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 6):
-        Armour.__init__(self, name, tile, colour, type, letter, hp)
+    def __init__(self, name='shin pads', tile='(', colour=rainbow.blue, type='armour', letter='!', countable=True, hp=6):
+        Armour.__init__(self, name, tile, colour, type, letter, countable, hp)
 
 class Helmet(Armour):
-    def __init__(self, name = 'bike helmet', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 8):
-        Armour.__init__(self, name, tile, colour, type, letter, hp)
+    def __init__(self, name='bike helmet', tile='(', colour=rainbow.blue, type='armour', letter='!', countable=True, hp=8):
+        Armour.__init__(self, name, tile, colour, type, letter, countable, hp)
 
 class Jersey(Armour):
-    def __init__(self, name = 'senior jersey', tile = '(', colour = rainbow.blue, type = 'armour', letter = '!', hp = 9):
-        Armour.__init__(self, name, tile, colour, type, letter, hp)
+    def __init__(self, name='senior jersey', tile='(', colour=rainbow.blue, type='armour', letter='!', countable=True, hp=9):
+        Armour.__init__(self, name, tile, colour, type, letter, countable, hp)
 
 
 itemdict = {

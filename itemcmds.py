@@ -3,6 +3,7 @@
 from colours import Colour
 from interface import Interface
 from items import itemChoose, leveli
+import re
 
 rainbow = Colour()
 screen = Interface()
@@ -55,6 +56,12 @@ def pickUp(character, level_monsters, level_items):
             character.alphanum.remove(invent.letter)
         character.inventory[invent.type].append(invent)
         del level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)]
+        article = 'a'
+        if not invent.countable or invent.name[-1] == 's':
+            article = 'some'
+        elif re.search('^[aeiou]', invent.name):
+            article = 'an'
+        screen.addLine("You picked up " + article + ' ' + invent.name + '.', rainbow.white)
         return level_monsters, level_items
 
 def putDown(character, item, level_items):
