@@ -18,7 +18,7 @@ def end(character):
     y = maxyx[0]
     if character.HP <= 0:
         screen.addString(screen.wininvent, int(y / 2), 2, 'Ouch! You were savagely murdered...', rainbow.red)
-    elif character.turns > 1:
+    elif character.turns <= 0:
         screen.addString(screen.wininvent, int(y / 2), 2, 'Sorry, you ran out of time!', rainbow.red)
     else:
         screen.addString(screen.wininvent, int(y / 2), 2, 'Congratulations! you win!!', rainbow.yellow)
