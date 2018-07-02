@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 from interface import Interface
-from itemcmds import floorList, itemChoose, itemAdd
+from items import itemChoose
+from itemcmds import floorList, itemAdd
 from monsters import monsterChoose, monsterAdd
 from colours import Colour
 from finder import directFind, compass

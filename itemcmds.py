@@ -2,7 +2,7 @@
 
 from colours import Colour
 from interface import Interface
-from items import itemChoose, leveli
+from items import leveli
 import re
 
 rainbow = Colour()

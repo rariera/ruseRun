@@ -174,6 +174,8 @@ def itemChoose(floorlist, charlvl, charset):
         elif listnum == 2:
             list = itemdict['armour']
         level = leveli(charlvl, charset, level_items)
-        level[i] = [choice(list)]
+        item = choice(list)
+        # type(item)() clones item, since otherwise we get the *same* object everywhere
+        level[i] = [type(item)()]
     return level_items
 
