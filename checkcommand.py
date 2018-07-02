@@ -8,7 +8,8 @@ from itemcmds import pickUp, inventory, openDesc, putDown, equipItem, unequipIte
 from monsters import monstersUpdate
 from colours import Colour
 import string
-from begend import gameRules
+import sys
+from begend import gameRules, checkQuit, end
 
 screen = Interface()
 rainbow = Colour()
@@ -44,6 +45,11 @@ def checkAnswer(character, answer, level_monsters, level_items):
             screen.overlay()
             gameRules(character)
             character.state = 'rule'
+        elif answer == 'q':
+            overlaid = True
+            screen.overlay()
+            checkQuit()
+            character.state = 'quit'
         if type(levels) is types.MethodType:
             level_monsters = levels[0]
             level_items = levels[1] 
@@ -54,6 +60,13 @@ def checkAnswer(character, answer, level_monsters, level_items):
         elif overlaid == False:
             stats(character) 
             turnCount(character)
+    elif character.state == 'quit':
+        if answer == 'y':
+            end(character)
+        elif answer == 'n':
+            screen.interinit()
+            character.state = 'game'
+            stats(character)
     elif character.state == 'rule':
         if answer == '''
 ''':

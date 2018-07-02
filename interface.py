@@ -3,7 +3,7 @@
 import curses
 import textwrap
 
-curses.initscr()
+stdscr = curses.initscr()
 pad1 = curses.newpad(340, 430)
 window1 = curses.newwin(28, 45, 2, 68)
 window2 = curses.newwin(14, 70, 33, 2)
@@ -87,3 +87,11 @@ class Interface(object):
 
     def winClear(cls, window):
         window.erase()
+
+    def reset(cls):
+        '''Cleanup before terminating'''
+        curses.nocbreak()
+        stdscr.keypad(False)
+        curses.echo()
+        curses.endwin()
+

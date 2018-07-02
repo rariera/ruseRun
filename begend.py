@@ -18,6 +18,8 @@ def end(character):
     y = maxyx[0]
     if character.HP <= 0:
         screen.addString(screen.wininvent, int(y / 2), 2, 'Ouch! You were savagely murdered...', rainbow.red)
+    elif character.state == 'quit':
+        screen.addString(screen.wininvent, int(y / 2), 2, 'On no, you quit the game!', rainbow.yellow)
     elif character.turns <= 0:
         screen.addString(screen.wininvent, int(y / 2), 2, 'Sorry, you ran out of time!', rainbow.red)
     else:
@@ -25,6 +27,7 @@ def end(character):
     screen.addString(screen.wininvent, int(y / 2) + 1, 2, 'Turns: ' + str(character.turns) + '/5000', rainbow.white)
     screen.winRefresh(screen.wininvent)
     time.sleep(10) 
+    screen.reset()
     sys.exit("Thanks for Playing!")
 
 def beginning(stdscr):
@@ -48,7 +51,7 @@ def beginning(stdscr):
 
 def getName(stdscr, character):
     screen.addString(screen.wininvent, 2, 2, "Welcome to Ruse Rampage.", rainbow.yellow)
-    screen.addString(screen.wininvent, 3, 2, "Please type in your name to begin, then press enter.", rainbow.white)
+    screen.addString(screen.wininvent, 3, 2, "Please type in your name to begin, then press Enter.", rainbow.white)
     screen.addString(screen.wininvent, 5, 2, "+-------------------+", rainbow.white)
     screen.addString(screen.wininvent, 6, 2, '|                   |', rainbow.white)
     screen.addString(screen.wininvent, 7, 2, "+-------------------+", rainbow.white)
@@ -75,6 +78,10 @@ def getName(stdscr, character):
             cursor -= 1
             screen.addChar(screen.wininvent, 6, cursor, ' ', rainbow.white)
             screen.winRefresh(screen.wininvent)
+
+def checkQuit():
+    screen.addString(screen.wininvent, 2, 2, "Are you sure you want to quit? [y/n] ", rainbow.white)
+    screen.winRefresh(screen.wininvent)
 
 def getDifficulty(stdscr, character):
     weapon = character.equipment['weapon']

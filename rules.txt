@@ -3,22 +3,23 @@ MOVEMENT
 - Move around using the arrow keys. If you get lost, head downwards.
 - Floor spaces are shown by periods . and speech marks "
 - Other spaces you can move on include: | \ / - _
-- Walls are represented by hashtags # You cannot move through them,
-but have to go around
+- Walls are represented by hashtags # - you cannot move through them,
+  but have to find a way around them.
 - Items include:
-    Food       Can be consumed to regain health faster than normal means
-    Weaponry   Can be equipped to aid in attacking monsters
-    Armour     Can be worn to protect from attacks
+    Food       can be consumed to regain health faster than normal means
+    Weaponry   can be equipped to aid in attacking monsters
+    Armour     can be worn to protect from attacks
 - Doors are shown with a plus sign + They are used to move inside and 
-outside buildings
-- Stairs are shown by > (downstairs) and < (upstairs) They are used 
-to change elevation
+  outside buildings.
+- Stairs are shown by > (downstairs) and < (upstairs). They are used
+  to change elevation.
 - The finish line is shown by asterisks ***** Move through it to 
-complete the game.
+  complete the game.
 
 KEYS
-- Pick Items up with 'g' while standing on top of it - the item will 
-be added to your inventory
-- View your inventory with 'i' - once inside, examine any item closely
-by pressing the associated letter.
-- Attack monsters by walking into them using the arrow keys
+- Pick up an Item with 'g' while standing on top of it - the item will
+  be added to your inventory.
+- View your inventory with 'i' - from the inventory screen, examine any
+  item by pressing its associated letter.
+- Attack monsters by walking into them using the arrow keys.
+- Use 'q' to quit the game.
