@@ -15,7 +15,7 @@ rainbow = Colour()
 
 def checkAnswer(character, answer, level_monsters, level_items):
     '''decides what to do with the input'''
-    item = False
+    item = None
     if character.state == 'game':
         overlaid = False
         levels = 'levels'
@@ -73,34 +73,38 @@ def checkAnswer(character, answer, level_monsters, level_items):
         else:
             pass 
     else:
+        # character.state == item
+        item = character.state
         if answer == 'd':
-            putDown(character, character.state, level_items)
-            character.state = 'inventory'
-            screen.overlay()
-            inventory(character)
+            putDown(character, item, level_items)
+            showInventory(character)
         elif answer == 'q':
-            equipItem(character, character.state)
-            item = openDesc(character, character.state)
+            equipItem(character, item)
+            showInventory(character)
         elif answer == 'u':
-            unequipItem(character, character.state)
-            item = openDesc(character, character.state)
+            unequipItem(character, item)
+            showInventory(character)
         elif answer == 'w':
-            wearItem(character, character.state)
-            item = openDesc(character, character.state)
+            wearItem(character, item)
+            showInventory(character)
         elif answer == 't':
-            takeOff(character, character.state)
-            item = openDesc(character, character.state)
-        elif answer == 'e':
-            eatItem(character, character.state)
-            character.state = 'inventory'
-            screen.overlay()
-            inventory(character)
+            takeOff(character, item)
+            showInventory(character)
+        elif answer == 'e' and item.type == 'food':
+            eatItem(character, item)
+            showInventory(character)
+        elif answer == 'e' and item.type == 'weaponry':
+            equipItem(character, item)
+            showInventory(character)
         elif answer == '''
 ''':
-            character.state = 'inventory'
-            screen.overlay()
-            inventory(character)
+            showInventory(character)
     return level_monsters, level_items
+
+def showInventory(character):
+    character.state = 'inventory'
+    screen.overlay()
+    inventory(character)
 
 def turnCount(character):
     character.turns += 1

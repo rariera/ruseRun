@@ -108,6 +108,7 @@ def inventory(character):
                         string = ''
                     screen.addString(screen.wininvent, line, 0, i.letter + ' - ' + i.name + string, colour) 
                     line += 1
+                line += 1
     screen.winRefresh(screen.wininvent)
 
 def equipItem(character, item):
@@ -158,7 +159,7 @@ def openDesc(character, input):
             if character.equipment['weapon'] == item:
                 line = '(u)nequip'
             else:
-                line = 'e(q)uip'
+                line = '(e)quip'
         elif item.type == 'armour':
             if character.equipment['armour'] == item:
                 line = '(t)ake off'
