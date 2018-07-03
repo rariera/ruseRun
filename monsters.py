@@ -60,6 +60,7 @@ class Ogre(Monster):
 zeroItems = []
 
 def moveChoose(monsterlist, closest_y, closest_x, character):
+    '''The move that the monster takes is chosen'''
     monster = monsterlist[0]
     monstery = abs(monster.y_coord - closest_y) #number of moves up/down to reach @
     monsterx = abs(monster.x_coord - closest_x) #number of moves left/right to reach @
@@ -80,6 +81,7 @@ def moveChoose(monsterlist, closest_y, closest_x, character):
             monsterAttack(character, monsterlist)
 
 def moveMonster(monsterlist, direction):
+    '''The monster is actually moved'''
     monster = monsterlist[0]
     previous = monsterlist[1]
     if direction == 'up':
@@ -118,6 +120,7 @@ def moveMonster(monsterlist, direction):
     screen.padRefresh()
 
 def monsVerify(y_coord, x_coord):
+    '''The monster movement is verified'''
     place = screen.getChar(screen.pad, y_coord, x_coord)
     move = False
     if place[0] in ['"', '.', ' ', '/', 'I', '-', '_', 'P'] or place[0] not in string.ascii_letters and place[0] != '#':
@@ -126,6 +129,7 @@ def monsVerify(y_coord, x_coord):
 
 
 def monstersUpdate(character, level_monsters):
+    '''The monsters are updated'''
     level = levelm(character.level, character.setting, level_monsters) 
     floorlist = floorList()
     sampleSize = len(floorlist) / 100
@@ -165,6 +169,7 @@ def monsterChoose(floorlist, charlvl, charset, density=500):
     return level_monsters
 
 def monsterAdd(level_monsters, charlvl, charset):
+    '''The monsters are added to the map (for the first time)'''
     level = levelm(charlvl, charset, level_monsters)
     x = 0
     for monsterlist in level:
@@ -176,6 +181,7 @@ def monsterAdd(level_monsters, charlvl, charset):
     screen.padRefresh()
 
 def monsterAttack(character, monsterlist):
+    '''The monsters attack the player'''
     monster = monsterlist[0]
     num = randint(0, 10)
     if num in [0, 1]:

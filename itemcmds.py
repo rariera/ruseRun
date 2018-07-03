@@ -34,6 +34,7 @@ def itemAdd(level_items, charlvl, charset):
     screen.padRefresh()
 
 def pickUp(character, level_monsters, level_items):
+    '''the function to pick up the item'''
     level = leveli(character.level, character.setting, level_items)
     item = 0
     coords = 0
@@ -65,6 +66,7 @@ def pickUp(character, level_monsters, level_items):
         return level_monsters, level_items
 
 def putDown(character, item, level_items):
+    '''The function to put down the item'''
     level = leveli(character.level, character.setting, level_items)
     level[(screen.location['lrow'] + 6, screen.location['lcol'] + 14)] = [item, character.pc]
     character.pc = (item.tile, item.colour)
@@ -76,6 +78,7 @@ def putDown(character, item, level_items):
     return level_items
 
 def inventory(character):
+    '''item is viewed in wininvent'''
     screen.addString(screen.wininvent, 0, 0, 'Inventory:', rainbow.blue)
     character.state = 'inventory'
     line = 2
@@ -112,22 +115,27 @@ def inventory(character):
     screen.winRefresh(screen.wininvent)
 
 def equipItem(character, item):
+    '''The item is equipped'''
     if item.type == 'weaponry' and character.equipment['weapon'] != item:
         character.equipment['weapon'] = item
 
 def unequipItem(character, item):
+    '''the item gets unequipped'''
     if item.type == 'weaponry' and character.equipment['weapon'] == item:
        character.equipment['weapon'] = False
 
 def wearItem(character, item):
+    '''The item is put on'''
     if item.type == 'armour':
         character.equipment['armour'] = item
 
 def takeOff(character, item):
+    '''the clothing is taken off'''
     if item.type == 'armour' and character.equipment['armour'] == item:
         character.equipment['armour'] = False
 
 def eatItem(character, item):
+    '''The food is eaten'''
     character.HP += item.hunger
     if character.HP >= 100:
         character.HP = 100
@@ -135,6 +143,7 @@ def eatItem(character, item):
    
 
 def openDesc(character, input):
+    '''The description is opened'''
     item = False
     for list in character.inventory:
         for i in character.inventory[list]:

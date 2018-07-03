@@ -3,6 +3,7 @@
 
 
 class Character(object):
+    '''Initialises Character class'''
     def __init__(self, name, difficulty, setting, level, pc, state, inventory, alphanum, equipment, HP, cheats, token, been, turns):
         self.name = name
         self.difficulty = difficulty
@@ -20,6 +21,7 @@ class Character(object):
         self.turns = turns
 
 class LevelItems(object):
+    '''Initialises the place where all the items are stored'''
     def __init__(self, lvl1_1, lvl1_2, lvl2_1, lvl2_2, lvl2_3, lvl2_4, lvl3_1, lvl3_2, lvl3_3):
         self.lvl1_1 = lvl1_1
         self.lvl1_2 = lvl1_2
@@ -33,6 +35,7 @@ class LevelItems(object):
 
 
 class LevelMonsters(object):
+    '''Initialises the place where all the monsters are stored'''
     def __init__(self, lvl1_1, lvl1_2, lvl2_1, lvl2_2, lvl2_3, lvl2_4, lvl3_1, lvl3_2, lvl3_3):
         self.lvl1_1 = lvl1_1
         self.lvl1_2 = lvl1_2

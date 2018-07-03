@@ -24,6 +24,7 @@ tutorial3 = tutorial3.read()
 list = ["That's it!", "See those three coloured symbols over there? Those are items. You can pick one up by standing on top of it and pressing 'g'", "Congrats. View items you've picked up in the inventory (open the inventory by pressing 'i', and exit by pressing enter.", "Once in the inventory, press the letter which corresponds to the item to find out more about it.", "All monsters are represented by coloured letters. Monsters will attempy to kill you. To attack them, walk into them.", "Well done. The '+' to your right is a door. Walking into a door will allow you to enter or exit a building.", "In the top right of the room are some stairs. These are represented by either '<' (upstairs), and '>' (downstairs).", "Well done - you have completed the tutorial. At the bottom of this room are *****. Walk into them to complete the tutorial. This is also used in-game to represent the finish line."]
 
 def tutorial(stdscr, character):
+    '''the function for the tutorial'''
     character.pc = ('.', ord('.'))
     screen.addString(screen.pad, 0, 0, tutorial1, rainbow.white)
     screen.location['lrow'] = -1
@@ -74,6 +75,7 @@ def tutorial(stdscr, character):
 
 
 def tutMove(character, direction, enter):
+    '''The character moves around in the tutorial'''
     item = tutVerify(character, direction)
     if item[0] != '#':
         if item[0] == ':':
@@ -94,6 +96,7 @@ def tutMove(character, direction, enter):
     return enter
 
 def tutVerify(character, direction):
+    '''The characters movements are verified in the tutorial'''
     rd = reverseDirect(direction)
     yx = directFind(rd)
     y = yx[0]
@@ -102,6 +105,7 @@ def tutVerify(character, direction):
     return attrs
 
 def tutChange(character, sign, enter):
+    '''The tutorial levels are changed'''
     if sign == '+':
         screen.addString(screen.pad, 0, 0, tutorial2, rainbow.white)
     elif sign in ['>', '<']:
@@ -114,6 +118,7 @@ def tutChange(character, sign, enter):
     return enter
 
 def tutItems(character, picked):
+    '''the items for the tutorial are placed'''
     item = False
     if screen.location['lrow'] + 6 == 9 and screen.location['lcol'] + 14 == 36:
         item = Spaghetti()

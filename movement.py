@@ -14,6 +14,7 @@ screen = Interface()
 
 
 def verify(character, direction, level_monsters, level_items):
+    '''The player movements are verified'''
     if direction == 'up':
         levels = settingCheck(character, direction, level_monsters, level_items)
         rd = reverseDirect(direction)

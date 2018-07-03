@@ -5,6 +5,7 @@ from interface import Interface
 screen = Interface()
 
 def directFind(direction):
+    '''the character direction is translated into terms the computer can understand'''
     if direction == 'up':
         y = screen.location['lrow'] + 7
         x = screen.location['lcol'] + 14
@@ -20,6 +21,7 @@ def directFind(direction):
     return y, x
 
 def levelm(character_level, character_setting, level_monsters):
+    '''The monsters level is allocated'''
     if character_level == 1:
         if character_setting == 1:
             level = level_monsters.lvl1_1
@@ -45,6 +47,7 @@ def levelm(character_level, character_setting, level_monsters):
 
 
 def compass(direction):
+    '''character location is changed'''
     if direction == 'up':
         screen.location['lrow'] -= 1
     elif direction == 'down':
@@ -55,6 +58,7 @@ def compass(direction):
         screen.location['lcol'] += 1
 
 def reverseDirect(direction):
+    '''the direction is reversed'''
     if direction == 'up':
         rd = 'down'
     elif direction == 'down':

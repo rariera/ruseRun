@@ -115,16 +115,19 @@ def checkAnswer(character, answer, level_monsters, level_items):
     return level_monsters, level_items
 
 def showInventory(character):
+    '''the path followed to show the inventory'''
     character.state = 'inventory'
     screen.overlay()
     inventory(character)
 
 def turnCount(character):
+    '''Counts the number of turns the character uses'''
     character.turns += 1
     if character.turns >= 5000:
         end(character)
 
 def stats(character):
+    '''Shows the character's stats at each turn'''
     if character.HP < 100:
         character.token += 1
     if character.token >= 2:

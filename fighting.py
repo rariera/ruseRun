@@ -11,6 +11,7 @@ screen = Interface()
 
 
 def playerAttack(character, direction, level_monsters):
+    '''The player attacks the monster.'''
     rd = reverseDirect(direction) 
     xy = directFind(rd)
     y = xy[0]
@@ -49,6 +50,7 @@ def playerAttack(character, direction, level_monsters):
                 monsterDeath(character, monsterl, level_monsters)
 
 def deathCheck(health, char):
+    '''The charater/monster is checked to make sure that they are not DEAD'''
     death = False
     if health <= 0:
         health = 0
@@ -58,6 +60,7 @@ def deathCheck(health, char):
     return death
 
 def monsterDeath(character, monsterlist, level_monsters):
+    '''function for monster death'''
     monster = monsterlist[0]
     prev = monsterlist[1]
     screen.addLine("You kill the " + monster.name, rainbow.red)
@@ -68,6 +71,7 @@ def monsterDeath(character, monsterlist, level_monsters):
 
 
 def charDeath(character):
+    '''Function for character death'''
     screen.addLine("You die...", rainbow.white)
     character.state = 'end'
     #Maybe print inventory now?

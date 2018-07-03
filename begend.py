@@ -13,6 +13,7 @@ screen = Interface()
 rainbow = Colour()
 
 def end(character):
+    '''The function for the ending of the game- for both success and failure'''
     screen.overlay()
     maxyx = screen.getMax(screen.wininvent)
     y = maxyx[0]
@@ -31,6 +32,7 @@ def end(character):
     sys.exit("Thanks for Playing!")
 
 def beginning(stdscr):
+    '''The beginning of the game - how everything starts'''
     screen.overlay()
     logo = open('ruseRampage2.txt', 'r')
     logo = logo.read()
@@ -50,6 +52,7 @@ def beginning(stdscr):
     #overlay, bring up logo & [press ENTER], when enter is pressed, finish function
 
 def getName(stdscr, character):
+    '''Gets the name of the character.'''
     screen.addString(screen.wininvent, 2, 2, "Welcome to Ruse Rampage.", rainbow.yellow)
     screen.addString(screen.wininvent, 3, 2, "Please type in your name to begin, then press Enter.", rainbow.white)
     screen.addString(screen.wininvent, 5, 2, "+-------------------+", rainbow.white)
@@ -80,10 +83,12 @@ def getName(stdscr, character):
             screen.winRefresh(screen.wininvent)
 
 def checkQuit():
+    '''Checks if the character actually wants to quit'''
     screen.addString(screen.wininvent, 2, 2, "Are you sure you want to quit? [y/n] ", rainbow.white)
     screen.winRefresh(screen.wininvent)
 
 def getDifficulty(stdscr, character):
+    '''Gets the player's chosen difficulty'''
     weapon = character.equipment['weapon']
     if weapon == False:
         character.name = character.name + ' the Unarmed Student'
@@ -123,6 +128,7 @@ def getDifficulty(stdscr, character):
 
 
 def getWeapon(stdscr, character):
+    '''player chooses their starting weapon'''
    screen.addString(screen.wininvent, 2, 2, "Welcome, " + character.name + ". Please choose a weapon.", rainbow.yellow)
    screen.addString(screen.wininvent, 3, 4, "+-----------------+", rainbow.white)
    screen.addString(screen.wininvent, 4, 4, "| 1 - unarmed     |", rainbow.white)
@@ -148,6 +154,7 @@ def getWeapon(stdscr, character):
    screen.winRefresh(screen.wininvent)
 
 def menu(stdscr, character):
+    '''Player chooses what they will do'''
     screen.addString(screen.wininvent, 2, 2, 'Welcome, ' + character.name + ".", rainbow.yellow)
     choices = ["Begin Game", "Tutorial", 'Game Rules']
     index = 4
@@ -191,6 +198,7 @@ def menu(stdscr, character):
         screen.winRefresh(screen.wininvent)
 
 def gameRules(character, stdscr=False):
+    '''Shows game rules'''
     rules = open('rules.txt', 'r')
     rules = rules.read()
     screen.addString(screen.wininvent, 0, 0, rules, rainbow.white)
@@ -211,6 +219,7 @@ def gameRules(character, stdscr=False):
         menu(stdscr, character)
 
 def initalisation(stdscr, character):
+    '''the path followed for the initialisation of the game'''
     getName(stdscr, character)
     menu(stdscr, character)
 

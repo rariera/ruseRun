@@ -11,6 +11,7 @@ window3 = curses.newwin(48, 124, 2, 2)
 window4 = curses.newwin(45, 100, 2, 75)
 
 class Interface(object):
+    '''Initialises the interface commands for the game'''
     location = {
     'lrow': 60,
     'lcol': 2,

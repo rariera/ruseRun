@@ -44,6 +44,7 @@ gameMap = {
         }
 
 def mapChoose(character):
+    '''the map is chosen'''
     if character.level == 1:
         map = gameMap['lvl1']
         map = map[character.setting - 1]
@@ -59,11 +60,13 @@ def mapChoose(character):
     return (map, lineNum)
 
 def lineCount(character):
+    '''the lines are counted'''
     level = mapChoose(character)
     lineNum = level[1]
     return lineNum 
 
 def settingCheck(character, direction, level_monsters, level_items):
+    '''The level is changed if need be.'''
     lineNum = lineCount(character)
     changing = False
     levels = 'levels'
@@ -102,6 +105,7 @@ def settingCheck(character, direction, level_monsters, level_items):
     return levels, changing
 
 def beenCheck(character, level_monsters, level_items):
+    '''the characters location is checked to see if the character has been there before'''
     item = character.level + (character.setting / 10)
     if item in character.been:
         itemAdd(level_items, character.level, character.setting)
@@ -113,10 +117,12 @@ def beenCheck(character, level_monsters, level_items):
 
 
 def beenAdd(character):
+    '''the location is added to the places that the character has been'''
     item = character.level + (character.setting / 10)
     character.been.append(item)
 
 def mapChange(character):
+    '''The map is changes (for when the character has not been there before'''
     floorlist = floorList()
     level_items = itemChoose(floorlist, character.level, character.setting)
     itemAdd(level_items, character.level, character.setting)
@@ -126,6 +132,7 @@ def mapChange(character):
     return level_monsters, level_items
 
 def settingChange(character, direction, level_monsters, level_items):
+    '''the level is changed (for when the character has been there before'''
     level = mapChoose(character)
     map = level[0]
     screen.pad.erase()
@@ -135,6 +142,7 @@ def settingChange(character, direction, level_monsters, level_items):
     screen.padRefresh()
 
 def teleport(character, direction, level_monsters, level_items):
+    '''The passage between A block and C block is used'''
     if character.level == 2:
         #going into quad (level = 3, set = 2)
         character.level = 3
@@ -155,6 +163,7 @@ def teleport(character, direction, level_monsters, level_items):
         screen.location['lcol'] = 350 + num
 
 def upDown(character, direction, lift, level_monsters = False, level_items = False):
+    '''The stairs are operated'''
     compass(direction)
     compass(direction)
     if lift == 'up':
@@ -168,6 +177,7 @@ def upDown(character, direction, lift, level_monsters = False, level_items = Fal
         character.pc = ('?', rainbow.white)
 
 def inOut(character, direction, level_monsters, level_items): 
+    '''The doors are operated in and out'''
     compass(direction)
     character.pc = ('+', rainbow.white)
     if character.setting == 1:

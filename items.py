@@ -8,6 +8,7 @@ rainbow = Colour()
 level_items = LevelItems(lvl1_1 = {}, lvl1_2 = {}, lvl2_1 = {}, lvl2_2 = {}, lvl2_3 = {}, lvl2_4 = {}, lvl3_1 = {}, lvl3_2 = {}, lvl3_3 = {})
 
 class Item(object): 
+    '''The initialisation of all the objects'''
     def __init__(self, name, tile, colour, type, letter, countable):
         self.name = name
         self.tile = tile
@@ -123,6 +124,7 @@ itemdict = {
         }
 
 def quipChar(character):
+    '''At beginning of game, the default item is equipped'''
     if character.equipment['weapon'] == 2:
         item = Branch()
         itemdict['weapons'].pop(0)
@@ -135,6 +137,7 @@ def quipChar(character):
     character.alphanum.remove(character.equipment['weapon'].letter)
 
 def leveli(character_level, character_setting, level_items):
+    '''The items for the level are sorted out'''
     if character_level == 1:
         if character_setting == 1:
             level = level_items.lvl1_1

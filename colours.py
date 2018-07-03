@@ -2,6 +2,7 @@
 
 import curses
 class Colour(object):
+    '''Initialises the colours for the game'''
     def __init__(self):
         curses.initscr()
         curses.start_color()
