@@ -128,7 +128,7 @@ def getDifficulty(stdscr, character):
 
 
 def getWeapon(stdscr, character):
-    '''player chooses their starting weapon'''
+   '''player chooses their starting weapon'''
    screen.addString(screen.wininvent, 2, 2, "Welcome, " + character.name + ". Please choose a weapon.", rainbow.yellow)
    screen.addString(screen.wininvent, 3, 4, "+-----------------+", rainbow.white)
    screen.addString(screen.wininvent, 4, 4, "| 1 - unarmed     |", rainbow.white)
